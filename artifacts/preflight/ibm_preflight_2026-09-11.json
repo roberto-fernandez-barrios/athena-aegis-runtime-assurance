@@ -1,17 +1,136 @@
 {
-  "authentication_test": "fail",
-  "backend_contexts": [],
-  "backends": [],
-  "captured_at": "2026-09-11T11:25:11.549568Z",
-  "credential_found": "yes",
+  "authentication_result": "pass",
+  "backend_contexts": [
+    {
+      "backend_id": "ibm_basquecountry",
+      "fields": {
+        "backend_calibration_timestamp": {
+          "origin": "provider_reported",
+          "trust": "untrusted",
+          "value": "2026-09-11T13:14:37+02:00"
+        },
+        "backend_family": {
+          "origin": "provider_reported",
+          "trust": "untrusted",
+          "value": "ibm_basquecountry"
+        },
+        "backend_id": {
+          "origin": "provider_reported",
+          "trust": "untrusted",
+          "value": "ibm_basquecountry"
+        },
+        "backend_version": {
+          "origin": "provider_reported",
+          "trust": "untrusted",
+          "value": "1.0.11"
+        },
+        "coupling_target_digest": {
+          "origin": "derived",
+          "trust": "untrusted",
+          "value": "53f3f3923c6fc4c53bb22d46f17d739cf7aa47270bc6f6e5779b7bee286f6ab6"
+        },
+        "gate_error_summary": {
+          "origin": "provider_reported",
+          "trust": "untrusted",
+          "value": {
+            "count": 1796,
+            "max": 1.0,
+            "mean": 0.01650194968803007,
+            "median": 0.0012102864236043925,
+            "min": 0.0
+          }
+        },
+        "queue_metadata": {
+          "origin": "provider_reported",
+          "trust": "untrusted",
+          "value": {
+            "operational": true,
+            "pending_jobs": 2,
+            "status_message": "active"
+          }
+        },
+        "readout_error_summary": {
+          "origin": "provider_reported",
+          "trust": "untrusted",
+          "value": {
+            "count": 156,
+            "max": 0.4884033203125,
+            "mean": 0.01532295422676282,
+            "median": 0.0048828125,
+            "min": 0.00146484375
+          }
+        },
+        "scheduling_metadata": {
+          "origin": "unavailable",
+          "trust": "unavailable",
+          "value": null
+        },
+        "t1_summary": {
+          "origin": "provider_reported",
+          "trust": "untrusted",
+          "value": {
+            "count": 156,
+            "max": 0.00040545908871684544,
+            "mean": 0.00022349412096279645,
+            "median": 0.0002263475912194097,
+            "min": 1.596091401400856e-05
+          }
+        },
+        "t2_summary": {
+          "origin": "provider_reported",
+          "trust": "untrusted",
+          "value": {
+            "count": 156,
+            "max": 0.0004827524756962326,
+            "mean": 0.00018065032007987726,
+            "median": 0.00015694748023710437,
+            "min": 1.65048387300318e-05
+          }
+        }
+      }
+    }
+  ],
+  "backend_selection": {
+    "candidate_backends": [
+      "ibm_basquecountry"
+    ],
+    "eligible_backends": [
+      "ibm_basquecountry"
+    ],
+    "required_qubits": 2,
+    "rule": "operational non-simulator with sufficient qubits; minimize provider-reported pending jobs; break ties by backend name",
+    "selected_backend": "ibm_basquecountry",
+    "selection_timestamp": "2026-09-11T11:51:47.611206Z"
+  },
+  "backends": [
+    {
+      "backend_id": "ibm_basquecountry",
+      "num_qubits": 156,
+      "operational": true,
+      "pending_jobs": 2,
+      "provider": "IBM Quantum",
+      "simulator": false,
+      "status_message": "active"
+    }
+  ],
+  "captured_at": "2026-09-11T11:51:47.611206Z",
+  "channel": "ibm_quantum_platform",
+  "credential_present": "yes",
   "credential_source_type": "ignored-env",
-  "instance_count": null,
+  "failure_category": "none",
+  "instance_count": 2,
+  "instance_present": "yes",
   "job_submitted": false,
+  "phase": "preflight",
+  "qiskit_version": "2.5.2",
+  "sanitized_error": "none",
   "schema_version": "athena-aegis.ibm-preflight/1.0.0",
   "scientific_evidence": false,
-  "sdk_versions": {
-    "qiskit": "2.5.2",
-    "qiskit-ibm-runtime": "0.49.0"
-  },
-  "usage": null
+  "sdk_version": "0.49.0",
+  "usage": {
+    "usage_allocation_seconds": 6000,
+    "usage_consumed_seconds": 0,
+    "usage_limit_reached": false,
+    "usage_remaining_seconds": 6000
+  }
 }

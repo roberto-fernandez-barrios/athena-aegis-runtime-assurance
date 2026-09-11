@@ -36,9 +36,9 @@
       "sha256": "83e7ac2974ac16a81130e1498b857d97661d80ec00d63e64f398643fee53ee28"
     },
     {
-      "bytes": 4279,
+      "bytes": 4406,
       "path": "docs/CURRENT_STATE_AUDIT.md",
-      "sha256": "0d57cd2938fc79dc6702dc0fed2339ec72893fe89109b50928918677c61c3f02"
+      "sha256": "ac442f839979c4ea17c347e7f34a16bcce1dc1dc64731b573d217444c626fb80"
     },
     {
       "bytes": 2273,
@@ -66,9 +66,9 @@
       "sha256": "7f59688db30ec6f67bec71b1f0e86a6264a0d3fe9c109e2834d921b3f651f0f1"
     },
     {
-      "bytes": 1586,
+      "bytes": 3180,
       "path": "docs/QPU_PREFLIGHT.md",
-      "sha256": "8509aea97e79967dfb6e38b02b456c870f69936d478216e039b30f5b9d0fd275"
+      "sha256": "d7fe42913c0c0af86eb12896d2798827d4eab7b3807e3db975c7e64fe64deaae"
     },
     {
       "bytes": 1777,
@@ -86,9 +86,9 @@
       "sha256": "ada05973383a23c26cb32fde67c0c6302159cfa578c558cebcf426fe9adcbfa8"
     },
     {
-      "bytes": 1512,
+      "bytes": 1514,
       "path": "experiments/registry.v1.json",
-      "sha256": "d1f6e4f89c103cd58a67151f015d6a3d5cd87296e56023013e4be98c72ca53e2"
+      "sha256": "e740ffce3affb61846ba313ebff9404508b8e678862b4f5b121051d2731defff"
     },
     {
       "bytes": 3316,
@@ -241,9 +241,9 @@
       "sha256": "669c9aa522552b9d49b9b271773f76d59b7e662f8a1971f912bc90b68a2d0cca"
     },
     {
-      "bytes": 325,
+      "bytes": 567,
       "path": "src/athena_aegis/providers/__init__.py",
-      "sha256": "b193f6e45425fcd5cb5404f40434396759430557a5a797aeaf8b04f1ec235672"
+      "sha256": "23b565acb6bb1b6e3ac317d25e52aeb82b47943eff436b44c4bfa1641985c8f0"
     },
     {
       "bytes": 3237,
@@ -251,14 +251,19 @@
       "sha256": "60a3f406e9c0279f741da470cb2a4c5f03a17c0e3c96453eeb27bdf7f748c137"
     },
     {
-      "bytes": 4885,
+      "bytes": 9256,
       "path": "src/athena_aegis/providers/ibm_preflight.py",
-      "sha256": "9610e0f5de88055cdd803caec6cffba608417a25c37b3d035844dca35f6b4415"
+      "sha256": "e62dac9815ccdd89d241e5794483b84e3de06ce9432a652a4c069cbf81d3c8e9"
     },
     {
-      "bytes": 10652,
+      "bytes": 13859,
       "path": "src/athena_aegis/providers/ibm_runtime.py",
-      "sha256": "f51d649deed1b98443b22421b20653b02a639d337fb54070ac5784cf15256564"
+      "sha256": "4327e1addbecf7c8bd06c6281bb44dec6c38c050bc7e7b44939aa2c4dc8b2dfc"
+    },
+    {
+      "bytes": 1680,
+      "path": "src/athena_aegis/providers/selection.py",
+      "sha256": "e3049fb07de7480efc06bf782e315c3d201bbdb156fefd6fccfc71a5a39e0110"
     },
     {
       "bytes": 4315,
@@ -351,9 +356,9 @@
       "sha256": "30dd5d74a3bce6be0ff7ef16ff50b6f6d5c3fabd9a80291c2ff85200bde5e621"
     },
     {
-      "bytes": 1331,
+      "bytes": 3472,
       "path": "tests/test_ibm_adapter.py",
-      "sha256": "5c80c6590f0938f2761e18fe144391534d0bfce52c30563913c4403290fcce85"
+      "sha256": "54e733f6ef0eb263988bf6d542858675ec8de9ed05d2b6c0ef62741a5553cc3e"
     },
     {
       "bytes": 4669,
@@ -361,9 +366,9 @@
       "sha256": "c89b3eaa8e90d89d6d9af25bbc546cbba51ed41cd157c2b64671c05c767addec"
     },
     {
-      "bytes": 2195,
+      "bytes": 2637,
       "path": "tests/test_service_analysis_preflight.py",
-      "sha256": "93fb8441614fb1c88e917abba1c3ddc6024698caa32f6c5404a51b41d1f298ca"
+      "sha256": "749ba5a38498f78872a3db5b6a9038cd7e07279366195b23d4b1baffc5d6966d"
     },
     {
       "bytes": 2257,

@@ -56,18 +56,21 @@ Security result (values were never printed, copied, logged, or committed):
 |---|---|
 | credential_found | yes |
 | credential_source_type | ignored-env |
-| authentication_test | fail |
+| authentication_test | pass |
 
-The value itself was never emitted or persisted. The tracked-file scan found no
-embedded IBM credential. No QPU job was submitted.
+The replacement value is persisted only in a Git-ignored local environment;
+its value is never emitted. Instance selection and local pseudonym/signing keys
+are also ignored. The tracked-file scan found no embedded IBM credential. No
+QPU job has yet been submitted.
 
-The pre-existing reusable environment contains Python 3.13.12, Qiskit 2.5.1,
-qiskit-ibm-runtime 0.49.0, Qiskit Aer 0.17.2, and Qiskit Machine Learning 0.9.0.
-The clean repository verification environment locks Python 3.11-compatible
-dependencies including Qiskit 2.5.2 and the same Runtime 0.49.0 API. The IBM adapter targets that inspected 0.49 API (`QiskitRuntimeService`,
-`SamplerV2`, BackendV2). Authentication was attempted read-only. Because it
-failed before instance/backend discovery, no status, target, properties, queue,
-usage limits, or physical smoke test could be obtained.
+The active repository environment contains Python 3.11, Qiskit 2.5.2 and
+qiskit-ibm-runtime 0.49.0. The IBM adapter targets the locally inspected API
+(`QiskitRuntimeService`, `SamplerV2`, BackendV2 and RuntimeJobV2). Read-only
+authentication now exposes two entitlements and one eligible physical backend.
+Status, target/configuration digest, properties, calibration, queue and safe
+numeric usage limits are captured in the sanitized preflight artifact. The real
+Qiskit 2.5.2 `EdgeList` response revealed and motivated one canonicalization
+fix. No QPU job has yet been submitted.
 
 ## Evidence gap at repository creation
 

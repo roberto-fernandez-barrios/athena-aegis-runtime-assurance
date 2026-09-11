@@ -40,6 +40,67 @@ def _summary(values: Iterable[float]) -> dict[str, float | int] | None:
     }
 
 
+def _normalize_coupling_edges(raw_edges: Any) -> list[list[int]]:
+    """Convert Qiskit's EdgeList and legacy iterables to canonical JSON data."""
+
+    if raw_edges is None:
+        return []
+    try:
+        edges = list(raw_edges)
+    except TypeError:
+        return []
+    normalized: list[list[int]] = []
+    for edge in edges:
+        try:
+            values = list(edge)
+        except TypeError:
+            continue
+        if len(values) == 2:
+            normalized.append([int(values[0]), int(values[1])])
+    return sorted(normalized)
+
+
+def _json_safe(value: Any) -> Any:
+    """Retain provider metadata only when it has a safe canonical projection."""
+
+    if value is None or isinstance(value, (str, int, float, bool)):
+        return value
+    if isinstance(value, datetime):
+        return value.isoformat()
+    if isinstance(value, Mapping):
+        return {str(key): _json_safe(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_json_safe(item) for item in value]
+    return str(value)
+
+
+def _runtime_counts(pub_result: Any) -> Mapping[str, int]:
+    """Extract exactly one classical-register BitArray from a SamplerV2 pub."""
+
+    data = getattr(pub_result, "data", None)
+    if data is None:
+        raise TypeError("SamplerV2 pub result has no data bin")
+    candidates: list[tuple[str, Any]] = []
+    keys = _safe_call(data, "keys", [])
+    for name in sorted(str(key) for key in (keys or [])):
+        value = getattr(data, name, None)
+        if hasattr(value, "get_counts"):
+            candidates.append((name, value))
+    if not candidates:
+        for name, value in sorted(vars(data).items()):
+            if hasattr(value, "get_counts"):
+                candidates.append((str(name), value))
+    if len(candidates) != 1:
+        raise ValueError(
+            "SamplerV2 normalization requires exactly one count-bearing register; "
+            f"observed {len(candidates)}"
+        )
+    counts = candidates[0][1].get_counts()
+    if not isinstance(counts, Mapping):
+        raise TypeError("SamplerV2 get_counts() did not return a mapping")
+    return {str(bitstring): int(count) for bitstring, count in counts.items()}
+
+
 class IBMRuntimeAdapter(ProviderAdapter):
     """Adapter matched to qiskit-ibm-runtime 0.49.x, with dependency injection."""
 
@@ -114,19 +175,16 @@ class IBMRuntimeAdapter(ProviderAdapter):
         return ProviderJobHandle("IBM Quantum", request.backend_id, pseudonym, job)
 
     def status(self, handle: ProviderJobHandle) -> str:
-        return str(handle.raw_job.status())
+        status = handle.raw_job.status()
+        return str(getattr(status, "name", status))
 
     def result(self, handle: ProviderJobHandle) -> Any:
         raw_result = handle.raw_job.result()
         normalized: list[Mapping[str, int]] = []
         try:
             for pub_result in raw_result:
-                data = pub_result.data
-                bit_array = next(
-                    value for value in vars(data).values() if hasattr(value, "get_counts")
-                )
-                normalized.append(dict(bit_array.get_counts()))
-        except (AttributeError, StopIteration, TypeError):
+                normalized.append(_runtime_counts(pub_result))
+        except (AttributeError, TypeError):
             return raw_result
         return CountsResult(tuple(normalized))
 
@@ -172,8 +230,15 @@ class IBMRuntimeAdapter(ProviderAdapter):
         if isinstance(metrics, Mapping):
             allowed = ("timestamps", "usage", "position_in_queue", "execution")
             provider_extra["scheduling_metadata"] = {
-                str(key): value for key, value in metrics.items() if str(key) in allowed
+                str(key): _json_safe(value)
+                for key, value in metrics.items()
+                if str(key) in allowed
             }
+        usage_estimation = getattr(handle.raw_job, "usage_estimation", None)
+        if usage_estimation is not None:
+            provider_extra.setdefault("scheduling_metadata", {})["usage_estimation"] = _json_safe(
+                usage_estimation
+            )
         return self._capture_backend(
             self._backend(handle.backend_id),
             extra_local=local,
@@ -228,9 +293,24 @@ class IBMRuntimeAdapter(ProviderAdapter):
         }
         provider = {key: value for key, value in provider.items() if value is not None}
         provider.update(extra_provider or {})
+        coupling_edges = _normalize_coupling_edges(
+            _safe_call(getattr(backend, "coupling_map", None), "get_edges", [])
+        )
+        configuration_projection = {
+            "basis_gates": sorted(str(gate) for gate in (getattr(config, "basis_gates", []) or [])),
+            "conditional": getattr(config, "conditional", None),
+            "dynamic_reprate_enabled": getattr(config, "dynamic_reprate_enabled", None),
+            "max_experiments": getattr(config, "max_experiments", None),
+            "max_shots": getattr(config, "max_shots", None),
+            "memory": getattr(config, "memory", None),
+            "n_qubits": getattr(config, "n_qubits", getattr(backend, "num_qubits", None)),
+            "open_pulse": getattr(config, "open_pulse", None),
+            "simulator": getattr(config, "simulator", None),
+        }
         target_digest = sha256_digest({
             "operation_names": sorted(getattr(target, "operation_names", []) or []),
-            "coupling_map": _safe_call(getattr(backend, "coupling_map", None), "get_edges", []),
+            "coupling_map": coupling_edges,
+            "configuration": configuration_projection,
             "num_qubits": getattr(backend, "num_qubits", None),
         })
         return make_execution_context(

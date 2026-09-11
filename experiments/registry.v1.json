@@ -14,7 +14,7 @@
       "experiment_id": "ibm-connectivity-preflight-2026-09-11",
       "type": "zero-cost preflight",
       "scientific_evidence": false,
-      "status": "authentication_failed",
+      "status": "authenticated_read_only",
       "qpu_jobs": 0,
       "artifacts": ["artifacts/preflight/ibm_preflight_2026-09-11.json"]
     },

@@ -44,7 +44,16 @@ def test_metadata_matrix_is_complete_cartesian_product():
 
 def test_preflight_without_credential_is_zero_cost_and_sanitized():
     report = run_preflight(None, "none", "ibm_quantum_platform")
-    assert report["credential_found"] == "no"
-    assert report["authentication_test"] == "not_attempted"
+    assert report["credential_present"] == "no"
+    assert report["authentication_result"] == "not_attempted"
+    assert report["failure_category"] == "token absent"
     assert report["job_submitted"] is False
     assert "token" not in report
+
+
+def test_preflight_rejects_malformed_token_without_network():
+    report = run_preflight("bad", "ignored-env", "ibm_quantum_platform")
+    assert report["credential_present"] == "yes"
+    assert report["authentication_result"] == "fail"
+    assert report["failure_category"] == "token malformed"
+    assert report["sanitized_error"] == "credential format failed local validation"
