@@ -234,7 +234,10 @@ class IBMRuntimeAdapter(ProviderAdapter):
                 for key, value in metrics.items()
                 if str(key) in allowed
             }
-        usage_estimation = getattr(handle.raw_job, "usage_estimation", None)
+        try:
+            usage_estimation = getattr(handle.raw_job, "usage_estimation", None)
+        except Exception:
+            usage_estimation = None
         if usage_estimation is not None:
             provider_extra.setdefault("scheduling_metadata", {})["usage_estimation"] = _json_safe(
                 usage_estimation

@@ -1,0 +1,17 @@
+{
+  "files": [
+    {
+      "bytes": 393,
+      "path": "artifacts/pilot/README.md",
+      "sha256": "5a0aa8551b2148341ed47a8ff430a4eadb8a1c92b6644ce9a1c803e47ad937c4"
+    },
+    {
+      "bytes": 71249,
+      "path": "artifacts/pilot/recovery_preflight.json",
+      "sha256": "c8ff0d414a8b5f6132c955111d932c991526693936dd74498cb644652f867bbe"
+    }
+  ],
+  "phase": "pilot",
+  "schema_version": "athena-aegis.pilot-manifest/1.0.0",
+  "scientific_evidence": false
+}

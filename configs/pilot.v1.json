@@ -1,15 +1,27 @@
 {
   "schema_version": "athena-aegis.pilot-config/1.0.0",
-  "status": "designed_not_run",
+  "status": "pre_execution_amended_not_run",
   "scientific_evidence": false,
   "backend_selection": "least-busy operational non-simulator accessible backend meeting circuit width; one backend preferred",
   "workload": "paper15-kernel-regression-v1",
   "initial_samples": 3,
+  "features": [[0.1, 0.2], [0.3, 0.4], [0.5, 0.6]],
   "shot_levels": [128, 512],
   "transpiler_seeds": [19062026, 19062027],
+  "job_order": [
+    {"shots": 128, "transpiler_seed": 19062026, "observation_block": 1},
+    {"shots": 512, "transpiler_seed": 19062026, "observation_block": 1},
+    {"shots": 128, "transpiler_seed": 19062027, "observation_block": 2},
+    {"shots": 512, "transpiler_seed": 19062027, "observation_block": 2}
+  ],
   "optimization_level": 1,
   "initial_temporal_observations": 2,
   "maximum_physical_jobs": 4,
   "smoke_test_separate": true,
+  "smoke_test": {"circuit": "one-qubit Hadamard plus measurement", "shots": 32, "optimization_level": 0},
+  "oracle_metrics": ["relative_frobenius_error", "mean_absolute_error", "maximum_absolute_error"],
+  "repeat_metrics": ["relative_frobenius_discrepancy", "mean_absolute_discrepancy", "maximum_absolute_discrepancy"],
+  "shot_choice_rule": "choose the smallest shot level with mean relative Frobenius error <= 0.15, maximum absolute error <= 0.20, and repeat relative Frobenius discrepancy <= 0.15; otherwise unresolved",
+  "temporal_interpretation": "observation block 2 begins only after block 1 completes and a fresh context snapshot is captured; absent a calibration-boundary separation, this estimates repeated-execution rather than longitudinal variability",
   "stop_if": ["authentication or quota unavailable", "estimated campaign cost exceeds approved cap", "provider metadata cannot be pseudonymized", "job failure rate exceeds 0.5"]
 }

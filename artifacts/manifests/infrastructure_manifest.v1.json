@@ -26,9 +26,9 @@
       "sha256": "dcfc1a39e30af7b5d53dbd5f7f44e3d23ecd395e391a488c7171e6888803466d"
     },
     {
-      "bytes": 697,
+      "bytes": 1844,
       "path": "configs/pilot.v1.json",
-      "sha256": "a238d02e6d8c07b5a2876ac79dc2168d14b5a61e89a4214a75a38d8e992ba964"
+      "sha256": "c9f934fc85853005a13c29f2c8afed18994faa860b79e5cecba58851a9e1dc59"
     },
     {
       "bytes": 1487,
@@ -61,9 +61,9 @@
       "sha256": "ea3e4819a52b65e7c55093432ef70e8611578d903eae3186b9c20c2e017c297b"
     },
     {
-      "bytes": 3078,
+      "bytes": 4616,
       "path": "docs/QPU_PILOT_DESIGN.md",
-      "sha256": "7f59688db30ec6f67bec71b1f0e86a6264a0d3fe9c109e2834d921b3f651f0f1"
+      "sha256": "709a7e0f2fdcec950e0c9f38564f7aa9aca4c36b73074fbbc88c7b884d0e7da8"
     },
     {
       "bytes": 3180,
@@ -86,9 +86,24 @@
       "sha256": "ada05973383a23c26cb32fde67c0c6302159cfa578c558cebcf426fe9adcbfa8"
     },
     {
-      "bytes": 1514,
+      "bytes": 1676,
       "path": "experiments/registry.v1.json",
-      "sha256": "e740ffce3affb61846ba313ebff9404508b8e678862b4f5b121051d2731defff"
+      "sha256": "3bdfaaac951406783ff265ef14c3c62fb6d3405dfb8f822d088cc40d4cf93d29"
+    },
+    {
+      "bytes": 9169,
+      "path": "experiments/run_qpu_connectivity_smoke.py",
+      "sha256": "de6f9b165658a4f10dd005c5eec2deb3fd75ec6e167889cb74bd0f0396bb7d62"
+    },
+    {
+      "bytes": 14943,
+      "path": "experiments/run_qpu_pilot.py",
+      "sha256": "8b09bcf2b0d7330206c319ebda110e1a12c134bc809367d0083cc98b33757a71"
+    },
+    {
+      "bytes": 4134,
+      "path": "experiments/run_recovery_preflight.py",
+      "sha256": "c50c15d2d8961c523dd08a03b8749adcb3c5f061f46642fa2b1ebab49ae823fd"
     },
     {
       "bytes": 3316,
@@ -101,9 +116,9 @@
       "sha256": "c67de87403a8d0e54410ce29d822c4e1b15639045b06b76758c5264ef7ded758"
     },
     {
-      "bytes": 1132,
+      "bytes": 1256,
       "path": "pyproject.toml",
-      "sha256": "39cc5f2761103b79aa193308baedde6e076e9101021db63f174610e91244607a"
+      "sha256": "239dc4adc4d8cf9521085a9ad4bd53f09828900d65130793d4f42ee4e44d9b5a"
     },
     {
       "bytes": 1063,
@@ -231,6 +246,16 @@
       "sha256": "652d0a5d6ad2d4f68cdfd2d9ee5a73688715f1491a76cedac1766eb6e8d93eb5"
     },
     {
+      "bytes": 543,
+      "path": "src/athena_aegis/pilot/__init__.py",
+      "sha256": "e6ff65c2ae5f33b871edf57863f5bd6ec2127e3967556184993b762b6c2c8892"
+    },
+    {
+      "bytes": 6834,
+      "path": "src/athena_aegis/pilot/runtime.py",
+      "sha256": "cc2fd2d61ec38d0709e7e23f0c45008a7cdf7ea05b33527aa6d8822bbc57bcfb"
+    },
+    {
       "bytes": 437,
       "path": "src/athena_aegis/policies/__init__.py",
       "sha256": "ca300b127731a4448e796f0596706e99a4f71b59e9ed2faaba83879b0f71c471"
@@ -256,9 +281,9 @@
       "sha256": "e62dac9815ccdd89d241e5794483b84e3de06ce9432a652a4c069cbf81d3c8e9"
     },
     {
-      "bytes": 13859,
+      "bytes": 13938,
       "path": "src/athena_aegis/providers/ibm_runtime.py",
-      "sha256": "4327e1addbecf7c8bd06c6281bb44dec6c38c050bc7e7b44939aa2c4dc8b2dfc"
+      "sha256": "e7bd5b4cfe72bad217678027cf038c18af83f3d6bedfb46a5e6f09a8144fce3a"
     },
     {
       "bytes": 1680,
@@ -356,14 +381,29 @@
       "sha256": "30dd5d74a3bce6be0ff7ef16ff50b6f6d5c3fabd9a80291c2ff85200bde5e621"
     },
     {
-      "bytes": 3472,
+      "bytes": 5276,
       "path": "tests/test_ibm_adapter.py",
-      "sha256": "54e733f6ef0eb263988bf6d542858675ec8de9ed05d2b6c0ef62741a5553cc3e"
+      "sha256": "91d3f5a2c50b2b37cb3cd150a973b751ff3578cdb74648852d835188190b861a"
+    },
+    {
+      "bytes": 377,
+      "path": "tests/test_ibm_live_opt_in.py",
+      "sha256": "a637c5f761a9e266b7f307495f86081991e2a1164f011bfad48bae961cde9343"
     },
     {
       "bytes": 4669,
       "path": "tests/test_oos_calibration_policy.py",
       "sha256": "c89b3eaa8e90d89d6d9af25bbc546cbba51ed41cd157c2b64671c05c767addec"
+    },
+    {
+      "bytes": 3538,
+      "path": "tests/test_pilot_runtime.py",
+      "sha256": "13d2f32987e185072f13888d7d484ed21f24cd584c64a88938d66def9fb5ab22"
+    },
+    {
+      "bytes": 628,
+      "path": "tests/test_recovery_preflight.py",
+      "sha256": "10d94d1eacaf6e8a1e08481945baca83c776ec2b782874027a75eeede709f45e"
     },
     {
       "bytes": 2637,

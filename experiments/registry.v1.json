@@ -22,17 +22,19 @@
       "experiment_id": "qpu-connectivity-smoke-pending",
       "type": "CONNECTIVITY SMOKE TEST — NOT SCIENTIFIC EVIDENCE",
       "scientific_evidence": false,
-      "status": "not_run",
+      "status": "approved_not_run",
       "qpu_jobs": 0,
-      "prerequisites": ["authentication pass", "quota confirmation", "explicit zero-appreciable-cost backend selection"]
+      "artifacts": ["artifacts/pilot/connectivity_smoke.json"],
+      "prerequisites": ["authentication pass", "quota confirmation", "pre-result backend selection"]
     },
     {
       "experiment_id": "paper25-qpu-pilot-v1",
       "type": "pilot",
       "scientific_evidence": false,
-      "status": "designed_not_run",
+      "status": "pre_execution_amended_not_run",
       "qpu_jobs": 0,
-      "protocol": "docs/QPU_PILOT_DESIGN.md"
+      "protocol": "docs/QPU_PILOT_DESIGN.md",
+      "artifacts": ["artifacts/pilot/qpu_pilot_runs.json", "artifacts/pilot/manifest.v1.json"]
     },
     {
       "experiment_id": "paper25-confirmatory-v1",

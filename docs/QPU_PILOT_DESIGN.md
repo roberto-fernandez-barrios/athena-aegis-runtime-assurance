@@ -1,7 +1,7 @@
 # QPU pilot design v1
 
-Status: designed, not run. The pilot is separate from the confirmatory campaign
-and is not evidence for headline hypotheses.
+Status: pre-execution amendment completed, not run. The pilot is separate from
+the confirmatory campaign and is not evidence for headline hypotheses.
 
 ## Purpose
 
@@ -24,6 +24,31 @@ seeds at optimization level 1. At most four physical pilot jobs follow a
 separate connectivity smoke test. Begin with two temporally separated
 observations; their separation is chosen after provider calibration cadence and
 queue availability are visible.
+
+## Pre-execution amendment — 2026-09-11
+
+The live Runtime 0.49/Qiskit 2.5.2 API and selected backend support the planned
+SamplerV2 workload. The previously unspecified three-sample input is now fixed,
+before any QPU result, to `(0.1,0.2)`, `(0.3,0.4)`, `(0.5,0.6)`. It produces six
+two-qubit compute-uncompute circuits. The separate smoke test is fixed to one
+Hadamard-plus-measurement circuit, 32 shots, and optimization level 0.
+
+The four pilot jobs are ordered `(128,19062026)`, `(512,19062026)`,
+`(128,19062027)`, `(512,19062027)`. The first two form observation block 1;
+block 2 begins only after block 1 completes and a fresh read-only context
+snapshot is taken. IBM exposes a calibration timestamp but not a guaranteed
+future calibration cadence. Consequently, if both blocks share a calibration
+epoch, the pilot estimates repeated-execution variability only and makes no
+longitudinal-variation claim. This is a clarification of technical execution,
+not a post-result redesign.
+
+The exact-statevector comparisons are relative Frobenius error, mean absolute
+error, and maximum absolute error. Same-shot repeats use the corresponding
+Frobenius, mean-absolute, and maximum-absolute discrepancies. Select the
+smallest shot level whose mean relative Frobenius error is at most 0.15, maximum
+absolute error at most 0.20, and repeat relative Frobenius discrepancy at most
+0.15; otherwise leave the shot count unresolved. These thresholds are pilot
+feasibility criteria, not confirmatory acceptance thresholds.
 
 ## Captures and estimates
 

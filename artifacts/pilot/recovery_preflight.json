@@ -1,0 +1,1988 @@
+{
+  "phase": "pilot",
+  "qpu_jobs": 0,
+  "records": [
+    {
+      "envelope": {
+        "authenticated_bindings_digest": null,
+        "circuit_semantic_identity": {
+          "digest": "59fdcbdd53f5a37fd1df5d7191793d3a10ef3f85bef383754921a071660040ce"
+        },
+        "created_at": "2026-09-11T12:02:23.606043Z",
+        "decision": {
+          "action": "HOLD",
+          "decided_at": "2026-09-11T12:02:23.606043Z",
+          "policy_id": "recovery-preflight",
+          "reasons": [
+            "simulator/infrastructure transition exercise"
+          ],
+          "state": "FORCED_TEST_TRANSITION"
+        },
+        "enforcement": {
+          "completed_at": "2026-09-11T12:02:23.606043Z",
+          "detail_digest": "f8e7b88921b9d4c1781dd5b2565f0df7c91c4635ac2275e43852988ef73ceb62",
+          "executed_action": "HOLD",
+          "outcome": "service result withheld",
+          "requested_action": "HOLD",
+          "started_at": "2026-09-11T12:02:23.606043Z"
+        },
+        "envelope_digest": "6a15ff77734b7d2f88f1e50a3ca48ceb8b631b40a9559301e8112785debe79d2",
+        "envelope_id": "63da106b-4441-41ff-898c-199e6ac581cc",
+        "execution_context": {
+          "captured_at": "2026-09-11T12:02:23.606043Z",
+          "fields": {
+            "backend_calibration_timestamp": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "backend_family": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "backend_id": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "recovery-preflight"
+            },
+            "backend_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "calibration_window_id": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "pilot-recovery-preflight"
+            },
+            "circuit_semantic_hash": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "coupling_target_digest": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "dataset_workload_digest": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "dynamical_decoupling_options": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "gate_error_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "job_id": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "kernel_definition": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "layout": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "measurement_mitigation_options": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "model_reference_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "observable_definition": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "optimization_level": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "provider": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "local-infrastructure"
+            },
+            "qubit_subset": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "queue_metadata": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "readout_error_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "resilience_options": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "runtime_configuration": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "runtime_primitive": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "runtime_primitive_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "scheduling_metadata": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "session_id": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "shots": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "software_environment_digest": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "t1_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "t2_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "timestamp": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_clock"
+              ],
+              "trust": "trusted_local",
+              "value": "2026-09-11T12:02:23.606043Z"
+            },
+            "transpiled_circuit_hash": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "transpiler_name": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "transpiler_seed": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "transpiler_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "workload_id": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "recovery-transition-v1"
+            }
+          },
+          "schema_version": "athena-aegis.execution-context/1.0.0"
+        },
+        "input_identity": {
+          "input": "fixed-recovery-preflight"
+        },
+        "local_signature": null,
+        "postprocessed_result_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "provenance_chain": [],
+        "provider_reported_evidence": {},
+        "raw_result_digest": "24cbfc7edd82900c3f92eb6396a83a22f14a363eff68b56f48ac13be2199307d",
+        "recovery": null,
+        "schema_version": "athena-aegis.evidence-envelope/1.0.0",
+        "terminology": "provider-reported execution evidence; not provider attestation",
+        "transpiled_identity": {
+          "digest": "155501fd47c236d985430a860c57c92390f8c5f2fed15b272b3b3ccf39df623d"
+        },
+        "workload_identity": {
+          "workload_id": "recovery-transition-v1"
+        }
+      },
+      "executed_action": "HOLD",
+      "recovery_attempted": false,
+      "requested_action": "HOLD",
+      "served": false
+    },
+    {
+      "envelope": {
+        "authenticated_bindings_digest": null,
+        "circuit_semantic_identity": {
+          "digest": "59fdcbdd53f5a37fd1df5d7191793d3a10ef3f85bef383754921a071660040ce"
+        },
+        "created_at": "2026-09-11T12:02:23.607035Z",
+        "decision": {
+          "action": "RERUN",
+          "decided_at": "2026-09-11T12:02:23.607035Z",
+          "policy_id": "recovery-preflight",
+          "reasons": [
+            "simulator/infrastructure transition exercise"
+          ],
+          "state": "FORCED_TEST_TRANSITION"
+        },
+        "enforcement": {
+          "completed_at": "2026-09-11T12:02:23.607035Z",
+          "detail_digest": "4ae22ba4bce158d05aaf7e7bf89167877047a34190c4c298582c57690d246954",
+          "executed_action": "RERUN",
+          "outcome": "strategy completed",
+          "requested_action": "RERUN",
+          "started_at": "2026-09-11T12:02:23.607035Z"
+        },
+        "envelope_digest": "12b24ef312b9c4dbbb4fc60132ae31d69c52aae09bbc46b993d2ab9949e512af",
+        "envelope_id": "86a24732-ce82-4f05-82ea-3688a710ad51",
+        "execution_context": {
+          "captured_at": "2026-09-11T12:02:23.606043Z",
+          "fields": {
+            "backend_calibration_timestamp": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "backend_family": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "backend_id": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "recovery-preflight"
+            },
+            "backend_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "calibration_window_id": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "pilot-recovery-preflight"
+            },
+            "circuit_semantic_hash": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "coupling_target_digest": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "dataset_workload_digest": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "dynamical_decoupling_options": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "gate_error_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "job_id": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "kernel_definition": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "layout": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "measurement_mitigation_options": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "model_reference_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "observable_definition": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "optimization_level": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "provider": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "local-infrastructure"
+            },
+            "qubit_subset": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "queue_metadata": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "readout_error_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "resilience_options": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "runtime_configuration": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "runtime_primitive": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "runtime_primitive_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "scheduling_metadata": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "session_id": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "shots": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "software_environment_digest": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "t1_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "t2_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "timestamp": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_clock"
+              ],
+              "trust": "trusted_local",
+              "value": "2026-09-11T12:02:23.606043Z"
+            },
+            "transpiled_circuit_hash": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "transpiler_name": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "transpiler_seed": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "transpiler_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "workload_id": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "recovery-transition-v1"
+            }
+          },
+          "schema_version": "athena-aegis.execution-context/1.0.0"
+        },
+        "input_identity": {
+          "input": "fixed-recovery-preflight"
+        },
+        "local_signature": null,
+        "postprocessed_result_digest": "2cf0e3b8afaab4b180e1fde67302d00b2294da699d0b72d31e6f57936a651aed",
+        "provenance_chain": [],
+        "provider_reported_evidence": {},
+        "raw_result_digest": "24cbfc7edd82900c3f92eb6396a83a22f14a363eff68b56f48ac13be2199307d",
+        "recovery": {
+          "attempted": true,
+          "completed_at": "2026-09-11T12:02:23.607035Z",
+          "outcome": "strategy completed",
+          "parent_envelope_digest": null,
+          "result_digest": "2cf0e3b8afaab4b180e1fde67302d00b2294da699d0b72d31e6f57936a651aed",
+          "started_at": "2026-09-11T12:02:23.607035Z",
+          "strategy_id": "infrastructure-rerun",
+          "success": true
+        },
+        "schema_version": "athena-aegis.evidence-envelope/1.0.0",
+        "terminology": "provider-reported execution evidence; not provider attestation",
+        "transpiled_identity": {
+          "digest": "155501fd47c236d985430a860c57c92390f8c5f2fed15b272b3b3ccf39df623d"
+        },
+        "workload_identity": {
+          "workload_id": "recovery-transition-v1"
+        }
+      },
+      "executed_action": "RERUN",
+      "recovery_attempted": true,
+      "requested_action": "RERUN",
+      "served": true
+    },
+    {
+      "envelope": {
+        "authenticated_bindings_digest": null,
+        "circuit_semantic_identity": {
+          "digest": "59fdcbdd53f5a37fd1df5d7191793d3a10ef3f85bef383754921a071660040ce"
+        },
+        "created_at": "2026-09-11T12:02:23.607035Z",
+        "decision": {
+          "action": "RECALIBRATE",
+          "decided_at": "2026-09-11T12:02:23.607035Z",
+          "policy_id": "recovery-preflight",
+          "reasons": [
+            "simulator/infrastructure transition exercise"
+          ],
+          "state": "FORCED_TEST_TRANSITION"
+        },
+        "enforcement": {
+          "completed_at": "2026-09-11T12:02:23.607035Z",
+          "detail_digest": "4ae22ba4bce158d05aaf7e7bf89167877047a34190c4c298582c57690d246954",
+          "executed_action": "RECALIBRATE",
+          "outcome": "strategy completed",
+          "requested_action": "RECALIBRATE",
+          "started_at": "2026-09-11T12:02:23.607035Z"
+        },
+        "envelope_digest": "71ea0c22eb054c1d7c2d912b0c39a033134eb59ea4890eec27d603d47ff93fb4",
+        "envelope_id": "be6f1183-0f12-47fd-aef1-33898c639239",
+        "execution_context": {
+          "captured_at": "2026-09-11T12:02:23.606043Z",
+          "fields": {
+            "backend_calibration_timestamp": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "backend_family": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "backend_id": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "recovery-preflight"
+            },
+            "backend_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "calibration_window_id": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "pilot-recovery-preflight"
+            },
+            "circuit_semantic_hash": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "coupling_target_digest": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "dataset_workload_digest": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "dynamical_decoupling_options": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "gate_error_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "job_id": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "kernel_definition": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "layout": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "measurement_mitigation_options": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "model_reference_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "observable_definition": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "optimization_level": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "provider": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "local-infrastructure"
+            },
+            "qubit_subset": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "queue_metadata": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "readout_error_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "resilience_options": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "runtime_configuration": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "runtime_primitive": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "runtime_primitive_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "scheduling_metadata": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "session_id": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "shots": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "software_environment_digest": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "t1_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "t2_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "timestamp": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_clock"
+              ],
+              "trust": "trusted_local",
+              "value": "2026-09-11T12:02:23.606043Z"
+            },
+            "transpiled_circuit_hash": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "transpiler_name": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "transpiler_seed": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "transpiler_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "workload_id": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "recovery-transition-v1"
+            }
+          },
+          "schema_version": "athena-aegis.execution-context/1.0.0"
+        },
+        "input_identity": {
+          "input": "fixed-recovery-preflight"
+        },
+        "local_signature": null,
+        "postprocessed_result_digest": "3c1570329b1cad51a8e2219cf6790a0a711fd537b19585b890cb5f614249e6ed",
+        "provenance_chain": [],
+        "provider_reported_evidence": {},
+        "raw_result_digest": "24cbfc7edd82900c3f92eb6396a83a22f14a363eff68b56f48ac13be2199307d",
+        "recovery": {
+          "attempted": true,
+          "completed_at": "2026-09-11T12:02:23.607035Z",
+          "outcome": "strategy completed",
+          "parent_envelope_digest": null,
+          "result_digest": "3c1570329b1cad51a8e2219cf6790a0a711fd537b19585b890cb5f614249e6ed",
+          "started_at": "2026-09-11T12:02:23.607035Z",
+          "strategy_id": "infrastructure-recalibrate",
+          "success": true
+        },
+        "schema_version": "athena-aegis.evidence-envelope/1.0.0",
+        "terminology": "provider-reported execution evidence; not provider attestation",
+        "transpiled_identity": {
+          "digest": "155501fd47c236d985430a860c57c92390f8c5f2fed15b272b3b3ccf39df623d"
+        },
+        "workload_identity": {
+          "workload_id": "recovery-transition-v1"
+        }
+      },
+      "executed_action": "RECALIBRATE",
+      "recovery_attempted": true,
+      "requested_action": "RECALIBRATE",
+      "served": true
+    },
+    {
+      "envelope": {
+        "authenticated_bindings_digest": null,
+        "circuit_semantic_identity": {
+          "digest": "59fdcbdd53f5a37fd1df5d7191793d3a10ef3f85bef383754921a071660040ce"
+        },
+        "created_at": "2026-09-11T12:02:23.608009Z",
+        "decision": {
+          "action": "FALLBACK",
+          "decided_at": "2026-09-11T12:02:23.608009Z",
+          "policy_id": "recovery-preflight",
+          "reasons": [
+            "simulator/infrastructure transition exercise"
+          ],
+          "state": "FORCED_TEST_TRANSITION"
+        },
+        "enforcement": {
+          "completed_at": "2026-09-11T12:02:23.608009Z",
+          "detail_digest": "4ae22ba4bce158d05aaf7e7bf89167877047a34190c4c298582c57690d246954",
+          "executed_action": "FALLBACK",
+          "outcome": "strategy completed",
+          "requested_action": "FALLBACK",
+          "started_at": "2026-09-11T12:02:23.608009Z"
+        },
+        "envelope_digest": "a95b95ce32ef7a2e6a0d94a98cdf4ebbf29f5dc84a5248fcb7a75a22feae92a3",
+        "envelope_id": "32e9905c-84e9-4936-bdcc-70256db72181",
+        "execution_context": {
+          "captured_at": "2026-09-11T12:02:23.606043Z",
+          "fields": {
+            "backend_calibration_timestamp": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "backend_family": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "backend_id": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "recovery-preflight"
+            },
+            "backend_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "calibration_window_id": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "pilot-recovery-preflight"
+            },
+            "circuit_semantic_hash": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "coupling_target_digest": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "dataset_workload_digest": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "dynamical_decoupling_options": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "gate_error_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "job_id": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "kernel_definition": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "layout": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "measurement_mitigation_options": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "model_reference_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "observable_definition": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "optimization_level": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "provider": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "local-infrastructure"
+            },
+            "qubit_subset": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "queue_metadata": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "readout_error_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "resilience_options": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "runtime_configuration": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "runtime_primitive": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "runtime_primitive_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "scheduling_metadata": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "session_id": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "shots": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "software_environment_digest": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "t1_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "t2_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "timestamp": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_clock"
+              ],
+              "trust": "trusted_local",
+              "value": "2026-09-11T12:02:23.606043Z"
+            },
+            "transpiled_circuit_hash": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "transpiler_name": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "transpiler_seed": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "transpiler_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "workload_id": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "recovery-transition-v1"
+            }
+          },
+          "schema_version": "athena-aegis.execution-context/1.0.0"
+        },
+        "input_identity": {
+          "input": "fixed-recovery-preflight"
+        },
+        "local_signature": null,
+        "postprocessed_result_digest": "449df8cbf24973f46aff75a11fceb73a1c8537ea462376243cd1393ab7f2ea8c",
+        "provenance_chain": [],
+        "provider_reported_evidence": {},
+        "raw_result_digest": "24cbfc7edd82900c3f92eb6396a83a22f14a363eff68b56f48ac13be2199307d",
+        "recovery": {
+          "attempted": true,
+          "completed_at": "2026-09-11T12:02:23.608009Z",
+          "outcome": "strategy completed",
+          "parent_envelope_digest": null,
+          "result_digest": "449df8cbf24973f46aff75a11fceb73a1c8537ea462376243cd1393ab7f2ea8c",
+          "started_at": "2026-09-11T12:02:23.608009Z",
+          "strategy_id": "infrastructure-fallback",
+          "success": true
+        },
+        "schema_version": "athena-aegis.evidence-envelope/1.0.0",
+        "terminology": "provider-reported execution evidence; not provider attestation",
+        "transpiled_identity": {
+          "digest": "155501fd47c236d985430a860c57c92390f8c5f2fed15b272b3b3ccf39df623d"
+        },
+        "workload_identity": {
+          "workload_id": "recovery-transition-v1"
+        }
+      },
+      "executed_action": "FALLBACK",
+      "recovery_attempted": true,
+      "requested_action": "FALLBACK",
+      "served": true
+    },
+    {
+      "envelope": {
+        "authenticated_bindings_digest": null,
+        "circuit_semantic_identity": {
+          "digest": "59fdcbdd53f5a37fd1df5d7191793d3a10ef3f85bef383754921a071660040ce"
+        },
+        "created_at": "2026-09-11T12:02:23.608009Z",
+        "decision": {
+          "action": "ROLLBACK",
+          "decided_at": "2026-09-11T12:02:23.608009Z",
+          "policy_id": "recovery-preflight",
+          "reasons": [
+            "simulator/infrastructure transition exercise"
+          ],
+          "state": "FORCED_TEST_TRANSITION"
+        },
+        "enforcement": {
+          "completed_at": "2026-09-11T12:02:23.608009Z",
+          "detail_digest": "4ae22ba4bce158d05aaf7e7bf89167877047a34190c4c298582c57690d246954",
+          "executed_action": "ROLLBACK",
+          "outcome": "strategy completed",
+          "requested_action": "ROLLBACK",
+          "started_at": "2026-09-11T12:02:23.608009Z"
+        },
+        "envelope_digest": "bf54744e212f75d599c1925435be1c2930e593e9102bfc2e5c0f57bba2da2aa8",
+        "envelope_id": "d014a0f5-c33e-4cdf-98aa-edf48ed9eac1",
+        "execution_context": {
+          "captured_at": "2026-09-11T12:02:23.606043Z",
+          "fields": {
+            "backend_calibration_timestamp": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "backend_family": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "backend_id": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "recovery-preflight"
+            },
+            "backend_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "calibration_window_id": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "pilot-recovery-preflight"
+            },
+            "circuit_semantic_hash": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "coupling_target_digest": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "dataset_workload_digest": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "dynamical_decoupling_options": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "gate_error_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "job_id": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "kernel_definition": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "layout": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "measurement_mitigation_options": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "model_reference_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "observable_definition": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "optimization_level": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "provider": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "local-infrastructure"
+            },
+            "qubit_subset": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "queue_metadata": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "readout_error_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "resilience_options": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "runtime_configuration": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "runtime_primitive": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "runtime_primitive_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "scheduling_metadata": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "session_id": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "shots": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "software_environment_digest": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "t1_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "t2_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "timestamp": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_clock"
+              ],
+              "trust": "trusted_local",
+              "value": "2026-09-11T12:02:23.606043Z"
+            },
+            "transpiled_circuit_hash": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "transpiler_name": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "transpiler_seed": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "transpiler_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "workload_id": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "recovery-transition-v1"
+            }
+          },
+          "schema_version": "athena-aegis.execution-context/1.0.0"
+        },
+        "input_identity": {
+          "input": "fixed-recovery-preflight"
+        },
+        "local_signature": null,
+        "postprocessed_result_digest": "1c4fd6b09e6f3940e1f0447fb29951137973bc07c3a0fa797fbe80cc5bf59508",
+        "provenance_chain": [],
+        "provider_reported_evidence": {},
+        "raw_result_digest": "24cbfc7edd82900c3f92eb6396a83a22f14a363eff68b56f48ac13be2199307d",
+        "recovery": {
+          "attempted": true,
+          "completed_at": "2026-09-11T12:02:23.608009Z",
+          "outcome": "strategy completed",
+          "parent_envelope_digest": null,
+          "result_digest": "1c4fd6b09e6f3940e1f0447fb29951137973bc07c3a0fa797fbe80cc5bf59508",
+          "started_at": "2026-09-11T12:02:23.608009Z",
+          "strategy_id": "infrastructure-rollback",
+          "success": true
+        },
+        "schema_version": "athena-aegis.evidence-envelope/1.0.0",
+        "terminology": "provider-reported execution evidence; not provider attestation",
+        "transpiled_identity": {
+          "digest": "155501fd47c236d985430a860c57c92390f8c5f2fed15b272b3b3ccf39df623d"
+        },
+        "workload_identity": {
+          "workload_id": "recovery-transition-v1"
+        }
+      },
+      "executed_action": "ROLLBACK",
+      "recovery_attempted": true,
+      "requested_action": "ROLLBACK",
+      "served": true
+    },
+    {
+      "envelope": {
+        "authenticated_bindings_digest": null,
+        "circuit_semantic_identity": {
+          "digest": "59fdcbdd53f5a37fd1df5d7191793d3a10ef3f85bef383754921a071660040ce"
+        },
+        "created_at": "2026-09-11T12:02:23.609009Z",
+        "decision": {
+          "action": "BLOCK",
+          "decided_at": "2026-09-11T12:02:23.609009Z",
+          "policy_id": "recovery-preflight",
+          "reasons": [
+            "simulator/infrastructure transition exercise"
+          ],
+          "state": "FORCED_TEST_TRANSITION"
+        },
+        "enforcement": {
+          "completed_at": "2026-09-11T12:02:23.609009Z",
+          "detail_digest": "f8e7b88921b9d4c1781dd5b2565f0df7c91c4635ac2275e43852988ef73ceb62",
+          "executed_action": "BLOCK",
+          "outcome": "service result withheld",
+          "requested_action": "BLOCK",
+          "started_at": "2026-09-11T12:02:23.609009Z"
+        },
+        "envelope_digest": "90740964bb8b63e302e65b64f479db87853a4749c276f4968de007f288a09418",
+        "envelope_id": "35347c54-b1ef-4ccc-b69f-0c4026dabe7c",
+        "execution_context": {
+          "captured_at": "2026-09-11T12:02:23.606043Z",
+          "fields": {
+            "backend_calibration_timestamp": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "backend_family": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "backend_id": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "recovery-preflight"
+            },
+            "backend_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "calibration_window_id": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "pilot-recovery-preflight"
+            },
+            "circuit_semantic_hash": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "coupling_target_digest": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "dataset_workload_digest": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "dynamical_decoupling_options": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "gate_error_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "job_id": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "kernel_definition": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "layout": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "measurement_mitigation_options": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "model_reference_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "observable_definition": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "optimization_level": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "provider": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "local-infrastructure"
+            },
+            "qubit_subset": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "queue_metadata": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "readout_error_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "resilience_options": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "runtime_configuration": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "runtime_primitive": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "runtime_primitive_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "scheduling_metadata": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "session_id": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "shots": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "software_environment_digest": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "t1_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "t2_summary": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "timestamp": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_clock"
+              ],
+              "trust": "trusted_local",
+              "value": "2026-09-11T12:02:23.606043Z"
+            },
+            "transpiled_circuit_hash": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "transpiler_name": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "transpiler_seed": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "transpiler_version": {
+              "note": "not exposed or not captured",
+              "origin": "unavailable",
+              "sources": [],
+              "trust": "unavailable",
+              "value": null
+            },
+            "workload_id": {
+              "note": null,
+              "origin": "locally_observed",
+              "sources": [
+                "local_runtime"
+              ],
+              "trust": "trusted_local",
+              "value": "recovery-transition-v1"
+            }
+          },
+          "schema_version": "athena-aegis.execution-context/1.0.0"
+        },
+        "input_identity": {
+          "input": "fixed-recovery-preflight"
+        },
+        "local_signature": null,
+        "postprocessed_result_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "provenance_chain": [],
+        "provider_reported_evidence": {},
+        "raw_result_digest": "24cbfc7edd82900c3f92eb6396a83a22f14a363eff68b56f48ac13be2199307d",
+        "recovery": null,
+        "schema_version": "athena-aegis.evidence-envelope/1.0.0",
+        "terminology": "provider-reported execution evidence; not provider attestation",
+        "transpiled_identity": {
+          "digest": "155501fd47c236d985430a860c57c92390f8c5f2fed15b272b3b3ccf39df623d"
+        },
+        "workload_identity": {
+          "workload_id": "recovery-transition-v1"
+        }
+      },
+      "executed_action": "BLOCK",
+      "recovery_attempted": false,
+      "requested_action": "BLOCK",
+      "served": false
+    }
+  ],
+  "schema_version": "athena-aegis.recovery-preflight/1.0.0",
+  "scientific_evidence": false
+}

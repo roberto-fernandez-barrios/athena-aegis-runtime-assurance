@@ -21,9 +21,10 @@ provider-cache/
 artifacts/qpu/private/
 artifacts/qpu/raw/
 artifacts/preflight/private/
+artifacts/pilot/private/
+artifacts/pilot/raw/
 
 # Generated scratch data.
 tmp/
 coverage.xml
 .coverage
-
