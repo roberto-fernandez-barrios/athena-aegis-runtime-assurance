@@ -1,0 +1,29 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -r requirements-lock.txt
+      - run: python -m pip install -e . --no-deps
+      - run: python -m pytest --cov --cov-report=term-missing
+      - run: python scripts/secret_scan.py
+      - run: python -m athena_aegis.analysis.build_metadata_matrix
+      - run: python -m athena_aegis.analysis.build_manifest
+      - run: git diff --exit-code -- artifacts/confidentiality artifacts/manifests

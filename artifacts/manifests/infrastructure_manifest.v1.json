@@ -1,0 +1,375 @@
+{
+  "files": [
+    {
+      "bytes": 827,
+      "path": ".github/workflows/ci.yml",
+      "sha256": "186b714545c0a8bbf841a37d56ff117666d6b49ae5fe15768440458fd3321e88"
+    },
+    {
+      "bytes": 664,
+      "path": "LICENSE",
+      "sha256": "ec9195c2886a2556c9fe98f6bdd66ba9880bc0b42133d32f7965dc44765e7a46"
+    },
+    {
+      "bytes": 3324,
+      "path": "README.md",
+      "sha256": "16428aae5eb09a6d425680a1113eb2ef3806fa0af515c40697b6d09671e3d067"
+    },
+    {
+      "bytes": 4901,
+      "path": "configs/interventions.v1.json",
+      "sha256": "0867ef53d3c8f2f81fe21ac2a99bf873f8d600c05c3b34b482271562c44dc569"
+    },
+    {
+      "bytes": 4785,
+      "path": "configs/metrics.v1.json",
+      "sha256": "dcfc1a39e30af7b5d53dbd5f7f44e3d23ecd395e391a488c7171e6888803466d"
+    },
+    {
+      "bytes": 697,
+      "path": "configs/pilot.v1.json",
+      "sha256": "a238d02e6d8c07b5a2876ac79dc2168d14b5a61e89a4214a75a38d8e992ba964"
+    },
+    {
+      "bytes": 1487,
+      "path": "docs/CONFIDENTIALITY_AND_METADATA.md",
+      "sha256": "83e7ac2974ac16a81130e1498b857d97661d80ec00d63e64f398643fee53ee28"
+    },
+    {
+      "bytes": 4571,
+      "path": "docs/CURRENT_STATE_AUDIT.md",
+      "sha256": "e4ce2064ad6793d244f860f4a59e185b9dddf9438cdb78016d3c1bb3dd52aa81"
+    },
+    {
+      "bytes": 2273,
+      "path": "docs/EXECUTION_AND_EVIDENCE.md",
+      "sha256": "a1a38587b5c55ec7ce76eb190572868661077b435c51e181db4e8e7d698a6c3a"
+    },
+    {
+      "bytes": 1692,
+      "path": "docs/FMS_AND_ATHENA_MAPPING.md",
+      "sha256": "e8e3a0741fd81fee16ed6f39f4c64d91bd94262a33cb670e1aa18f8afedbd59f"
+    },
+    {
+      "bytes": 9479,
+      "path": "docs/NOVELTY_FREEZE.md",
+      "sha256": "2854a874a63171300a3b8b0d063009ec67c78faa904f3016f7165531a15e59ed"
+    },
+    {
+      "bytes": 2122,
+      "path": "docs/POLICIES_AND_ACTIONS.md",
+      "sha256": "ea3e4819a52b65e7c55093432ef70e8611578d903eae3186b9c20c2e017c297b"
+    },
+    {
+      "bytes": 3078,
+      "path": "docs/QPU_PILOT_DESIGN.md",
+      "sha256": "7f59688db30ec6f67bec71b1f0e86a6264a0d3fe9c109e2834d921b3f651f0f1"
+    },
+    {
+      "bytes": 1765,
+      "path": "docs/QPU_PREFLIGHT.md",
+      "sha256": "edcb6ae52d245ca209ebe1e9187bc27b2d53ecf44dec7fd9de5662a472281748"
+    },
+    {
+      "bytes": 1777,
+      "path": "docs/ROADMAP_v1.md",
+      "sha256": "3a4bc0a04b80a6f3f4c37cf0f3a95abbc9aff49c8bdecc9141c733413ef51356"
+    },
+    {
+      "bytes": 2316,
+      "path": "docs/RQS_v1.md",
+      "sha256": "7cd55791e7d1482ca20c0b609a206e3eafba746623a20b86785a00ea3951c004"
+    },
+    {
+      "bytes": 3593,
+      "path": "docs/THREAT_MODEL_OPERATIONAL_v1.md",
+      "sha256": "ada05973383a23c26cb32fde67c0c6302159cfa578c558cebcf426fe9adcbfa8"
+    },
+    {
+      "bytes": 1512,
+      "path": "experiments/registry.v1.json",
+      "sha256": "d1f6e4f89c103cd58a67151f015d6a3d5cd87296e56023013e4be98c72ca53e2"
+    },
+    {
+      "bytes": 3316,
+      "path": "experiments/run_simulator_smoke.py",
+      "sha256": "775e9341013e356b0cf206011dbaf9bd102957b41320346cbb2f0d9d48c2dd27"
+    },
+    {
+      "bytes": 13165,
+      "path": "manuscript/PREREGISTRATION_v1.md",
+      "sha256": "c67de87403a8d0e54410ce29d822c4e1b15639045b06b76758c5264ef7ded758"
+    },
+    {
+      "bytes": 1132,
+      "path": "pyproject.toml",
+      "sha256": "39cc5f2761103b79aa193308baedde6e076e9101021db63f174610e91244607a"
+    },
+    {
+      "bytes": 1063,
+      "path": "requirements-lock.txt",
+      "sha256": "53608f292d701b907d5fd86b0ca8ae391b29aabe4ea0b4d23d401626ea1cfaf1"
+    },
+    {
+      "bytes": 2397,
+      "path": "schemas/evidence-envelope.v1.schema.json",
+      "sha256": "1ceff9ee4d787381252fd8484acc067f0d514ffc99981ef51c18d0eadb47f20b"
+    },
+    {
+      "bytes": 4732,
+      "path": "schemas/execution-context.v1.schema.json",
+      "sha256": "b8fc990a9b3073dc5bbc9bf529b05ee606c22fbd6c71c633d585709a63719971"
+    },
+    {
+      "bytes": 1193,
+      "path": "scripts/secret_scan.py",
+      "sha256": "e37d2560791f95868c33b59dd7ebf4908c3e373724f1517b532eb19d89cc9357"
+    },
+    {
+      "bytes": 82,
+      "path": "src/athena_aegis/__init__.py",
+      "sha256": "836e2d87c88753a8510c9945be71a0327eb589762bfe4eb7b6497dbc01456668"
+    },
+    {
+      "bytes": 38,
+      "path": "src/athena_aegis/analysis/__init__.py",
+      "sha256": "ee1a56810bf74a22b768c76f847466c6dfddacf2864ce3d33fd91fa00557e06c"
+    },
+    {
+      "bytes": 2285,
+      "path": "src/athena_aegis/analysis/build_endpoint_tables.py",
+      "sha256": "c86c4e9f1a5cbb8171ba01c3dd6314490ffd08f1e5c956887a2e837a368251d3"
+    },
+    {
+      "bytes": 1165,
+      "path": "src/athena_aegis/analysis/build_manifest.py",
+      "sha256": "38dc809114fe6aaf1a9513c2b5750a6e7a97e0d94307c38899eb9d1543ae66ba"
+    },
+    {
+      "bytes": 4781,
+      "path": "src/athena_aegis/analysis/build_metadata_matrix.py",
+      "sha256": "57f254e52bae2a5b09f755aa07315ec36f10295c5923e5d5b58a6796fa761c60"
+    },
+    {
+      "bytes": 1442,
+      "path": "src/athena_aegis/analysis/metrics.py",
+      "sha256": "a5757162b4114aad4fc6565c621fa3ee60e5a165819f915469c8fcbff2b9bc8f"
+    },
+    {
+      "bytes": 378,
+      "path": "src/athena_aegis/calibration/__init__.py",
+      "sha256": "08f09fa61d9c1e718a06896086422ab0aa4f8d858e9daa5bd26dfc1cd9235c6c"
+    },
+    {
+      "bytes": 4130,
+      "path": "src/athena_aegis/calibration/model.py",
+      "sha256": "b341f56030ab82fa5df7c4be0c3726a8ebdd810aa44bb86a3b592064675371b5"
+    },
+    {
+      "bytes": 2082,
+      "path": "src/athena_aegis/canonical.py",
+      "sha256": "f87afd69ce61ffdd91bd7ca97b7fa6bfff0319fabbf6240c25b39660330a954f"
+    },
+    {
+      "bytes": 105,
+      "path": "src/athena_aegis/confidentiality/__init__.py",
+      "sha256": "1ceec42f1f5a4ede5a4e8e41f96390d694d10cb759199f041dc85688599e3e8c"
+    },
+    {
+      "bytes": 954,
+      "path": "src/athena_aegis/confidentiality/minimization.py",
+      "sha256": "c6989680c693b60a099653232fa28631ae5fba03be4212d3dfe79f265fbc4826"
+    },
+    {
+      "bytes": 371,
+      "path": "src/athena_aegis/context/__init__.py",
+      "sha256": "3b747bfc37a9bf61371d234a61d236e9fe33a0956f1f0af460d52d2572971b32"
+    },
+    {
+      "bytes": 7150,
+      "path": "src/athena_aegis/context/model.py",
+      "sha256": "84e2f040ff3149636ffc4f67bcb3bec55c715de09e83a1d37032f91fc8b8ed68"
+    },
+    {
+      "bytes": 137,
+      "path": "src/athena_aegis/enforcement/__init__.py",
+      "sha256": "b654a6adc5990e6630f5e0167beb7a85d1c0f475786e3dc507757a03d9efc006"
+    },
+    {
+      "bytes": 1619,
+      "path": "src/athena_aegis/enforcement/engine.py",
+      "sha256": "e6d7ad0bc22580822f7feae9a07d813caa26eb9634ec95a373aa8b49fbed9c17"
+    },
+    {
+      "bytes": 485,
+      "path": "src/athena_aegis/evidence/__init__.py",
+      "sha256": "c35decb5e776364d7b6ccf4e58d21ee9133958c8d424a0b27cb9fa0db396537b"
+    },
+    {
+      "bytes": 2500,
+      "path": "src/athena_aegis/evidence/binding.py",
+      "sha256": "cf96cd7ddd0255d14757203afd6b3a83574f84cedc0af4110736dd1d57fdc3c7"
+    },
+    {
+      "bytes": 4939,
+      "path": "src/athena_aegis/evidence/envelope.py",
+      "sha256": "6f7928f448058282dac9af81cfa59632432f8cc1134ef866576fdbe82606aafe"
+    },
+    {
+      "bytes": 1815,
+      "path": "src/athena_aegis/evidence/signatures.py",
+      "sha256": "c602673483a06405f886c6dc92eced3627b329a6f2b00f105c2c570b6a31c808"
+    },
+    {
+      "bytes": 316,
+      "path": "src/athena_aegis/oos/__init__.py",
+      "sha256": "3131ea9bc2f0c4460dad446ea4702468a964b3add9f9566cf00c5aaa1d5046eb"
+    },
+    {
+      "bytes": 5087,
+      "path": "src/athena_aegis/oos/models.py",
+      "sha256": "652d0a5d6ad2d4f68cdfd2d9ee5a73688715f1491a76cedac1766eb6e8d93eb5"
+    },
+    {
+      "bytes": 437,
+      "path": "src/athena_aegis/policies/__init__.py",
+      "sha256": "ca300b127731a4448e796f0596706e99a4f71b59e9ed2faaba83879b0f71c471"
+    },
+    {
+      "bytes": 4224,
+      "path": "src/athena_aegis/policies/models.py",
+      "sha256": "669c9aa522552b9d49b9b271773f76d59b7e662f8a1971f912bc90b68a2d0cca"
+    },
+    {
+      "bytes": 325,
+      "path": "src/athena_aegis/providers/__init__.py",
+      "sha256": "b193f6e45425fcd5cb5404f40434396759430557a5a797aeaf8b04f1ec235672"
+    },
+    {
+      "bytes": 3237,
+      "path": "src/athena_aegis/providers/base.py",
+      "sha256": "60a3f406e9c0279f741da470cb2a4c5f03a17c0e3c96453eeb27bdf7f748c137"
+    },
+    {
+      "bytes": 5072,
+      "path": "src/athena_aegis/providers/ibm_preflight.py",
+      "sha256": "faeb6a9f046780b6af64f709d419c14344972aa7aef0e9fc7c96ced9417c2c68"
+    },
+    {
+      "bytes": 10652,
+      "path": "src/athena_aegis/providers/ibm_runtime.py",
+      "sha256": "f51d649deed1b98443b22421b20653b02a639d337fb54070ac5784cf15256564"
+    },
+    {
+      "bytes": 4315,
+      "path": "src/athena_aegis/providers/simulator.py",
+      "sha256": "9785acfe5423531da9701f14a99ca53dd6c7deca62a8c2ac8c5f820bbcee1a62"
+    },
+    {
+      "bytes": 184,
+      "path": "src/athena_aegis/recovery/__init__.py",
+      "sha256": "fbc0dd2c1953306ea89c7868b22f2acf68ec60e057e7c50a777d40e5f375cda1"
+    },
+    {
+      "bytes": 988,
+      "path": "src/athena_aegis/recovery/strategies.py",
+      "sha256": "0bb29df7c8f7ddce2f4e4a8263d93524cc70042cb461f2f47de8e1be1361b2a9"
+    },
+    {
+      "bytes": 131,
+      "path": "src/athena_aegis/service/__init__.py",
+      "sha256": "d31e773b2e342600688ecbcaacc3a31c0e48ef3a96413106fd9fbbf091706400"
+    },
+    {
+      "bytes": 1329,
+      "path": "src/athena_aegis/service/orchestrator.py",
+      "sha256": "cc110f2e421b3f499640872ddf4e1573da8e09fa6c9534e676c4467275d2b564"
+    },
+    {
+      "bytes": 166,
+      "path": "src/athena_aegis/workloads/__init__.py",
+      "sha256": "21575e9ceeb7269cb3dcb0e4659de47cc16be7ce70035229c217745389c61f5b"
+    },
+    {
+      "bytes": 671,
+      "path": "src/athena_aegis/workloads/base.py",
+      "sha256": "1ed3aa8e1d02e1963aeddc52bf3d44aa7f6cd33434449694d53da9bf46c447ab"
+    },
+    {
+      "bytes": 191,
+      "path": "src/athena_aegis/workloads/fms/__init__.py",
+      "sha256": "48438b501dabbf6e242e1fb523eb3c8d063165e5414c5ac40fedd7ff5c410eec"
+    },
+    {
+      "bytes": 5127,
+      "path": "src/athena_aegis/workloads/fms/routing.py",
+      "sha256": "f7cd74806a74e7ddd19ce4f2c702cfdc326bff4719ed2d3b1371a32789cc6a66"
+    },
+    {
+      "bytes": 166,
+      "path": "src/athena_aegis/workloads/kernel/__init__.py",
+      "sha256": "89c9dedbd679d4cc1a41c3885591f8491d5aed426b6da5479fc32de501bb7f77"
+    },
+    {
+      "bytes": 4127,
+      "path": "src/athena_aegis/workloads/kernel/regression.py",
+      "sha256": "76e03c1ed8e13ed1d03e3e2495bc51a210448731ee411859a7203e30c9a0be3c"
+    },
+    {
+      "bytes": 4073,
+      "path": "src/athena_aegis_runtime_assurance.egg-info/PKG-INFO",
+      "sha256": "b0f235ed239814777c9b7bd27f3fb433d489477cdfd996fdb16b2d8d6a77c3e6"
+    },
+    {
+      "bytes": 1933,
+      "path": "src/athena_aegis_runtime_assurance.egg-info/SOURCES.txt",
+      "sha256": "c6d5bbdddd1723dcfbb96e8f3fcf361817e838bfa81cdec9b1e9d0c127961400"
+    },
+    {
+      "bytes": 1,
+      "path": "src/athena_aegis_runtime_assurance.egg-info/dependency_links.txt",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "bytes": 171,
+      "path": "src/athena_aegis_runtime_assurance.egg-info/entry_points.txt",
+      "sha256": "a9b4812168e46f5c13467ce4b0fed364d4844c94e7ad64ac88b65351cd029833"
+    },
+    {
+      "bytes": 188,
+      "path": "src/athena_aegis_runtime_assurance.egg-info/requires.txt",
+      "sha256": "b0597193d0fd45e0abac1cc5829981dc35a0f4a810ea1f59b100f09266e7f058"
+    },
+    {
+      "bytes": 13,
+      "path": "src/athena_aegis_runtime_assurance.egg-info/top_level.txt",
+      "sha256": "a1a4bf36e8123af9f5436c0e7a3fcba1c6eb8357673124c6092b7e5eaa1fcc47"
+    },
+    {
+      "bytes": 3042,
+      "path": "tests/test_context_and_evidence.py",
+      "sha256": "30dd5d74a3bce6be0ff7ef16ff50b6f6d5c3fabd9a80291c2ff85200bde5e621"
+    },
+    {
+      "bytes": 1331,
+      "path": "tests/test_ibm_adapter.py",
+      "sha256": "5c80c6590f0938f2761e18fe144391534d0bfce52c30563913c4403290fcce85"
+    },
+    {
+      "bytes": 4669,
+      "path": "tests/test_oos_calibration_policy.py",
+      "sha256": "c89b3eaa8e90d89d6d9af25bbc546cbba51ed41cd157c2b64671c05c767addec"
+    },
+    {
+      "bytes": 2195,
+      "path": "tests/test_service_analysis_preflight.py",
+      "sha256": "93fb8441614fb1c88e917abba1c3ddc6024698caa32f6c5404a51b41d1f298ca"
+    },
+    {
+      "bytes": 2257,
+      "path": "tests/test_workloads_and_confidentiality.py",
+      "sha256": "5ee10205944185381085aaa5371aa5ab9c03b3556778b9e6e676037384448719"
+    }
+  ],
+  "schema_version": "athena-aegis.infrastructure-manifest/1.0.0"
+}
