@@ -86,6 +86,7 @@ def test_pilot_and_confirmatory_namespaces_are_separated(tmp_path):
     payload = {"phase": "pilot", "scientific_evidence": False, "value": 1}
     written = write_pilot_json(Path("artifacts/pilot/record.json"), payload, root=tmp_path)
     assert json.loads(written.read_text())["scientific_evidence"] is False
+    assert b"\r\n" not in written.read_bytes()
     manifest = write_pilot_manifest(root=tmp_path)
     assert json.loads(manifest.read_text())["files"][0]["path"] == "artifacts/pilot/record.json"
     with pytest.raises(ValueError, match="artifacts/pilot"):

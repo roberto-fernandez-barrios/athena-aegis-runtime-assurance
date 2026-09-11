@@ -276,9 +276,9 @@
       "sha256": "e6ff65c2ae5f33b871edf57863f5bd6ec2127e3967556184993b762b6c2c8892"
     },
     {
-      "bytes": 6834,
+      "bytes": 7031,
       "path": "src/athena_aegis/pilot/runtime.py",
-      "sha256": "cc2fd2d61ec38d0709e7e23f0c45008a7cdf7ea05b33527aa6d8822bbc57bcfb"
+      "sha256": "109cc87761341d03528a52b558bda0e242a4f952bbb3d32a2c407e961c9a10e6"
     },
     {
       "bytes": 437,
@@ -401,9 +401,9 @@
       "sha256": "42d3639ba4342b0141d6bd434d319abe66d4d4afb42813157fff5a7294dc2001"
     },
     {
-      "bytes": 3538,
+      "bytes": 3585,
       "path": "tests/test_pilot_runtime.py",
-      "sha256": "13d2f32987e185072f13888d7d484ed21f24cd584c64a88938d66def9fb5ab22"
+      "sha256": "ee8494f2f837fe185a6a73842769bf2b0a8a92e105a1b6d158c89cdec7ec7c0c"
     },
     {
       "bytes": 628,

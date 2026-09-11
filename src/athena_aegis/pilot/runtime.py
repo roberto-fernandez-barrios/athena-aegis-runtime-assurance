@@ -151,7 +151,10 @@ def write_pilot_json(path: Path, payload: Mapping[str, Any], *, root: Path = Pat
     target = _pilot_path(path, root)
     target.parent.mkdir(parents=True, exist_ok=True)
     temporary = target.with_suffix(target.suffix + ".tmp")
-    temporary.write_text(json.dumps(payload, indent=2, sort_keys=True, default=str) + "\n", encoding="utf-8")
+    # Evidence manifests hash the emitted bytes. Pin LF so an identical
+    # payload has the same size and digest on Windows and POSIX checkouts.
+    with temporary.open("w", encoding="utf-8", newline="\n") as stream:
+        stream.write(json.dumps(payload, indent=2, sort_keys=True, default=str) + "\n")
     temporary.replace(target)
     return target
 
