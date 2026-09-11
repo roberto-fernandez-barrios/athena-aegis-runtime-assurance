@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://athena-aegis.deusto.example/schemas/execution-context.v1.schema.json",
+  "title": "ATHENA-AEGIS ExecutionContext v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "captured_at", "fields"],
+  "properties": {
+    "schema_version": {"const": "athena-aegis.execution-context/1.0.0"},
+    "captured_at": {"type": "string", "format": "date-time"},
+    "fields": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider", "backend_id", "backend_family", "backend_version", "timestamp",
+        "job_id", "session_id", "shots", "qubit_subset", "layout", "transpiler_seed",
+        "optimization_level", "transpiler_name", "transpiler_version", "runtime_primitive",
+        "runtime_primitive_version", "runtime_configuration", "resilience_options",
+        "dynamical_decoupling_options", "measurement_mitigation_options",
+        "backend_calibration_timestamp", "t1_summary", "t2_summary",
+        "readout_error_summary", "gate_error_summary", "coupling_target_digest",
+        "queue_metadata", "scheduling_metadata", "workload_id", "circuit_semantic_hash",
+        "transpiled_circuit_hash", "observable_definition", "kernel_definition",
+        "software_environment_digest", "dataset_workload_digest", "model_reference_version",
+        "calibration_window_id"
+      ],
+      "properties": {
+        "provider": {"$ref": "#/$defs/evidenceValue"},
+        "backend_id": {"$ref": "#/$defs/evidenceValue"},
+        "backend_family": {"$ref": "#/$defs/evidenceValue"},
+        "backend_version": {"$ref": "#/$defs/evidenceValue"},
+        "timestamp": {"$ref": "#/$defs/evidenceValue"},
+        "job_id": {"$ref": "#/$defs/evidenceValue"},
+        "session_id": {"$ref": "#/$defs/evidenceValue"},
+        "shots": {"$ref": "#/$defs/evidenceValue"},
+        "qubit_subset": {"$ref": "#/$defs/evidenceValue"},
+        "layout": {"$ref": "#/$defs/evidenceValue"},
+        "transpiler_seed": {"$ref": "#/$defs/evidenceValue"},
+        "optimization_level": {"$ref": "#/$defs/evidenceValue"},
+        "transpiler_name": {"$ref": "#/$defs/evidenceValue"},
+        "transpiler_version": {"$ref": "#/$defs/evidenceValue"},
+        "runtime_primitive": {"$ref": "#/$defs/evidenceValue"},
+        "runtime_primitive_version": {"$ref": "#/$defs/evidenceValue"},
+        "runtime_configuration": {"$ref": "#/$defs/evidenceValue"},
+        "resilience_options": {"$ref": "#/$defs/evidenceValue"},
+        "dynamical_decoupling_options": {"$ref": "#/$defs/evidenceValue"},
+        "measurement_mitigation_options": {"$ref": "#/$defs/evidenceValue"},
+        "backend_calibration_timestamp": {"$ref": "#/$defs/evidenceValue"},
+        "t1_summary": {"$ref": "#/$defs/evidenceValue"},
+        "t2_summary": {"$ref": "#/$defs/evidenceValue"},
+        "readout_error_summary": {"$ref": "#/$defs/evidenceValue"},
+        "gate_error_summary": {"$ref": "#/$defs/evidenceValue"},
+        "coupling_target_digest": {"$ref": "#/$defs/evidenceValue"},
+        "queue_metadata": {"$ref": "#/$defs/evidenceValue"},
+        "scheduling_metadata": {"$ref": "#/$defs/evidenceValue"},
+        "workload_id": {"$ref": "#/$defs/evidenceValue"},
+        "circuit_semantic_hash": {"$ref": "#/$defs/evidenceValue"},
+        "transpiled_circuit_hash": {"$ref": "#/$defs/evidenceValue"},
+        "observable_definition": {"$ref": "#/$defs/evidenceValue"},
+        "kernel_definition": {"$ref": "#/$defs/evidenceValue"},
+        "software_environment_digest": {"$ref": "#/$defs/evidenceValue"},
+        "dataset_workload_digest": {"$ref": "#/$defs/evidenceValue"},
+        "model_reference_version": {"$ref": "#/$defs/evidenceValue"},
+        "calibration_window_id": {"$ref": "#/$defs/evidenceValue"}
+      }
+    }
+  },
+  "$defs": {
+    "evidenceValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "origin", "trust", "sources", "note"],
+      "properties": {
+        "value": {},
+        "origin": {"enum": ["locally_observed", "provider_reported", "derived", "unavailable"]},
+        "trust": {"enum": ["trusted_local", "untrusted", "unavailable"]},
+        "sources": {"type": "array", "items": {"type": "string"}},
+        "note": {"type": ["string", "null"]}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"origin": {"const": "unavailable"}}},
+          "then": {"properties": {"value": {"type": "null"}, "trust": {"const": "unavailable"}}}
+        },
+        {
+          "if": {"properties": {"origin": {"const": "provider_reported"}}},
+          "then": {"properties": {"trust": {"const": "untrusted"}}}
+        }
+      ]
+    }
+  }
+}

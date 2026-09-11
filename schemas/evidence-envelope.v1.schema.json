@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://athena-aegis.deusto.example/schemas/evidence-envelope.v1.schema.json",
+  "title": "ATHENA-AEGIS EvidenceEnvelope v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "envelope_id", "created_at", "execution_context", "input_identity",
+    "workload_identity", "circuit_semantic_identity", "transpiled_identity",
+    "provider_reported_evidence", "raw_result_digest", "postprocessed_result_digest",
+    "authenticated_bindings_digest", "decision", "enforcement", "recovery",
+    "provenance_chain", "terminology", "envelope_digest", "local_signature"
+  ],
+  "properties": {
+    "schema_version": {"const": "athena-aegis.evidence-envelope/1.0.0"},
+    "envelope_id": {"type": "string", "format": "uuid"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "execution_context": {"$ref": "execution-context.v1.schema.json"},
+    "input_identity": {"type": "object"},
+    "workload_identity": {"type": "object"},
+    "circuit_semantic_identity": {"type": "object"},
+    "transpiled_identity": {"type": "object"},
+    "provider_reported_evidence": {"type": "object"},
+    "raw_result_digest": {"$ref": "#/$defs/sha256"},
+    "postprocessed_result_digest": {"$ref": "#/$defs/sha256"},
+    "authenticated_bindings_digest": {"oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]},
+    "decision": {
+      "type": "object",
+      "required": ["policy_id", "state", "action", "reasons", "decided_at"],
+      "properties": {
+        "policy_id": {"type": "string"}, "state": {"type": "string"},
+        "action": {"enum": ["ALLOW", "HOLD", "RERUN", "RECALIBRATE", "FALLBACK", "ROLLBACK", "BLOCK"]},
+        "reasons": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "decided_at": {"type": "string", "format": "date-time"}
+      },
+      "additionalProperties": false
+    },
+    "enforcement": {"type": "object"},
+    "recovery": {"type": ["object", "null"]},
+    "provenance_chain": {"type": "array", "items": {"$ref": "#/$defs/sha256"}},
+    "terminology": {"const": "provider-reported execution evidence; not provider attestation"},
+    "envelope_digest": {"oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]},
+    "local_signature": {"type": ["object", "null"]}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}
