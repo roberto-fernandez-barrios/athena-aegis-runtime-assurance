@@ -46,8 +46,6 @@ def run_preflight(
         "captured_at": utc_now(),
         "credential_found": "yes" if credential_available else "no",
         "credential_source_type": source_type if credential_available else "none",
-        "credential_tracked_by_git": False if source_type in ("ignored-env", "saved-account") else None,
-        "contains_secret": False,
         "authentication_test": "not_attempted",
         "sdk_versions": {},
         "instance_count": None,
@@ -97,9 +95,8 @@ def run_preflight(
         usage = getattr(adapter.service, "usage", None)
         report["usage"] = None if usage is None else _usage_summary(usage())
         report["authentication_test"] = "pass"
-    except Exception as exc:  # sanitized type only; provider message may contain account data
+    except Exception:  # provider messages can contain account data; persist no exception detail
         report["authentication_test"] = "fail"
-        report["error_type"] = type(exc).__name__
     return report
 
 

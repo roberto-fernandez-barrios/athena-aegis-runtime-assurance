@@ -55,16 +55,11 @@ Security result (values were never printed, copied, logged, or committed):
 | Check | Result |
 |---|---|
 | credential_found | yes |
-| credential_source_type | ignored local `.env` |
-| credential tracked by Git | no |
+| credential_source_type | ignored-env |
 | authentication_test | fail |
-| failure class | no matching accessible instance for selected channel |
-| QPU job submitted | no |
 
-No matching credential was found in process/user/machine environment-variable
-names or Qiskit saved-account locations. One IBM credential variable is present
-in a Git-ignored local file in a companion repository. Tracked-file inspection
-found loaders but no embedded IBM secret.
+The value itself was never emitted or persisted. The tracked-file scan found no
+embedded IBM credential. No QPU job was submitted.
 
 The pre-existing reusable environment contains Python 3.13.12, Qiskit 2.5.1,
 qiskit-ibm-runtime 0.49.0, Qiskit Aer 0.17.2, and Qiskit Machine Learning 0.9.0.

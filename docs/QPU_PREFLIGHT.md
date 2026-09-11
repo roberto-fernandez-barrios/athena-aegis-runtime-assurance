@@ -7,9 +7,9 @@ Date: 2026-09-11. This was a read-only access audit, not scientific evidence.
 Searched by variable/configuration names, without reading values into reports:
 process, user, and machine environments; PowerShell user environment; Qiskit
 saved-account locations; Git-ignored `.env` and local configs; project scripts;
-and prior IBM integrations. One relevant credential variable exists in a local
-Git-ignored `.env`. It is not tracked. No credential was copied into this
-repository, examples, logs, manifests, tests, or CI.
+and prior IBM integrations. No credential value or credential-bearing path is
+reported. No credential was copied into this repository, examples, logs,
+manifests, tests, or CI.
 
 Required report:
 
@@ -19,9 +19,7 @@ credential_source_type = ignored-env
 authentication_test = fail
 ```
 
-The sanitized failure was “no matching accessible instance” for the selected
-current channel. Consequently instances, backends, status, target,
-configuration, properties, calibration, queue, and usage could not be queried.
+No instance/backend information became available after authentication failed.
 No physical job or connectivity smoke test was submitted.
 
 ## API compatibility
