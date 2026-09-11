@@ -93,3 +93,16 @@ P0--P5 policies, enforcement and recovery interfaces, authenticated evaluation
 binding, confidentiality minimization, metric/intervention registries, pilot
 protocol, tests, and CI. IBM Runtime remains optional and replaceable behind
 `ProviderAdapter`.
+
+## Current live status after the audit
+
+The authenticated read-only preflight selected one physical backend by the
+pre-result least-busy rule. One 32-shot connectivity smoke and the four
+pre-execution-amended pilot jobs completed successfully. These five jobs are
+all `phase=pilot`, `scientific_evidence=false`; confirmatory jobs remain zero.
+
+The pilot used one calibration epoch, so repeated-execution variability is
+observable but longitudinal variability is not. The result, candidate
+3/5/8/10-window budgets, provisional context-support assessment and KC1--KC6
+status are recorded in `docs/QPU_PILOT_RESULT.md`. Confirmatory preregistration
+remains draft and no campaign is authorized.

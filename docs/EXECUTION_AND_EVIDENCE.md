@@ -43,4 +43,7 @@ never called provider attestation.
 Circuit semantic hashes are stable structural identifiers under the declared
 serializer. They do not prove semantic equivalence. The transpiled identity is
 separate because a stable logical workload may map to different physical
-executions.
+executions. Qiskit QPY bytes are not used as that identity because live pilot
+inspection showed nondeterministic serialization across otherwise identical
+transpile calls. The implemented digest canonically binds deterministic
+OpenQASM 2, final index layout, and circuit widths.

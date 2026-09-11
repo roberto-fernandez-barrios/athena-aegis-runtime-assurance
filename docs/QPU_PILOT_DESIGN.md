@@ -1,7 +1,8 @@
 # QPU pilot design v1
 
-Status: pre-execution amendment completed, not run. The pilot is separate from
-the confirmatory campaign and is not evidence for headline hypotheses.
+Status: executed exactly as pre-execution amended on 2026-09-11. The pilot is
+closed, separate from the confirmatory campaign, and not evidence for headline
+hypotheses. No design parameter was changed after observing the results.
 
 ## Purpose
 

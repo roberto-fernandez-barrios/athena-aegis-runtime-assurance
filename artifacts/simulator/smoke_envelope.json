@@ -22,10 +22,10 @@
       "repetitions": 2,
       "workload_id": "paper15-kernel-regression-v1"
     },
-    "created_at": "2026-09-11T11:25:14.989485Z",
+    "created_at": "2026-09-11T12:17:27.107947Z",
     "decision": {
       "action": "ALLOW",
-      "decided_at": "2026-09-11T11:25:14.989485Z",
+      "decided_at": "2026-09-11T12:17:27.107947Z",
       "policy_id": "P4-context-oos-abstention",
       "reasons": [
         "global context-agnostic threshold"
@@ -33,17 +33,17 @@
       "state": "ACCEPT"
     },
     "enforcement": {
-      "completed_at": "2026-09-11T11:25:14.989485Z",
+      "completed_at": "2026-09-11T12:17:27.107947Z",
       "detail_digest": null,
       "executed_action": "ALLOW",
       "outcome": "candidate served",
       "requested_action": "ALLOW",
-      "started_at": "2026-09-11T11:25:14.989485Z"
+      "started_at": "2026-09-11T12:17:27.107947Z"
     },
-    "envelope_digest": "f991195e0792df869a298fe14e1b800eefbffbd5cc6115f3f754305ef0245c47",
-    "envelope_id": "63150717-bd27-4b32-8f97-3b87b076e309",
+    "envelope_digest": "cbc08fab2bc0f83cdc6247bdf3d199c5ccbccc238b80ba0df45e039bd92aa207",
+    "envelope_id": "d281eae2-c9be-458b-894e-a38b1edaab44",
     "execution_context": {
-      "captured_at": "2026-09-11T11:25:14.988486Z",
+      "captured_at": "2026-09-11T12:17:27.106947Z",
       "fields": {
         "backend_calibration_timestamp": {
           "note": "not applicable to local simulator or not captured",
@@ -134,7 +134,7 @@
             "local_runtime"
           ],
           "trust": "trusted_local",
-          "value": "hmac-sha256:d0f998d37aede2d2e836d5f285a0a2f476251b787045b8ad6a05ccea355b2487"
+          "value": "hmac-sha256:1b51b5b71f80dca7d382f614ad1d78993f1c72293d873ded85194fcd81e7a556"
         },
         "kernel_definition": {
           "note": null,
@@ -297,7 +297,7 @@
             "local_clock"
           ],
           "trust": "trusted_local",
-          "value": "2026-09-11T11:25:14.988486Z"
+          "value": "2026-09-11T12:17:27.106947Z"
         },
         "transpiled_circuit_hash": {
           "note": null,
@@ -306,7 +306,7 @@
             "local_runtime"
           ],
           "trust": "trusted_local",
-          "value": "fde17b0eab1a28bcfe57ace837eba4c7ae1e8fc5d713f025c0661c8418ff04b8"
+          "value": "494963796e4ddc1f3fd1a101f2bbc50063da878e218c9868d61a3201abbd440e"
         },
         "transpiler_name": {
           "note": null,
@@ -367,7 +367,7 @@
     "schema_version": "athena-aegis.evidence-envelope/1.0.0",
     "terminology": "provider-reported execution evidence; not provider attestation",
     "transpiled_identity": {
-      "digest": "fde17b0eab1a28bcfe57ace837eba4c7ae1e8fc5d713f025c0661c8418ff04b8"
+      "digest": "494963796e4ddc1f3fd1a101f2bbc50063da878e218c9868d61a3201abbd440e"
     },
     "workload_identity": {
       "workload_id": "paper15-kernel-regression-v1"

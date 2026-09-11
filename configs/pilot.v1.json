@@ -1,6 +1,6 @@
 {
   "schema_version": "athena-aegis.pilot-config/1.0.0",
-  "status": "pre_execution_amended_not_run",
+  "status": "completed_nonconfirmatory",
   "scientific_evidence": false,
   "backend_selection": "least-busy operational non-simulator accessible backend meeting circuit width; one backend preferred",
   "workload": "paper15-kernel-regression-v1",

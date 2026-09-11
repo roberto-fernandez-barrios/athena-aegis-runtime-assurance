@@ -27,3 +27,8 @@ The envelope digest and local HMAC signature verify. Raw job/session/account and
 instance identifiers are absent; the retained job reference is a keyed
 pseudonym. The pilot gate is therefore open. This smoke result is excluded from
 all scientific analysis and from any future confirmatory dataset.
+
+During post-pilot verification, nondeterministic QPY serialization was replaced
+by the deterministic OpenQASM-2-plus-final-layout circuit projection. The smoke
+context and envelope were recomputed and locally re-sealed; no count, provider
+timestamp, QPU result or job execution changed, and no additional job was sent.

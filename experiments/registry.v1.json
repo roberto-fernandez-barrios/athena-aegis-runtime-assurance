@@ -19,7 +19,7 @@
       "artifacts": ["artifacts/preflight/ibm_preflight_2026-09-11.json"]
     },
     {
-      "experiment_id": "qpu-connectivity-smoke-pending",
+      "experiment_id": "qpu-connectivity-smoke-2026-09-11",
       "type": "CONNECTIVITY SMOKE TEST — NOT SCIENTIFIC EVIDENCE",
       "scientific_evidence": false,
       "status": "complete",
@@ -31,8 +31,8 @@
       "experiment_id": "paper25-qpu-pilot-v1",
       "type": "pilot",
       "scientific_evidence": false,
-      "status": "approved_after_smoke_not_run",
-      "qpu_jobs": 0,
+      "status": "complete_nonconfirmatory",
+      "qpu_jobs": 4,
       "protocol": "docs/QPU_PILOT_DESIGN.md",
       "artifacts": ["artifacts/pilot/qpu_pilot_runs.json", "artifacts/pilot/manifest.v1.json"]
     },

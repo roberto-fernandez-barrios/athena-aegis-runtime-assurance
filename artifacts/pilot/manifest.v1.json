@@ -3,7 +3,12 @@
     {
       "bytes": 36698,
       "path": "artifacts/pilot/connectivity_smoke.json",
-      "sha256": "34d15deb8bd016c54407f8fb88072a4f09ea44c862d93d6b389c6db101c2f9c5"
+      "sha256": "fc446e3ac68503e323483b670eb4b3767bb13416d66d8ce0c1278bf43e024d8e"
+    },
+    {
+      "bytes": 175708,
+      "path": "artifacts/pilot/qpu_pilot_runs.json",
+      "sha256": "6d6fe3f92c13a1b1e4bbd38b03f0457ad7e99b4612967aee85814e573ab0041f"
     },
     {
       "bytes": 393,

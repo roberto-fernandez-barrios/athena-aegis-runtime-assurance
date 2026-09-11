@@ -43,7 +43,7 @@
       "requested_action": "ALLOW",
       "started_at": "2026-09-11T12:03:57.069679Z"
     },
-    "envelope_digest": "4378ddc8e3330add48c825f7335f223ac8793b8ec4e1df49d89c871a73d6f800",
+    "envelope_digest": "185c37f2705cc9416fa38b83cca1d114673149e07eec3262f4df7e3c4904f552",
     "envelope_id": "2105fddd-e9af-46bf-b78b-dc1e3c23d5c0",
     "execution_context": {
       "captured_at": "2026-09-11T12:03:57.064961Z",
@@ -377,7 +377,7 @@
             "local_runtime"
           ],
           "trust": "trusted_local",
-          "value": "b31b8ae6d0e290fa9afa51b6a909b7e4aa9bd8c87e5dc1d70a3234597d2decdd"
+          "value": "295eba984da54e015ae21f0f941253ea1c62a32d15174c13fc8ef8e2d0bc63e8"
         },
         "transpiler_name": {
           "note": null,
@@ -425,7 +425,7 @@
       "algorithm": "HMAC-SHA256",
       "key_id": "local-hmac-v1",
       "limitations": "authenticates the local envelope from capture onward; does not attest provider origin or correctness",
-      "signature": "bdf7f387683271a3c602ae4eb09f16437346ed7d1c652bb7ab71a2918180432c",
+      "signature": "7b0c1f7a81d9de20a00d76e66b120bd5ff9a78cce697fa056f6bff9ce1ab212d",
       "signer_scope": "local_capture_boundary"
     },
     "postprocessed_result_digest": "75637153a3efc45a230eedf8efb4bfc02c923b252dc7225394c43ef75abe93c0",
@@ -494,7 +494,7 @@
     "schema_version": "athena-aegis.evidence-envelope/1.0.0",
     "terminology": "provider-reported execution evidence; not provider attestation",
     "transpiled_identity": {
-      "digest": "b31b8ae6d0e290fa9afa51b6a909b7e4aa9bd8c87e5dc1d70a3234597d2decdd"
+      "digest": "295eba984da54e015ae21f0f941253ea1c62a32d15174c13fc8ef8e2d0bc63e8"
     },
     "workload_identity": {
       "workload_id": "connectivity-smoke-v1"
@@ -834,7 +834,7 @@
           "local_runtime"
         ],
         "trust": "trusted_local",
-        "value": "b31b8ae6d0e290fa9afa51b6a909b7e4aa9bd8c87e5dc1d70a3234597d2decdd"
+        "value": "295eba984da54e015ae21f0f941253ea1c62a32d15174c13fc8ef8e2d0bc63e8"
       },
       "transpiler_name": {
         "note": null,

@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 
 from athena_aegis.providers import BackendSummary, CountsResult, select_pilot_backend
+from athena_aegis.providers.base import transpiled_circuit_digest
 from athena_aegis.providers.ibm_runtime import IBMRuntimeAdapter, _normalize_coupling_edges
 
 
@@ -170,3 +171,18 @@ def test_backend_selection_rejects_insufficient_or_unavailable_candidates():
         assert "no operational physical backend" in str(exc)
     else:
         raise AssertionError("selection should fail without an eligible backend")
+
+
+def test_transpiled_digest_ignores_nondeterministic_circuit_object_identity():
+    from qiskit import QuantumCircuit
+
+    first = QuantumCircuit(1, 1, name="first-object")
+    first.h(0)
+    first.measure(0, 0)
+    second = QuantumCircuit(1, 1, name="second-object")
+    second.h(0)
+    second.measure(0, 0)
+    changed = second.copy()
+    changed.x(0)
+    assert transpiled_circuit_digest((first,)) == transpiled_circuit_digest((second,))
+    assert transpiled_circuit_digest((first,)) != transpiled_circuit_digest((changed,))

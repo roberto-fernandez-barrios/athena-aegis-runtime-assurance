@@ -19,9 +19,10 @@ the locally captured envelope from capture onward; it is not provider
 attestation.
 
 The confirmatory QPU campaign is not authorized by this repository state.
-`manuscript/PREREGISTRATION_v1.md` remains a draft until the no-cost preflight
-and pilot determine backend availability, observable metadata, cost, and a
-defensible number/cadence of temporal windows.
+The non-confirmatory QPU pilot is complete; its result and design candidates are
+in `docs/QPU_PILOT_RESULT.md`. `manuscript/PREREGISTRATION_v1.md` remains
+`DRAFT, NOT FROZEN` until the author reviews that result and explicitly approves
+the confirmatory window/cadence/job budget.
 
 ## Implemented now
 
@@ -67,6 +68,8 @@ exposed, and account usage when exposed. It submits no job.
 ## Scope limits
 
 No current artifact in this repository is physical-QPU scientific evidence.
+The connectivity smoke and four pilot jobs are physical-QPU infrastructure and
+feasibility records with `scientific_evidence=false`.
 The FMS implementation is the **AEGIS slice of the FMS demonstrator**, not the
 global consortium demonstrator. Multi-tenancy, provider-internal scheduling,
 cryptographic provider attestation, and circuit confidentiality are not

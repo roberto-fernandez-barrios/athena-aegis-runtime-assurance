@@ -4,11 +4,10 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from io import BytesIO
 from typing import Any, Mapping, Sequence
 
 from athena_aegis.context import ExecutionContext
-from athena_aegis.canonical import sha256_bytes
+from athena_aegis.canonical import sha256_digest
 
 
 @dataclass(frozen=True)
@@ -69,15 +68,25 @@ class CountsResult:
 
 
 def transpiled_circuit_digest(circuits: Sequence[Any]) -> str:
-    """Hash QPY bytes; identity only, not a semantic-equivalence proof."""
+    """Hash deterministic OpenQASM 2 plus final layout, not QPY object IDs."""
 
     try:
-        from qiskit import qpy
+        from qiskit import qasm2
     except ImportError as exc:
         raise RuntimeError("Qiskit is required to serialize circuits") from exc
-    stream = BytesIO()
-    qpy.dump(list(circuits), stream)
-    return sha256_bytes(stream.getvalue())
+    projection = []
+    for circuit in circuits:
+        layout = getattr(circuit, "layout", None)
+        final_layout = None if layout is None else layout.final_index_layout()
+        projection.append(
+            {
+                "openqasm2": qasm2.dumps(circuit),
+                "final_index_layout": final_layout,
+                "num_qubits": circuit.num_qubits,
+                "num_clbits": circuit.num_clbits,
+            }
+        )
+    return sha256_digest(projection)
 
 
 class ProviderAdapter(ABC):
