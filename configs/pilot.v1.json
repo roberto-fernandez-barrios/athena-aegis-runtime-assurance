@@ -1,0 +1,15 @@
+{
+  "schema_version": "athena-aegis.pilot-config/1.0.0",
+  "status": "designed_not_run",
+  "scientific_evidence": false,
+  "backend_selection": "least-busy operational non-simulator accessible backend meeting circuit width; one backend preferred",
+  "workload": "paper15-kernel-regression-v1",
+  "initial_samples": 3,
+  "shot_levels": [128, 512],
+  "transpiler_seeds": [19062026, 19062027],
+  "optimization_level": 1,
+  "initial_temporal_observations": 2,
+  "maximum_physical_jobs": 4,
+  "smoke_test_separate": true,
+  "stop_if": ["authentication or quota unavailable", "estimated campaign cost exceeds approved cap", "provider metadata cannot be pseudonymized", "job failure rate exceeds 0.5"]
+}

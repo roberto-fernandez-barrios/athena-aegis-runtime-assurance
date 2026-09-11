@@ -1,0 +1,109 @@
+{
+  "schema_version": "athena-aegis.interventions/1.0.0",
+  "interventions": [
+    {
+      "id": "A-benign-context-variation",
+      "class": "A",
+      "actor": "classical_orchestrator",
+      "capability": "select declared supported runtime parameters",
+      "write_set": ["shots", "transpiler_seed", "optimization_level"],
+      "read_set": ["frozen_config", "support_reference"],
+      "knowledge": "declared supported strata",
+      "objective": "estimate within-support nuisance variation",
+      "budget": "pilot-frozen levels and QPU jobs",
+      "trusted_roots": ["experiment_registry", "local_config"],
+      "expected_consequence": "support remains valid; no systematic hold"
+    },
+    {
+      "id": "B-natural-calibration-drift",
+      "class": "B",
+      "actor": "provider_environment",
+      "capability": "naturally evolve hardware calibration between windows",
+      "write_set": [],
+      "read_set": [],
+      "knowledge": "not assumed",
+      "objective": "observational exposure, not injected attack",
+      "budget": "pilot-frozen temporal cadence",
+      "trusted_roots": ["local_timestamps", "snapshot_digest"],
+      "expected_consequence": "context metrics and decision error may shift"
+    },
+    {
+      "id": "C-runtime-configuration-change",
+      "class": "C",
+      "actor": "classical_orchestrator",
+      "capability": "change a client-visible runtime/transpilation option",
+      "write_set": ["optimization_level", "layout", "runtime_options"],
+      "read_set": ["backend_target", "experiment_config"],
+      "knowledge": "frozen treatment assignment",
+      "objective": "test configuration-conditioned validity",
+      "budget": "one predeclared change per paired unit",
+      "trusted_roots": ["assignment_manifest", "semantic_circuit_digest"],
+      "expected_consequence": "supported or OOS according to frozen rule"
+    },
+    {
+      "id": "D-accidental-tuple-fault",
+      "class": "D",
+      "actor": "fault_injector",
+      "capability": "apply seeded local permutation or truncation",
+      "write_set": ["local_prediction_label_tuple"],
+      "read_set": ["item_ids"],
+      "knowledge": "no binding key",
+      "objective": "model accidental misalignment",
+      "budget": "pilot-frozen fraction; one mutation per selected tuple",
+      "trusted_roots": ["binding_key", "original_manifest"],
+      "expected_consequence": "authenticated binding rejects corruption"
+    },
+    {
+      "id": "E-malicious-local-substitution",
+      "class": "E",
+      "actor": "bounded_local_adversary",
+      "capability": "replace prediction or evaluation label without binding key",
+      "write_set": ["untrusted_evaluation_stream"],
+      "read_set": ["untrusted_evaluation_stream", "public_schema"],
+      "knowledge": "policy and public metadata; no local secret",
+      "objective": "alter downstream assurance decision",
+      "budget": "one field in one selected binding",
+      "trusted_roots": ["binding_key", "sealed_envelope"],
+      "expected_consequence": "corruption blocked or recovery invoked"
+    },
+    {
+      "id": "F-held-out-oos-context",
+      "class": "F",
+      "actor": "experiment_orchestrator",
+      "capability": "select a held-out feasible context",
+      "write_set": ["backend_selection_or_declared_stratum"],
+      "read_set": ["backend_catalog", "support_reference"],
+      "knowledge": "support-model fields and threshold",
+      "objective": "estimate OOS detection and unsafe continuation",
+      "budget": "pilot-frozen held-out levels; no provider-internal control",
+      "trusted_roots": ["predeclared_holdout_manifest"],
+      "expected_consequence": "P4/P5 abstain before calibrated decision"
+    },
+    {
+      "id": "G-provider-visible-scheduling-context",
+      "class": "G",
+      "actor": "provider_environment",
+      "capability": "report queue/session/status metadata when exposed",
+      "write_set": [],
+      "read_set": [],
+      "knowledge": "not assumed",
+      "objective": "observe association, not manipulate provider scheduling",
+      "budget": "metadata exposed by API only",
+      "trusted_roots": ["local_capture_time"],
+      "expected_consequence": "context feature available, unavailable, or varying"
+    },
+    {
+      "id": "H-policy-recovery-action",
+      "class": "H",
+      "actor": "AEGIS_enforcement_engine",
+      "capability": "hold, rerun, recalibrate, fallback, rollback, or block",
+      "write_set": ["service_control_flow", "returned_result"],
+      "read_set": ["policy_decision", "recovery_registry", "classical_oracle"],
+      "knowledge": "decision and frozen recovery policy",
+      "objective": "restore independently measured service correctness",
+      "budget": "pilot-frozen retry/QPU/time cap",
+      "trusted_roots": ["policy_config", "classical_oracle", "enforcement_log"],
+      "expected_consequence": "correct recovery or explicit unavailable service"
+    }
+  ]
+}
