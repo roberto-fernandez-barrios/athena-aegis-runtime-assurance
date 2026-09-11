@@ -1,9 +1,19 @@
 {
   "files": [
     {
+      "bytes": 86,
+      "path": ".gitattributes",
+      "sha256": "190c05a487bfa74e5f0a5dfad4f2998a42878ecb99da4dde72cb5f6639fdb4d4"
+    },
+    {
       "bytes": 827,
       "path": ".github/workflows/ci.yml",
       "sha256": "186b714545c0a8bbf841a37d56ff117666d6b49ae5fe15768440458fd3321e88"
+    },
+    {
+      "bytes": 512,
+      "path": ".gitignore",
+      "sha256": "2048561eb641129875f707604a82f99b1fade3e67b77c3839365c8b515adae71"
     },
     {
       "bytes": 664,
@@ -151,9 +161,9 @@
       "sha256": "b8fc990a9b3073dc5bbc9bf529b05ee606c22fbd6c71c633d585709a63719971"
     },
     {
-      "bytes": 1754,
+      "bytes": 1804,
       "path": "scripts/secret_scan.py",
-      "sha256": "e43a6e77187306f50e50914dd87cb5dde629296647562f74e155835d4d88db0a"
+      "sha256": "a886629b9294983992a0059bbf40ba5c4d99160291e3f93f063807c86072eddc"
     },
     {
       "bytes": 82,
@@ -171,9 +181,9 @@
       "sha256": "c86c4e9f1a5cbb8171ba01c3dd6314490ffd08f1e5c956887a2e837a368251d3"
     },
     {
-      "bytes": 1165,
+      "bytes": 1711,
       "path": "src/athena_aegis/analysis/build_manifest.py",
-      "sha256": "38dc809114fe6aaf1a9513c2b5750a6e7a97e0d94307c38899eb9d1543ae66ba"
+      "sha256": "79df05ff70a3b0d8ac18ebbae22da3aad8a7d98125e2fee4d1209264cb1c12f1"
     },
     {
       "bytes": 4781,
@@ -361,36 +371,6 @@
       "sha256": "76e03c1ed8e13ed1d03e3e2495bc51a210448731ee411859a7203e30c9a0be3c"
     },
     {
-      "bytes": 4073,
-      "path": "src/athena_aegis_runtime_assurance.egg-info/PKG-INFO",
-      "sha256": "b0f235ed239814777c9b7bd27f3fb433d489477cdfd996fdb16b2d8d6a77c3e6"
-    },
-    {
-      "bytes": 1933,
-      "path": "src/athena_aegis_runtime_assurance.egg-info/SOURCES.txt",
-      "sha256": "c6d5bbdddd1723dcfbb96e8f3fcf361817e838bfa81cdec9b1e9d0c127961400"
-    },
-    {
-      "bytes": 1,
-      "path": "src/athena_aegis_runtime_assurance.egg-info/dependency_links.txt",
-      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
-    },
-    {
-      "bytes": 171,
-      "path": "src/athena_aegis_runtime_assurance.egg-info/entry_points.txt",
-      "sha256": "a9b4812168e46f5c13467ce4b0fed364d4844c94e7ad64ac88b65351cd029833"
-    },
-    {
-      "bytes": 188,
-      "path": "src/athena_aegis_runtime_assurance.egg-info/requires.txt",
-      "sha256": "b0597193d0fd45e0abac1cc5829981dc35a0f4a810ea1f59b100f09266e7f058"
-    },
-    {
-      "bytes": 13,
-      "path": "src/athena_aegis_runtime_assurance.egg-info/top_level.txt",
-      "sha256": "a1a4bf36e8123af9f5436c0e7a3fcba1c6eb8357673124c6092b7e5eaa1fcc47"
-    },
-    {
       "bytes": 3042,
       "path": "tests/test_context_and_evidence.py",
       "sha256": "30dd5d74a3bce6be0ff7ef16ff50b6f6d5c3fabd9a80291c2ff85200bde5e621"
@@ -404,6 +384,11 @@
       "bytes": 377,
       "path": "tests/test_ibm_live_opt_in.py",
       "sha256": "a637c5f761a9e266b7f307495f86081991e2a1164f011bfad48bae961cde9343"
+    },
+    {
+      "bytes": 822,
+      "path": "tests/test_infrastructure_manifest.py",
+      "sha256": "e3377313d434eb2f976c893bda43d81811beb7b5b701954d512cd3a47505aab5"
     },
     {
       "bytes": 4669,

@@ -4,17 +4,45 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 
 
 ROOTS = ("configs", "schemas", "docs", "manuscript", "experiments", "src", "tests", "scripts", ".github")
-TOP_LEVEL = ("pyproject.toml", "requirements-lock.txt", "README.md", "LICENSE")
+TOP_LEVEL = (
+    ".gitattributes",
+    ".gitignore",
+    "pyproject.toml",
+    "requirements-lock.txt",
+    "README.md",
+    "LICENSE",
+)
+
+
+def repository_files() -> list[Path]:
+    """Return tracked and non-ignored pending files, independent of build debris."""
+
+    completed = subprocess.run(
+        ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"],
+        check=True,
+        capture_output=True,
+    )
+    candidates = [
+        Path(value.decode("utf-8"))
+        for value in completed.stdout.split(b"\0")
+        if value
+    ]
+    roots = set(ROOTS)
+    top_level = set(TOP_LEVEL)
+    return [
+        path
+        for path in candidates
+        if path.as_posix() in top_level or (path.parts and path.parts[0] in roots)
+    ]
 
 
 def main() -> None:
-    files = [Path(name) for name in TOP_LEVEL]
-    for root in ROOTS:
-        files.extend(path for path in Path(root).rglob("*") if path.is_file() and "__pycache__" not in path.parts)
+    files = repository_files()
     entries = []
     for path in sorted(set(files), key=lambda item: item.as_posix()):
         entries.append({

@@ -34,7 +34,9 @@ def candidate_files() -> list[Path]:
 def main() -> None:
     findings: list[str] = []
     for path in candidate_files():
-        if not path.is_file() or any(part in SKIP for part in path.parts):
+        if not path.is_file() or any(
+            part in SKIP or part.startswith(".venv") for part in path.parts
+        ):
             continue
         if path.suffix.lower() not in TEXT_SUFFIXES:
             continue
