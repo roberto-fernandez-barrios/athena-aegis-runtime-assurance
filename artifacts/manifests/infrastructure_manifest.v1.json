@@ -181,14 +181,14 @@
       "sha256": "c86c4e9f1a5cbb8171ba01c3dd6314490ffd08f1e5c956887a2e837a368251d3"
     },
     {
-      "bytes": 1711,
+      "bytes": 1917,
       "path": "src/athena_aegis/analysis/build_manifest.py",
-      "sha256": "79df05ff70a3b0d8ac18ebbae22da3aad8a7d98125e2fee4d1209264cb1c12f1"
+      "sha256": "205ccc2edc96fd25b7c65dcb91c55ed15605e9692dd6634cb0353effaf4c0c2c"
     },
     {
-      "bytes": 4781,
+      "bytes": 4866,
       "path": "src/athena_aegis/analysis/build_metadata_matrix.py",
-      "sha256": "57f254e52bae2a5b09f755aa07315ec36f10295c5923e5d5b58a6796fa761c60"
+      "sha256": "62f70f56b58ba05d7f994c7db6629659f59dfb9c3305540c2d0d3bc02fc21691"
     },
     {
       "bytes": 1442,

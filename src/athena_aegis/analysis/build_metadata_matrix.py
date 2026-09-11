@@ -65,13 +65,16 @@ def main() -> None:
     records = rows()
     columns = list(records[0])
     with (output_dir / "metadata_exposure_matrix.csv").open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=columns)
+        writer = csv.DictWriter(handle, fieldnames=columns, lineterminator="\n")
         writer.writeheader()
         writer.writerows(records)
     lines = ["# Metadata exposure matrix v1", "", "Generated; do not edit by hand.", "", "| " + " | ".join(columns) + " |", "|" + "|".join(["---"] * len(columns)) + "|"]
     for record in records:
         lines.append("| " + " | ".join(record[column].replace("|", "/") for column in columns) + " |")
-    (output_dir / "metadata_exposure_matrix.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    with (output_dir / "metadata_exposure_matrix.md").open(
+        "w", encoding="utf-8", newline="\n"
+    ) as stream:
+        stream.write("\n".join(lines) + "\n")
 
 
 if __name__ == "__main__":

@@ -52,7 +52,18 @@ def main() -> None:
         })
     output = Path("artifacts/manifests/infrastructure_manifest.v1.json")
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps({"schema_version": "athena-aegis.infrastructure-manifest/1.0.0", "files": entries}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    with output.open("w", encoding="utf-8", newline="\n") as stream:
+        stream.write(
+            json.dumps(
+                {
+                    "schema_version": "athena-aegis.infrastructure-manifest/1.0.0",
+                    "files": entries,
+                },
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n"
+        )
 
 
 if __name__ == "__main__":
