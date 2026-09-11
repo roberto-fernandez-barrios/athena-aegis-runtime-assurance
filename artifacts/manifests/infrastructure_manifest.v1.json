@@ -36,9 +36,9 @@
       "sha256": "83e7ac2974ac16a81130e1498b857d97661d80ec00d63e64f398643fee53ee28"
     },
     {
-      "bytes": 4406,
+      "bytes": 4605,
       "path": "docs/CURRENT_STATE_AUDIT.md",
-      "sha256": "ac442f839979c4ea17c347e7f34a16bcce1dc1dc64731b573d217444c626fb80"
+      "sha256": "95387ace4dcfa5b8f65512ebc24d9d2133a5cbaa1b0d87cb4f1e89eb4bf0ecb3"
     },
     {
       "bytes": 2273,
@@ -71,6 +71,11 @@
       "sha256": "d7fe42913c0c0af86eb12896d2798827d4eab7b3807e3db975c7e64fe64deaae"
     },
     {
+      "bytes": 1500,
+      "path": "docs/QPU_SMOKE_RESULT.md",
+      "sha256": "c0558660b35434e3574bc2d1766a4cf98d6fc8a4da9634b9084172f23324fce2"
+    },
+    {
       "bytes": 1777,
       "path": "docs/ROADMAP_v1.md",
       "sha256": "3a4bc0a04b80a6f3f4c37cf0f3a95abbc9aff49c8bdecc9141c733413ef51356"
@@ -86,9 +91,9 @@
       "sha256": "ada05973383a23c26cb32fde67c0c6302159cfa578c558cebcf426fe9adcbfa8"
     },
     {
-      "bytes": 1676,
+      "bytes": 1667,
       "path": "experiments/registry.v1.json",
-      "sha256": "3bdfaaac951406783ff265ef14c3c62fb6d3405dfb8f822d088cc40d4cf93d29"
+      "sha256": "16199b4a2db4dc48890b2ef4fed28412c242598428554a062fa69930410a2b89"
     },
     {
       "bytes": 9169,

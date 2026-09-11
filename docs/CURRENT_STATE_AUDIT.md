@@ -60,8 +60,9 @@ Security result (values were never printed, copied, logged, or committed):
 
 The replacement value is persisted only in a Git-ignored local environment;
 its value is never emitted. Instance selection and local pseudonym/signing keys
-are also ignored. The tracked-file scan found no embedded IBM credential. No
-QPU job has yet been submitted.
+are also ignored. The tracked-file scan found no embedded IBM credential. One
+separately labelled connectivity smoke job has completed; it is not scientific
+evidence and is excluded from confirmation.
 
 The active repository environment contains Python 3.11, Qiskit 2.5.2 and
 qiskit-ibm-runtime 0.49.0. The IBM adapter targets the locally inspected API
@@ -70,7 +71,8 @@ authentication now exposes two entitlements and one eligible physical backend.
 Status, target/configuration digest, properties, calibration, queue and safe
 numeric usage limits are captured in the sanitized preflight artifact. The real
 Qiskit 2.5.2 `EdgeList` response revealed and motivated one canonicalization
-fix. No QPU job has yet been submitted.
+fix. The connectivity smoke passed submit/result/context/envelope validation;
+the non-confirmatory pilot is the only live execution now permitted.
 
 ## Evidence gap at repository creation
 

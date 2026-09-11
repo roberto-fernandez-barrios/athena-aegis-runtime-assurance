@@ -1,0 +1,1239 @@
+{
+  "backend": "ibm_basquecountry",
+  "backend_selection": {
+    "candidates": [
+      {
+        "backend_id": "ibm_basquecountry",
+        "num_qubits": 156,
+        "operational": true,
+        "pending_jobs": 0,
+        "provider": "IBM Quantum",
+        "simulator": false,
+        "status_message": "active"
+      }
+    ],
+    "rule": "operational non-simulator with sufficient qubits; minimize provider-reported pending jobs; break ties by backend name",
+    "selected": "ibm_basquecountry"
+  },
+  "context_captured": true,
+  "counts": {
+    "0": 16,
+    "1": 16
+  },
+  "envelope": {
+    "authenticated_bindings_digest": null,
+    "circuit_semantic_identity": {
+      "digest": "591864ba64085da03ba51c009fd64fac5568cef00a1ed2483954144f7d24d8c4"
+    },
+    "created_at": "2026-09-11T12:03:57.069679Z",
+    "decision": {
+      "action": "ALLOW",
+      "decided_at": "2026-09-11T12:03:57.069679Z",
+      "policy_id": "P4-context-oos-abstention",
+      "reasons": [
+        "global context-agnostic threshold"
+      ],
+      "state": "ACCEPT"
+    },
+    "enforcement": {
+      "completed_at": "2026-09-11T12:03:57.069679Z",
+      "detail_digest": "6adb1e913e430171524d44c3a4f1774bb497ade4f63cee7ee1e1f5aac095bc71",
+      "executed_action": "ALLOW",
+      "outcome": "candidate served",
+      "requested_action": "ALLOW",
+      "started_at": "2026-09-11T12:03:57.069679Z"
+    },
+    "envelope_digest": "4378ddc8e3330add48c825f7335f223ac8793b8ec4e1df49d89c871a73d6f800",
+    "envelope_id": "2105fddd-e9af-46bf-b78b-dc1e3c23d5c0",
+    "execution_context": {
+      "captured_at": "2026-09-11T12:03:57.064961Z",
+      "fields": {
+        "backend_calibration_timestamp": {
+          "note": null,
+          "origin": "provider_reported",
+          "sources": [
+            "provider_api"
+          ],
+          "trust": "untrusted",
+          "value": "2026-09-11T13:14:37+02:00"
+        },
+        "backend_family": {
+          "note": null,
+          "origin": "provider_reported",
+          "sources": [
+            "provider_api"
+          ],
+          "trust": "untrusted",
+          "value": "ibm_basquecountry"
+        },
+        "backend_id": {
+          "note": null,
+          "origin": "provider_reported",
+          "sources": [
+            "provider_api"
+          ],
+          "trust": "untrusted",
+          "value": "ibm_basquecountry"
+        },
+        "backend_version": {
+          "note": null,
+          "origin": "provider_reported",
+          "sources": [
+            "provider_api"
+          ],
+          "trust": "untrusted",
+          "value": "1.0.11"
+        },
+        "calibration_window_id": {
+          "note": null,
+          "origin": "locally_observed",
+          "sources": [
+            "local_runtime"
+          ],
+          "trust": "trusted_local",
+          "value": "pilot-smoke-2026-09-11"
+        },
+        "circuit_semantic_hash": {
+          "note": null,
+          "origin": "locally_observed",
+          "sources": [
+            "local_runtime"
+          ],
+          "trust": "trusted_local",
+          "value": "591864ba64085da03ba51c009fd64fac5568cef00a1ed2483954144f7d24d8c4"
+        },
+        "coupling_target_digest": {
+          "note": null,
+          "origin": "derived",
+          "sources": [
+            "provider_api",
+            "local_derivation"
+          ],
+          "trust": "untrusted",
+          "value": "53f3f3923c6fc4c53bb22d46f17d739cf7aa47270bc6f6e5779b7bee286f6ab6"
+        },
+        "dataset_workload_digest": {
+          "note": "not exposed by the selected IBM Runtime API or not captured",
+          "origin": "unavailable",
+          "sources": [],
+          "trust": "unavailable",
+          "value": null
+        },
+        "dynamical_decoupling_options": {
+          "note": "not exposed by the selected IBM Runtime API or not captured",
+          "origin": "unavailable",
+          "sources": [],
+          "trust": "unavailable",
+          "value": null
+        },
+        "gate_error_summary": {
+          "note": null,
+          "origin": "provider_reported",
+          "sources": [
+            "provider_api"
+          ],
+          "trust": "untrusted",
+          "value": {
+            "count": 1796,
+            "max": 1.0,
+            "mean": 0.01650194968803007,
+            "median": 0.0012102864236043925,
+            "min": 0.0
+          }
+        },
+        "job_id": {
+          "note": null,
+          "origin": "locally_observed",
+          "sources": [
+            "local_runtime"
+          ],
+          "trust": "trusted_local",
+          "value": "hmac-sha256:405cb3d8f74bf60d216eefcf61e5f2ca52f23818414c2f9d21c8ad02c8f889bb"
+        },
+        "kernel_definition": {
+          "note": "not exposed by the selected IBM Runtime API or not captured",
+          "origin": "unavailable",
+          "sources": [],
+          "trust": "unavailable",
+          "value": null
+        },
+        "layout": {
+          "note": null,
+          "origin": "locally_observed",
+          "sources": [
+            "local_runtime"
+          ],
+          "trust": "trusted_local",
+          "value": [
+            [
+              0
+            ]
+          ]
+        },
+        "measurement_mitigation_options": {
+          "note": "not exposed by the selected IBM Runtime API or not captured",
+          "origin": "unavailable",
+          "sources": [],
+          "trust": "unavailable",
+          "value": null
+        },
+        "model_reference_version": {
+          "note": "not exposed by the selected IBM Runtime API or not captured",
+          "origin": "unavailable",
+          "sources": [],
+          "trust": "unavailable",
+          "value": null
+        },
+        "observable_definition": {
+          "note": null,
+          "origin": "locally_observed",
+          "sources": [
+            "local_runtime"
+          ],
+          "trust": "trusted_local",
+          "value": "single classical-bit counts"
+        },
+        "optimization_level": {
+          "note": null,
+          "origin": "locally_observed",
+          "sources": [
+            "local_runtime"
+          ],
+          "trust": "trusted_local",
+          "value": 0
+        },
+        "provider": {
+          "note": null,
+          "origin": "provider_reported",
+          "sources": [
+            "provider_api"
+          ],
+          "trust": "untrusted",
+          "value": "IBM Quantum"
+        },
+        "qubit_subset": {
+          "note": null,
+          "origin": "locally_observed",
+          "sources": [
+            "local_runtime"
+          ],
+          "trust": "trusted_local",
+          "value": [
+            0
+          ]
+        },
+        "queue_metadata": {
+          "note": null,
+          "origin": "provider_reported",
+          "sources": [
+            "provider_api"
+          ],
+          "trust": "untrusted",
+          "value": {
+            "operational": true,
+            "pending_jobs": 1,
+            "status_message": "active"
+          }
+        },
+        "readout_error_summary": {
+          "note": null,
+          "origin": "provider_reported",
+          "sources": [
+            "provider_api"
+          ],
+          "trust": "untrusted",
+          "value": {
+            "count": 156,
+            "max": 0.4884033203125,
+            "mean": 0.01532295422676282,
+            "median": 0.0048828125,
+            "min": 0.00146484375
+          }
+        },
+        "resilience_options": {
+          "note": "not exposed by the selected IBM Runtime API or not captured",
+          "origin": "unavailable",
+          "sources": [],
+          "trust": "unavailable",
+          "value": null
+        },
+        "runtime_configuration": {
+          "note": null,
+          "origin": "locally_observed",
+          "sources": [
+            "local_runtime"
+          ],
+          "trust": "trusted_local",
+          "value": {}
+        },
+        "runtime_primitive": {
+          "note": null,
+          "origin": "locally_observed",
+          "sources": [
+            "local_runtime"
+          ],
+          "trust": "trusted_local",
+          "value": "SamplerV2"
+        },
+        "runtime_primitive_version": {
+          "note": null,
+          "origin": "locally_observed",
+          "sources": [
+            "local_runtime"
+          ],
+          "trust": "trusted_local",
+          "value": "0.49.0"
+        },
+        "scheduling_metadata": {
+          "note": null,
+          "origin": "provider_reported",
+          "sources": [
+            "provider_api"
+          ],
+          "trust": "untrusted",
+          "value": {
+            "timestamps": {
+              "created": "2026-09-11T12:03:42.864943Z",
+              "finished": "2026-09-11T12:03:55.907111Z",
+              "running": "2026-09-11T12:03:45.895405Z"
+            },
+            "usage": {
+              "qpu_charge_time_seconds": 2,
+              "status": "complete"
+            },
+            "usage_estimation": {
+              "quantum_seconds": 2.464659917
+            }
+          }
+        },
+        "session_id": {
+          "note": "not exposed by the selected IBM Runtime API or not captured",
+          "origin": "unavailable",
+          "sources": [],
+          "trust": "unavailable",
+          "value": null
+        },
+        "shots": {
+          "note": null,
+          "origin": "locally_observed",
+          "sources": [
+            "local_runtime"
+          ],
+          "trust": "trusted_local",
+          "value": 32
+        },
+        "software_environment_digest": {
+          "note": null,
+          "origin": "locally_observed",
+          "sources": [
+            "local_runtime"
+          ],
+          "trust": "trusted_local",
+          "value": "8b1fc4de604c2ffe568ebaf7ea2672ed70c1db2a750ad8ce6bfe5eddbf4f24a8"
+        },
+        "t1_summary": {
+          "note": null,
+          "origin": "provider_reported",
+          "sources": [
+            "provider_api"
+          ],
+          "trust": "untrusted",
+          "value": {
+            "count": 156,
+            "max": 0.00040545908871684544,
+            "mean": 0.00022349412096279645,
+            "median": 0.0002263475912194097,
+            "min": 1.596091401400856e-05
+          }
+        },
+        "t2_summary": {
+          "note": null,
+          "origin": "provider_reported",
+          "sources": [
+            "provider_api"
+          ],
+          "trust": "untrusted",
+          "value": {
+            "count": 156,
+            "max": 0.0004827524756962326,
+            "mean": 0.00018065032007987726,
+            "median": 0.00015694748023710437,
+            "min": 1.65048387300318e-05
+          }
+        },
+        "timestamp": {
+          "note": null,
+          "origin": "locally_observed",
+          "sources": [
+            "local_clock"
+          ],
+          "trust": "trusted_local",
+          "value": "2026-09-11T12:03:57.064961Z"
+        },
+        "transpiled_circuit_hash": {
+          "note": null,
+          "origin": "locally_observed",
+          "sources": [
+            "local_runtime"
+          ],
+          "trust": "trusted_local",
+          "value": "b31b8ae6d0e290fa9afa51b6a909b7e4aa9bd8c87e5dc1d70a3234597d2decdd"
+        },
+        "transpiler_name": {
+          "note": null,
+          "origin": "locally_observed",
+          "sources": [
+            "local_runtime"
+          ],
+          "trust": "trusted_local",
+          "value": "qiskit.transpile"
+        },
+        "transpiler_seed": {
+          "note": null,
+          "origin": "locally_observed",
+          "sources": [
+            "local_runtime"
+          ],
+          "trust": "trusted_local",
+          "value": 19062026
+        },
+        "transpiler_version": {
+          "note": null,
+          "origin": "locally_observed",
+          "sources": [
+            "local_runtime"
+          ],
+          "trust": "trusted_local",
+          "value": "2.5.2"
+        },
+        "workload_id": {
+          "note": null,
+          "origin": "locally_observed",
+          "sources": [
+            "local_runtime"
+          ],
+          "trust": "trusted_local",
+          "value": "connectivity-smoke-v1"
+        }
+      },
+      "schema_version": "athena-aegis.execution-context/1.0.0"
+    },
+    "input_identity": {
+      "input": "fixed-one-qubit-smoke"
+    },
+    "local_signature": {
+      "algorithm": "HMAC-SHA256",
+      "key_id": "local-hmac-v1",
+      "limitations": "authenticates the local envelope from capture onward; does not attest provider origin or correctness",
+      "signature": "bdf7f387683271a3c602ae4eb09f16437346ed7d1c652bb7ab71a2918180432c",
+      "signer_scope": "local_capture_boundary"
+    },
+    "postprocessed_result_digest": "75637153a3efc45a230eedf8efb4bfc02c923b252dc7225394c43ef75abe93c0",
+    "provenance_chain": [],
+    "provider_reported_evidence": {
+      "backend_calibration_timestamp": "2026-09-11T13:14:37+02:00",
+      "gate_error_summary": {
+        "count": 1796,
+        "max": 1.0,
+        "mean": 0.01650194968803007,
+        "median": 0.0012102864236043925,
+        "min": 0.0
+      },
+      "queue_metadata": {
+        "operational": true,
+        "pending_jobs": 1,
+        "status_message": "active"
+      },
+      "readout_error_summary": {
+        "count": 156,
+        "max": 0.4884033203125,
+        "mean": 0.01532295422676282,
+        "median": 0.0048828125,
+        "min": 0.00146484375
+      },
+      "scheduling_metadata": {
+        "timestamps": {
+          "created": "2026-09-11T12:03:42.864943Z",
+          "finished": "2026-09-11T12:03:55.907111Z",
+          "running": "2026-09-11T12:03:45.895405Z"
+        },
+        "usage": {
+          "qpu_charge_time_seconds": 2,
+          "status": "complete"
+        },
+        "usage_estimation": {
+          "quantum_seconds": 2.464659917
+        }
+      },
+      "t1_summary": {
+        "count": 156,
+        "max": 0.00040545908871684544,
+        "mean": 0.00022349412096279645,
+        "median": 0.0002263475912194097,
+        "min": 1.596091401400856e-05
+      },
+      "t2_summary": {
+        "count": 156,
+        "max": 0.0004827524756962326,
+        "mean": 0.00018065032007987726,
+        "median": 0.00015694748023710437,
+        "min": 1.65048387300318e-05
+      }
+    },
+    "raw_result_digest": "4b259206e9cf601ec042b575ef76be5e1b427d53d40542238335d93fefc2aeaf",
+    "recovery": {
+      "attempted": false,
+      "completed_at": null,
+      "outcome": "not required",
+      "parent_envelope_digest": null,
+      "result_digest": null,
+      "started_at": null,
+      "strategy_id": "none",
+      "success": null
+    },
+    "schema_version": "athena-aegis.evidence-envelope/1.0.0",
+    "terminology": "provider-reported execution evidence; not provider attestation",
+    "transpiled_identity": {
+      "digest": "b31b8ae6d0e290fa9afa51b6a909b7e4aa9bd8c87e5dc1d70a3234597d2decdd"
+    },
+    "workload_identity": {
+      "workload_id": "connectivity-smoke-v1"
+    }
+  },
+  "envelope_captured": true,
+  "evidence_label": "NOT_SCIENTIFIC_EVIDENCE",
+  "execution_context": {
+    "captured_at": "2026-09-11T12:03:57.064961Z",
+    "fields": {
+      "backend_calibration_timestamp": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": "2026-09-11T13:14:37+02:00"
+      },
+      "backend_family": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": "ibm_basquecountry"
+      },
+      "backend_id": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": "ibm_basquecountry"
+      },
+      "backend_version": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": "1.0.11"
+      },
+      "calibration_window_id": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_runtime"
+        ],
+        "trust": "trusted_local",
+        "value": "pilot-smoke-2026-09-11"
+      },
+      "circuit_semantic_hash": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_runtime"
+        ],
+        "trust": "trusted_local",
+        "value": "591864ba64085da03ba51c009fd64fac5568cef00a1ed2483954144f7d24d8c4"
+      },
+      "coupling_target_digest": {
+        "note": null,
+        "origin": "derived",
+        "sources": [
+          "provider_api",
+          "local_derivation"
+        ],
+        "trust": "untrusted",
+        "value": "53f3f3923c6fc4c53bb22d46f17d739cf7aa47270bc6f6e5779b7bee286f6ab6"
+      },
+      "dataset_workload_digest": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "dynamical_decoupling_options": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "gate_error_summary": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": {
+          "count": 1796,
+          "max": 1.0,
+          "mean": 0.01650194968803007,
+          "median": 0.0012102864236043925,
+          "min": 0.0
+        }
+      },
+      "job_id": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_runtime"
+        ],
+        "trust": "trusted_local",
+        "value": "hmac-sha256:405cb3d8f74bf60d216eefcf61e5f2ca52f23818414c2f9d21c8ad02c8f889bb"
+      },
+      "kernel_definition": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "layout": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_runtime"
+        ],
+        "trust": "trusted_local",
+        "value": [
+          [
+            0
+          ]
+        ]
+      },
+      "measurement_mitigation_options": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "model_reference_version": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "observable_definition": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_runtime"
+        ],
+        "trust": "trusted_local",
+        "value": "single classical-bit counts"
+      },
+      "optimization_level": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_runtime"
+        ],
+        "trust": "trusted_local",
+        "value": 0
+      },
+      "provider": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": "IBM Quantum"
+      },
+      "qubit_subset": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_runtime"
+        ],
+        "trust": "trusted_local",
+        "value": [
+          0
+        ]
+      },
+      "queue_metadata": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": {
+          "operational": true,
+          "pending_jobs": 1,
+          "status_message": "active"
+        }
+      },
+      "readout_error_summary": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": {
+          "count": 156,
+          "max": 0.4884033203125,
+          "mean": 0.01532295422676282,
+          "median": 0.0048828125,
+          "min": 0.00146484375
+        }
+      },
+      "resilience_options": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "runtime_configuration": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_runtime"
+        ],
+        "trust": "trusted_local",
+        "value": {}
+      },
+      "runtime_primitive": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_runtime"
+        ],
+        "trust": "trusted_local",
+        "value": "SamplerV2"
+      },
+      "runtime_primitive_version": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_runtime"
+        ],
+        "trust": "trusted_local",
+        "value": "0.49.0"
+      },
+      "scheduling_metadata": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": {
+          "timestamps": {
+            "created": "2026-09-11T12:03:42.864943Z",
+            "finished": "2026-09-11T12:03:55.907111Z",
+            "running": "2026-09-11T12:03:45.895405Z"
+          },
+          "usage": {
+            "qpu_charge_time_seconds": 2,
+            "status": "complete"
+          },
+          "usage_estimation": {
+            "quantum_seconds": 2.464659917
+          }
+        }
+      },
+      "session_id": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "shots": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_runtime"
+        ],
+        "trust": "trusted_local",
+        "value": 32
+      },
+      "software_environment_digest": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_runtime"
+        ],
+        "trust": "trusted_local",
+        "value": "8b1fc4de604c2ffe568ebaf7ea2672ed70c1db2a750ad8ce6bfe5eddbf4f24a8"
+      },
+      "t1_summary": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": {
+          "count": 156,
+          "max": 0.00040545908871684544,
+          "mean": 0.00022349412096279645,
+          "median": 0.0002263475912194097,
+          "min": 1.596091401400856e-05
+        }
+      },
+      "t2_summary": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": {
+          "count": 156,
+          "max": 0.0004827524756962326,
+          "mean": 0.00018065032007987726,
+          "median": 0.00015694748023710437,
+          "min": 1.65048387300318e-05
+        }
+      },
+      "timestamp": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_clock"
+        ],
+        "trust": "trusted_local",
+        "value": "2026-09-11T12:03:57.064961Z"
+      },
+      "transpiled_circuit_hash": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_runtime"
+        ],
+        "trust": "trusted_local",
+        "value": "b31b8ae6d0e290fa9afa51b6a909b7e4aa9bd8c87e5dc1d70a3234597d2decdd"
+      },
+      "transpiler_name": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_runtime"
+        ],
+        "trust": "trusted_local",
+        "value": "qiskit.transpile"
+      },
+      "transpiler_seed": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_runtime"
+        ],
+        "trust": "trusted_local",
+        "value": 19062026
+      },
+      "transpiler_version": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_runtime"
+        ],
+        "trust": "trusted_local",
+        "value": "2.5.2"
+      },
+      "workload_id": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_runtime"
+        ],
+        "trust": "trusted_local",
+        "value": "connectivity-smoke-v1"
+      }
+    },
+    "schema_version": "athena-aegis.execution-context/1.0.0"
+  },
+  "experiment_type": "CONNECTIVITY_SMOKE_TEST",
+  "job_id_pseudonym": "hmac-sha256:405cb3d8f74bf60d216eefcf61e5f2ca52f23818414c2f9d21c8ad02c8f889bb",
+  "job_success": true,
+  "metadata_missingness": {
+    "field_count": 37,
+    "missing_count": 7,
+    "missing_fields": [
+      "dataset_workload_digest",
+      "dynamical_decoupling_options",
+      "kernel_definition",
+      "measurement_mitigation_options",
+      "model_reference_version",
+      "resilience_options",
+      "session_id"
+    ],
+    "missing_fraction": 0.1891891891891892
+  },
+  "phase": "pilot",
+  "pre_execution_context": {
+    "captured_at": "2026-09-11T12:03:41.776152Z",
+    "fields": {
+      "backend_calibration_timestamp": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": "2026-09-11T13:14:37+02:00"
+      },
+      "backend_family": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": "ibm_basquecountry"
+      },
+      "backend_id": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": "ibm_basquecountry"
+      },
+      "backend_version": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": "1.0.11"
+      },
+      "calibration_window_id": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "circuit_semantic_hash": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "coupling_target_digest": {
+        "note": null,
+        "origin": "derived",
+        "sources": [
+          "provider_api",
+          "local_derivation"
+        ],
+        "trust": "untrusted",
+        "value": "53f3f3923c6fc4c53bb22d46f17d739cf7aa47270bc6f6e5779b7bee286f6ab6"
+      },
+      "dataset_workload_digest": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "dynamical_decoupling_options": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "gate_error_summary": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": {
+          "count": 1796,
+          "max": 1.0,
+          "mean": 0.01650194968803007,
+          "median": 0.0012102864236043925,
+          "min": 0.0
+        }
+      },
+      "job_id": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "kernel_definition": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "layout": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "measurement_mitigation_options": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "model_reference_version": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "observable_definition": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "optimization_level": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "provider": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": "IBM Quantum"
+      },
+      "qubit_subset": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "queue_metadata": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": {
+          "operational": true,
+          "pending_jobs": 0,
+          "status_message": "active"
+        }
+      },
+      "readout_error_summary": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": {
+          "count": 156,
+          "max": 0.4884033203125,
+          "mean": 0.01532295422676282,
+          "median": 0.0048828125,
+          "min": 0.00146484375
+        }
+      },
+      "resilience_options": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "runtime_configuration": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "runtime_primitive": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "runtime_primitive_version": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "scheduling_metadata": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "session_id": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "shots": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "software_environment_digest": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "t1_summary": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": {
+          "count": 156,
+          "max": 0.00040545908871684544,
+          "mean": 0.00022349412096279645,
+          "median": 0.0002263475912194097,
+          "min": 1.596091401400856e-05
+        }
+      },
+      "t2_summary": {
+        "note": null,
+        "origin": "provider_reported",
+        "sources": [
+          "provider_api"
+        ],
+        "trust": "untrusted",
+        "value": {
+          "count": 156,
+          "max": 0.0004827524756962326,
+          "mean": 0.00018065032007987726,
+          "median": 0.00015694748023710437,
+          "min": 1.65048387300318e-05
+        }
+      },
+      "timestamp": {
+        "note": null,
+        "origin": "locally_observed",
+        "sources": [
+          "local_clock"
+        ],
+        "trust": "trusted_local",
+        "value": "2026-09-11T12:03:41.776152Z"
+      },
+      "transpiled_circuit_hash": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "transpiler_name": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "transpiler_seed": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "transpiler_version": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      },
+      "workload_id": {
+        "note": "not exposed by the selected IBM Runtime API or not captured",
+        "origin": "unavailable",
+        "sources": [],
+        "trust": "unavailable",
+        "value": null
+      }
+    },
+    "schema_version": "athena-aegis.execution-context/1.0.0"
+  },
+  "result_normalized": true,
+  "schema_version": "athena-aegis.qpu-smoke/1.0.0",
+  "scientific_evidence": false,
+  "secret_sanitization": "pass",
+  "shots": 32,
+  "status": "DONE",
+  "submitted": true,
+  "timing": {
+    "accepted_at": "2026-09-11T12:03:42.719058Z",
+    "result_received_at": "2026-09-11T12:03:56.267014Z",
+    "submit_started_at": "2026-09-11T12:03:41.922055Z",
+    "wall_clock_seconds": 14.344000000040978
+  },
+  "usage_after": {
+    "usage_allocation_seconds": 6000,
+    "usage_consumed_seconds": 2,
+    "usage_limit_reached": false,
+    "usage_remaining_seconds": 5998
+  },
+  "usage_before": {
+    "usage_allocation_seconds": 6000,
+    "usage_consumed_seconds": 0,
+    "usage_limit_reached": false,
+    "usage_remaining_seconds": 6000
+  }
+}

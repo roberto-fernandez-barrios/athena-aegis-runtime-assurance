@@ -1,6 +1,11 @@
 {
   "files": [
     {
+      "bytes": 36698,
+      "path": "artifacts/pilot/connectivity_smoke.json",
+      "sha256": "34d15deb8bd016c54407f8fb88072a4f09ea44c862d93d6b389c6db101c2f9c5"
+    },
+    {
       "bytes": 393,
       "path": "artifacts/pilot/README.md",
       "sha256": "5a0aa8551b2148341ed47a8ff430a4eadb8a1c92b6644ce9a1c803e47ad937c4"
