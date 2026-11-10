@@ -1,0 +1,101 @@
+"""P5 recovery semantics for Campaign B (author decision 2 and 15).
+
+Decision order after a transition: binding/integrity failure -> BLOCK; no
+bound held physical result -> BLOCK (fallback not admissible); reference
+incomplete -> BLOCK (recalibration not performed; fallback not admissible);
+calibrated acceptance under the complete new reference -> ALLOW the held
+result (zero QPU); calibrated rejection -> FALLBACK (admissible only here).
+RERUN is never available after HOLD.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any
+
+from athena_aegis.calibration import CalibrationState, EmpiricalQuantileCalibration
+from athena_aegis.campaign_b.constants import SERVED_SOURCE_FALLBACK, SERVED_SOURCE_HELD
+from athena_aegis.oos import SupportDecision
+from athena_aegis.policies import Action, AssuranceInput, P2GlobalCalibrated, P4OOSAbstention, P5RecoveryEnforcement, PolicyDecision
+
+
+@dataclass(frozen=True)
+class StageCDecision:
+    decision: PolicyDecision
+    executed: Action
+    served: bool
+    served_source: str | None
+    fallback_admissible: bool
+    reasons: tuple[str, ...]
+    calibrated_accept: bool | None
+    p_value: float | None
+    recovery_execution_kind: str | None
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "policy_state": self.decision.state,
+            "action_requested": self.decision.action.value,
+            "action_executed": self.executed.value,
+            "served": self.served,
+            "served_source": self.served_source,
+            "fallback_admissible": self.fallback_admissible,
+            "reasons": list(self.reasons),
+            "calibrated_accept": self.calibrated_accept,
+            "p_value": self.p_value,
+            "recovery_execution_kind": self.recovery_execution_kind,
+        }
+
+
+def accept_with(model: EmpiricalQuantileCalibration | None, score: float | None) -> tuple[bool | None, CalibrationState, float | None]:
+    if model is None or score is None:
+        return None, CalibrationState.CALIBRATION_INVALID, None
+    return bool(model.accepts(score)), CalibrationState.VALID, float(model.p_value(score))
+
+
+def stage_a_p2(stale_model: EmpiricalQuantileCalibration | None, score: float | None) -> tuple[PolicyDecision, bool | None, float | None]:
+    accept, state, p_value = accept_with(stale_model, score)
+    decision = P2GlobalCalibrated().decide(AssuranceInput(accept, state, None))
+    return decision, accept, p_value
+
+
+def stage_a_p4(stale_model: EmpiricalQuantileCalibration | None, score: float | None, support: SupportDecision | None) -> PolicyDecision:
+    accept, state, _ = accept_with(stale_model, score)
+    return P4OOSAbstention().decide(AssuranceInput(accept, state, support))
+
+
+def stage_a_p5(stale_model: EmpiricalQuantileCalibration | None, score: float | None, support: SupportDecision | None, *, binding_valid: bool) -> PolicyDecision:
+    accept, state, _ = accept_with(stale_model, score)
+    return P5RecoveryEnforcement().decide(AssuranceInput(accept, state, support, binding_valid=binding_valid))
+
+
+def stage_c_p5(
+    *,
+    held_bound_result: bool,
+    reference_complete: bool,
+    new_model: EmpiricalQuantileCalibration | None,
+    score: float | None,
+    support: SupportDecision | None,
+    binding_valid: bool,
+) -> StageCDecision:
+    """Zero-QPU re-evaluation of a held probe under the new complete reference."""
+
+    policy_id = P5RecoveryEnforcement.policy_id
+    if not held_bound_result:
+        decision = PolicyDecision(policy_id, "NO_BOUND_HELD_RESULT", Action.BLOCK, ("no context-bound physical held result exists", "classical fallback not admissible without a bound held result"))
+        return StageCDecision(decision, Action.BLOCK, False, None, False, decision.reasons, None, None, None)
+    if not binding_valid:
+        decision = PolicyDecision(policy_id, "INTEGRITY_FAILURE", Action.BLOCK, ("authenticated evaluation binding failed",))
+        return StageCDecision(decision, Action.BLOCK, False, None, False, decision.reasons, None, None, None)
+    if not reference_complete or new_model is None:
+        decision = PolicyDecision(policy_id, "RECALIBRATION_INCOMPLETE", Action.BLOCK, ("39-unit context-bound recalibration not completed", "classical fallback not admissible before recalibration and re-evaluation"))
+        return StageCDecision(decision, Action.BLOCK, False, None, False, decision.reasons, None, None, None)
+    accept, state, p_value = accept_with(new_model, score)
+    base = P5RecoveryEnforcement().decide(AssuranceInput(accept, state, support, binding_valid=True, rerun_available=False, fallback_available=True))
+    if base.action is Action.ALLOW:
+        return StageCDecision(base, Action.ALLOW, True, SERVED_SOURCE_HELD, True, base.reasons + ("held result re-evaluated under the new 39-unit reference and served",), accept, p_value, "held_result_reevaluation")
+    if base.action is Action.FALLBACK and base.state == "REJECT":
+        reasons = base.reasons + ("retained-result serving not admissible under the frozen calibrated rule; frozen classical fallback served",)
+        return StageCDecision(base, Action.FALLBACK, True, SERVED_SOURCE_FALLBACK, True, reasons, accept, p_value, "classical_fallback")
+    # Any other path (unsupported stratum after a complete reference, recalibrate loop) is a terminal block.
+    decision = PolicyDecision(policy_id, base.state, Action.BLOCK, base.reasons + ("no admissible safe serving path",))
+    return StageCDecision(decision, Action.BLOCK, False, None, False, decision.reasons, accept, p_value, None)

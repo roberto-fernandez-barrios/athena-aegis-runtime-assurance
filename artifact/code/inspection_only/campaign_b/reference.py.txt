@@ -1,0 +1,86 @@
+"""P2 stale-reference selection (author decision 10).
+
+The stale reference for a new transition is the most recent prior accepted
+context whose 39-unit calibration reference is complete, context-bound and
+integrity-verified.  Usability of that window as a primary window is
+irrelevant.  An incomplete or unbound reference is never used; with no valid
+prior reference P2 is ``CALIBRATION_INVALID``.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from datetime import datetime
+from typing import Any, Mapping, Sequence
+
+
+def _instant(value: str) -> datetime:
+    return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+
+
+@dataclass(frozen=True)
+class StaleReferenceSelection:
+    available: bool
+    reason: str
+    reference_label: str | None
+    reference_candidate_id: str | None
+    reference_window_id: str | None
+    reference_context_digest: str | None
+    number_of_context_transitions_since_reference: int | None
+    reference_age_seconds: float | None
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "stale_reference_available": self.available,
+            "stale_reference_selection_reason": self.reason,
+            "reference_label": self.reference_label,
+            "reference_candidate_id": self.reference_candidate_id,
+            "reference_window_id": self.reference_window_id,
+            "reference_context_digest": self.reference_context_digest,
+            "number_of_context_transitions_since_reference": self.number_of_context_transitions_since_reference,
+            "reference_age_seconds": self.reference_age_seconds,
+        }
+
+
+def reference_eligible(window_entry: Mapping[str, Any]) -> bool:
+    """Eligibility of an accepted window's calibration reference for later P2 use."""
+
+    return (
+        str(window_entry.get("status", "")).startswith("accepted")
+        and window_entry.get("calibration_reference_complete") is True
+        and int(window_entry.get("calibration_units_bound", 0)) == 39
+        and window_entry.get("calibration_reference_integrity_verified") is True
+    )
+
+
+def select_stale_reference(accepted_windows: Sequence[Mapping[str, Any]], *, now: str) -> StaleReferenceSelection:
+    """Select the most recent prior accepted context with an eligible reference.
+
+    ``accepted_windows`` is the ordered list of accepted windows before the
+    current transition.  The current transition counts as one transition since
+    the reference, plus one per accepted window opened after the reference.
+    """
+
+    ordered = list(accepted_windows)
+    for index in range(len(ordered) - 1, -1, -1):
+        entry = ordered[index]
+        if not reference_eligible(entry):
+            continue
+        transitions = len(ordered) - index
+        ready_at = entry.get("calibration_reference_ready_at")
+        age = (_instant(now) - _instant(str(ready_at))).total_seconds() if ready_at else None
+        skipped = [str(item.get("candidate_id")) for item in ordered[index + 1 :]]
+        reason = "most recent prior accepted context with a complete context-bound calibration reference"
+        if skipped:
+            reason += "; skipped accepted windows without an eligible reference: " + ", ".join(skipped)
+        return StaleReferenceSelection(
+            True,
+            reason,
+            str(entry.get("label")),
+            str(entry.get("candidate_id")),
+            str(entry.get("window_id")),
+            str(entry.get("workload_context_digest")),
+            transitions,
+            age,
+        )
+    return StaleReferenceSelection(False, "no prior accepted context with a complete context-bound calibration reference; P2 = CALIBRATION_INVALID", None, None, None, None, None, None)

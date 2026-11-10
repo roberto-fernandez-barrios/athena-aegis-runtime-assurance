@@ -1,0 +1,42 @@
+{
+  "candidate_id": "C04",
+  "label": "W03",
+  "intended_label": "W03",
+  "bootstrap": false,
+  "status": "accepted_usable",
+  "opened_at": "2026-10-13T01:03:44.060642Z",
+  "completed_at": "2026-10-13T06:52:30.590347Z",
+  "calibration_started_at": "2026-10-13T01:05:18.851044Z",
+  "scientific_terminated_at": null,
+  "expiry_reason": null,
+  "provider_calibration_timestamp": "2026-10-13T02:34:36+02:00",
+  "units_bound": 47,
+  "units_unbound": 0,
+  "units_failed": 0,
+  "units_cancelled": 0,
+  "units_pre_provider_error": 0,
+  "unit_states": {
+    "BOUND_SEALED": 47
+  },
+  "planned_by_phase": {
+    "calibration": 39,
+    "post_recovery_verification": 2,
+    "pre_recovery_service": 6
+  },
+  "bound_by_phase": {
+    "calibration": 39,
+    "post_recovery_verification": 2,
+    "pre_recovery_service": 6
+  },
+  "stage_c_completed": true,
+  "calibration_reference_complete": true,
+  "termination_reason": null,
+  "stale_reference": {
+    "reference_candidate_id": "C03",
+    "reference_label": "W02",
+    "reference_age_seconds": 204415.172641,
+    "number_of_context_transitions_since_reference": 1,
+    "stale_reference_available": true,
+    "stale_reference_selection_reason": "most recent prior accepted context with a complete context-bound calibration reference"
+  }
+}

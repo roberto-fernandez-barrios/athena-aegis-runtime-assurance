@@ -1,0 +1,1892 @@
+"""Campaign B acquisition runner: provider-aware state machine (author decisions 6--15).
+
+Every provider interaction passes through a :class:`CampaignBProvider`.  The
+runner never reads a scientific outcome to make a control decision, never
+writes under the sealed Campaign A namespace, never applies a local wall-clock
+timeout to a queued job, and never creates a provider job before every frozen
+gate passes.
+"""
+
+from __future__ import annotations
+
+import json
+import subprocess
+import sys
+from dataclasses import dataclass, field
+from datetime import datetime, timedelta, timezone
+from hashlib import sha256
+from pathlib import Path
+from typing import Any, Callable, Mapping, Sequence
+
+from athena_aegis.analysis.confirmatory import (
+    continuation_endpoints,
+    recovery_context_validity_restored,
+    recovery_latencies,
+    recovery_service_correctness_restored,
+    recovery_success,
+)
+from athena_aegis.calibration import CalibrationSpecification, CalibrationState, EmpiricalQuantileCalibration
+from athena_aegis.campaign_b import binding as binding_module
+from athena_aegis.campaign_b.budget import guard_from_ledger
+from athena_aegis.campaign_b.constants import (
+    BACKEND_ID,
+    CALIBRATION_ALPHA,
+    CALIBRATION_UNITS,
+    CAMPAIGN_ID,
+    CONFIRMATION_INTERVAL_SECONDS,
+    CONTEXT_REPOLL_SECONDS,
+    DATASET_DIGEST,
+    DISCOVERY_INTERVAL_SECONDS,
+    ESTIMATED_QPU_SECONDS_PER_JOB,
+    GATED_REPOLL_INTERVAL_SECONDS,
+    HARD_MAX_JOBS,
+    HARD_MAX_QPU_SECONDS,
+    INSTANCE_ALIAS,
+    INTENDED_PREREG_TAG,
+    JOB_STATUS_POLL_SCHEDULE,
+    MAX_ACQUISITION_RERUNS_PER_WINDOW,
+    MAX_CANDIDATE_EPOCHS,
+    NONCONFORMITY_SCORE_DEFINITION,
+    NONCONFORMITY_SCORE_ID,
+    POLICY_P2,
+    POLICY_P4,
+    POLICY_P5,
+    POST_WINDOW_CLASSIFICATION,
+    POST_WINDOW_EXCLUSIONS,
+    PRIMARY_OPTIMIZATION_LEVEL,
+    PRIMARY_PROBES,
+    PROJECTION_DEFINITION,
+    PROJECTION_DEFINITION_DIGEST,
+    PROVIDER_TERMINAL_STATES,
+    PROVIDER_WAITING_STATES,
+    SEMANTIC_HASH,
+    SERVED_SOURCE_FALLBACK,
+    SERVED_SOURCE_HELD,
+    SERVICE_DEADLINE_SECONDS,
+    SHOTS,
+    STRATUM_FIELDS,
+    TARGET_USABLE_TRANSITION_WINDOWS,
+    UNIT_STATE_BOUND,
+    UNIT_STATE_CANCELLED_BY_RUNNER,
+    UNIT_STATE_EXECUTION_FAILURE,
+    UNIT_STATE_NOT_SUBMITTED,
+    UNIT_STATE_POST_WINDOW,
+    UNIT_STATE_PRE_PROVIDER_ERROR,
+    UNIT_STATE_SUBMIT_FAILED,
+    UNIT_STATE_UNBOUND,
+    WINDOW_WALL_CLOCK_CAP_SECONDS,
+    WORKLOAD_ID,
+)
+from athena_aegis.campaign_b.endpoints import probe_recovered_valid_service
+from athena_aegis.campaign_b.gate import evaluate_gate, identity_key, is_genuine_transition
+from athena_aegis.campaign_b.immutability import CampaignAImmutabilityError, guard_write_path, verify_campaign_a_immutable
+from athena_aegis.campaign_b.kill_criteria import evaluate_kill_criteria, unbound_fraction
+from athena_aegis.campaign_b.manifests import campaign_manifest, window_manifest
+from athena_aegis.campaign_b.providers import PRE_PROVIDER_STAGE_PREPARATION, CampaignBProvider, JobHandle, LivePoll, PreProviderImplementationError, Submission, context_digest_of, partition_request_metadata
+from athena_aegis.campaign_b.randomization import acquisition_commitment, bootstrap_orderings
+from athena_aegis.campaign_b.recovery import StageCDecision, stage_a_p2, stage_a_p4, stage_a_p5, stage_c_p5
+from athena_aegis.campaign_b.reference import StaleReferenceSelection, select_stale_reference
+from athena_aegis.campaign_b.schemas import CONFIG_DIR, CONFIG_FILES, load_configs, validate_envelope, validate_record
+from athena_aegis.campaign_b.stopping import stopping_reason
+from athena_aegis.campaign_b.workload import classical_fallback, postprocess, prepared_workload, semantic_identity
+from athena_aegis.canonical import sha256_bytes, sha256_digest
+from athena_aegis.confirmatory.context_projection import StratumView, software_environment_digest, stratum_fields, verify_transpiled_support
+from athena_aegis.context import AcceptedWindow, ContextPoll, SnapshotIdentity, evaluate_window_candidate
+from athena_aegis.evidence import AuthenticatedEvaluationBinder, DecisionRecord, EnforcementRecord, EvidenceEnvelope, HMACSHA256Signer, RecoveryRecord, SignatureRecord
+from athena_aegis.oos import ExactStrataSupport, SupportDecision
+from athena_aegis.pilot import LocalIBMConfig, context_missingness, validate_no_secret_values
+from athena_aegis.policies import Action, PolicyDecision
+from athena_aegis.providers import CountsResult, PhaseBudgetGuard
+
+STATE_SCHEMA_VERSION = "athena-aegis.campaign-b-state/1.0.0"
+CANCEL_GRACE_SECONDS = 900.0
+STRATEGY_REEVALUATE = "recalibrate-39-then-reevaluate-v1"
+STRATEGY_FALLBACK = "controlled-classical-fallback-v1"
+STRATEGY_NONE = "none"
+FROZEN_SOURCE_FILES = (
+    "src/athena_aegis/workloads/kernel/regression.py",
+    "src/athena_aegis/analysis/confirmatory.py",
+    "src/athena_aegis/calibration/model.py",
+    "src/athena_aegis/context/windowing.py",
+    "src/athena_aegis/confirmatory/context_projection.py",
+    "src/athena_aegis/campaign_b/constants.py",
+    "src/athena_aegis/campaign_b/gate.py",
+    "src/athena_aegis/campaign_b/binding.py",
+    "src/athena_aegis/campaign_b/reference.py",
+    "src/athena_aegis/campaign_b/recovery.py",
+    "src/athena_aegis/campaign_b/endpoints.py",
+    "src/athena_aegis/campaign_b/statistics.py",
+    "src/athena_aegis/campaign_b/randomization.py",
+    "src/athena_aegis/campaign_b/budget.py",
+    "src/athena_aegis/campaign_b/stopping.py",
+    "src/athena_aegis/campaign_b/kill_criteria.py",
+    "src/athena_aegis/campaign_b/runner.py",
+    "manuscript/PREREGISTRATION_B_v1.md",
+)
+
+
+class CampaignHalt(Exception):
+    """Stop before any further submit; sanitized message."""
+
+
+class WindowIncomplete(Exception):
+    """Stop new submits for the current window; sanitized message."""
+
+
+def _timestamp(value: datetime) -> str:
+    return value.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+
+
+def _instant(value: str) -> datetime:
+    return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+
+
+def _json_line(payload: Mapping[str, Any]) -> str:
+    return json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False) + "\n"
+
+
+def _read_lines(path: Path) -> list[dict[str, Any]]:
+    if not path.is_file():
+        return []
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def _calibration_specification(window_label: str) -> CalibrationSpecification:
+    return CalibrationSpecification(
+        calibration_population="frozen kernel execution units in one exact workload context epoch",
+        calibration_unit="one separately submitted, context-bound execution/service unit under the frozen snapshot",
+        independence_exchangeability_assumption="conditional within-window exchangeability of the 39 calibration scores and an eligible test score; no strict physical independence and no cross-epoch exchangeability",
+        temporal_window=window_label,
+        context_stratum="exact workload_context_digest plus frozen execution fields",
+        test_unit="service probe nested in the accepted window",
+        update_recalibration_rule="expire on workload digest change; refit only from a complete 39-unit context-bound block; never pool across epochs",
+        alpha=CALIBRATION_ALPHA,
+    )
+
+
+@dataclass
+class CalibrationReferenceB:
+    label: str
+    candidate_id: str
+    window_id: str
+    workload_context_digest: str
+    model: EmpiricalQuantileCalibration | None
+    support: ExactStrataSupport | None
+    scores: list[dict[str, Any]]
+    digest: str
+    ready_at: str
+    complete: bool
+    bound_units: int
+    runtime_primitive_version: str = "unknown"
+    integrity_verified: bool = False
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": "athena-aegis.campaign-b-calibration-reference/1.0.0",
+            "label": self.label,
+            "candidate_id": self.candidate_id,
+            "window_id": self.window_id,
+            "workload_context_digest": self.workload_context_digest,
+            "runtime_primitive_version": self.runtime_primitive_version,
+            "complete": self.complete,
+            "calibration_units": len(self.scores),
+            "calibration_units_bound": self.bound_units,
+            "required_units": CALIBRATION_UNITS,
+            "alpha": CALIBRATION_ALPHA,
+            "p_value_resolution": None if self.model is None else self.model.p_value_resolution,
+            "threshold_38th_order_statistic": None if self.model is None else self.model.threshold,
+            "nonconformity_score": NONCONFORMITY_SCORE_ID,
+            "scores": self.scores,
+            "ready_at": self.ready_at,
+            "digest": self.digest,
+            "integrity_verified": self.integrity_verified,
+        }
+
+
+@dataclass
+class UnitOutcome:
+    assignment: dict[str, Any]
+    attempt: int
+    state: str = UNIT_STATE_NOT_SUBMITTED
+    submitted: bool = False
+    failure_category: str | None = None
+    job_id_pseudonym: str | None = None
+    provider_final_status: str | None = None
+    counts: list[dict[str, int]] | None = None
+    raw_result_digest: str | None = None
+    matrix: list[list[float]] | None = None
+    metrics: dict[str, float] | None = None
+    score: float | None = None
+    oracle_correct: bool | None = None
+    oracle_indeterminate_reason: str | None = None
+    context: Any = None
+    envelope: EvidenceEnvelope | None = None
+    binding_valid: bool = True
+    binding_mac: str | None = None
+    timings: dict[str, Any] = field(default_factory=dict)
+    queue_depth_at_submit: int | None = None
+    status_message_at_submit: str | None = None
+    binding: dict[str, Any] | None = None
+    cancel: dict[str, Any] | None = None
+    provider_usage: dict[str, Any] | None = None
+    record_digest: str | None = None
+    provider_job_created: bool = False  # AMENDMENT_002: True only once the provider adapter returned a job handle
+    request_metadata: dict[str, Any] | None = None  # AMENDMENT_002: boundary keys vs Campaign-B-local provenance
+
+    @property
+    def sealed(self) -> bool:
+        return self.state == UNIT_STATE_BOUND
+
+    @property
+    def terminal(self) -> bool:
+        return self.state in (UNIT_STATE_BOUND, UNIT_STATE_UNBOUND, UNIT_STATE_EXECUTION_FAILURE, UNIT_STATE_CANCELLED_BY_RUNNER, UNIT_STATE_SUBMIT_FAILED, UNIT_STATE_POST_WINDOW, UNIT_STATE_PRE_PROVIDER_ERROR, "CANCEL_PENDING")
+
+
+@dataclass(frozen=True)
+class AttemptSelection:
+    source: UnitOutcome
+    selected_scientific_attempt: int | None
+    observed_attempts: tuple[int, ...]
+    superseded_attempts: tuple[int, ...]
+    reason: str
+
+    def metadata(self) -> dict[str, Any]:
+        return {
+            "selected_attempt": self.source.attempt,
+            "selected_scientific_attempt": self.selected_scientific_attempt,
+            "observed_attempts": list(self.observed_attempts),
+            "superseded_attempts": list(self.superseded_attempts),
+            "attempt_selection_reason": self.reason,
+        }
+
+
+def select_attempt(outcomes: Sequence[UnitOutcome]) -> AttemptSelection:
+    """One bound scientific source per logical unit; two bound attempts fail closed (KC-B7)."""
+
+    if not outcomes:
+        raise CampaignHalt("attempt selection requires at least one local unit record")
+    ordered = sorted(outcomes, key=lambda item: item.attempt)
+    attempts = tuple(item.attempt for item in ordered)
+    if attempts != tuple(range(1, len(attempts) + 1)) or len(attempts) > 1 + MAX_ACQUISITION_RERUNS_PER_WINDOW:
+        raise CampaignHalt("attempt sequence is duplicate, missing, non-contiguous, or exceeds the one-rerun cap")
+    bound = [item for item in ordered if item.sealed and item.record_digest is not None]
+    if len(bound) > 1:
+        raise CampaignHalt("KC-B7: two bound DONE attempts exist for one logical unit")
+    if bound:
+        selected = bound[0]
+        return AttemptSelection(selected, selected.attempt, attempts, tuple(item.attempt for item in ordered if item is not selected), "unique_context_bound_attempt")
+    return AttemptSelection(ordered[-1], None, attempts, tuple(item.attempt for item in ordered[:-1]), "no_bound_attempt_latest_retained_for_audit")
+
+
+@dataclass
+class WindowRun:
+    candidate_id: str
+    intended_label: str
+    window: AcceptedWindow
+    directory: Path
+    detection_poll: dict[str, Any]
+    confirmation_poll: dict[str, Any]
+    pre_open_poll: dict[str, Any]
+    opened_at: str
+    assignments: list[dict[str, Any]]
+    status: str = "in_progress"
+    expiry_reason: str | None = None
+    units: list[UnitOutcome] = field(default_factory=list)
+    reruns_used: int = 0
+    calibration_started_at: str | None = None
+    reference: CalibrationReferenceB | None = None
+    held: dict[str, dict[str, Any]] = field(default_factory=dict)
+    policy_records: list[dict[str, Any]] = field(default_factory=list)
+    policy_envelopes: list[dict[str, Any]] = field(default_factory=list)
+    background_variation_events: list[dict[str, Any]] = field(default_factory=list)
+    queue_depth_samples: list[dict[str, Any]] = field(default_factory=list)
+    quota_before: dict[str, Any] | None = None
+    quota_after: dict[str, Any] | None = None
+    completed_at: str | None = None
+    stale_selection: StaleReferenceSelection | None = None
+    stale_reference: CalibrationReferenceB | None = None
+    stage_c_done: bool = False
+    primary_set_complete: bool = False
+    bootstrap: bool = False
+    block_id: str = ""
+    scientific_terminated_at: str | None = None
+    termination_reason: str | None = None
+
+    @property
+    def is_bootstrap(self) -> bool:
+        return self.bootstrap
+
+    def selected_units(self) -> list[UnitOutcome]:
+        grouped: dict[str, list[UnitOutcome]] = {}
+        for unit in self.units:
+            grouped.setdefault(str(unit.assignment["unit_id"]), []).append(unit)
+        selected = []
+        for attempts in grouped.values():
+            selection = select_attempt(attempts)
+            if selection.selected_scientific_attempt is not None:
+                selected.append(selection.source)
+        return selected
+
+    def bound_by_phase(self, phase: str) -> list[UnitOutcome]:
+        return [unit for unit in self.selected_units() if unit.assignment["phase"] == phase]
+
+    def primary_assignments(self) -> list[dict[str, Any]]:
+        return [item for item in self.assignments if item["phase"] in ("pre_recovery_service", "calibration")]
+
+
+class CampaignBRunner:
+    """Frozen-candidate executor for Campaign B.  ``phase`` is ``dry_run`` or ``confirmatory``."""
+
+    def __init__(
+        self,
+        *,
+        repo_root: Path,
+        campaign_dir: Path,
+        provider: CampaignBProvider,
+        config: LocalIBMConfig,
+        clock: Callable[[], datetime] | None = None,
+        sleep: Callable[[float], None] | None = None,
+        log: Callable[[str], None] | None = None,
+        phase: str = "dry_run",
+        private_dir: Path | None = None,
+        git_enabled: bool = False,
+        commit_trailer: str = "",
+        expected_frozen_digests: Mapping[str, str] | None = None,
+        require_git_for_immutability: bool = True,
+        campaign_a_dir: Path | None = None,
+    ) -> None:
+        if phase not in ("dry_run", "confirmatory"):
+            raise ValueError("phase must be dry_run or confirmatory")
+        self.repo_root = Path(repo_root).resolve()
+        self.campaign_dir = guard_write_path(Path(campaign_dir), self.repo_root)
+        self.provider = provider
+        self.config = config
+        self.phase = phase
+        self._clock = clock or (lambda: datetime.now(timezone.utc))
+        self._sleep = sleep or (lambda seconds: __import__("time").sleep(seconds))
+        self._log = log or (lambda line: print(line, flush=True))
+        self.git_enabled = git_enabled
+        self.commit_trailer = commit_trailer
+        self.expected_frozen_digests = dict(expected_frozen_digests) if expected_frozen_digests else None
+        self.require_git_for_immutability = require_git_for_immutability
+        self.campaign_a_dir = campaign_a_dir
+        self.private_dir = Path(private_dir) if private_dir is not None else self.repo_root / "artifacts" / "qpu" / "private" / "campaign_b"
+        self.state_path = self.campaign_dir / "campaign_state.json"
+        self.polls_path = self.campaign_dir / "polls.jsonl"
+        self.ledger_path = self.campaign_dir / "ledger.jsonl"
+        self.registry_path = self.campaign_dir / "registry.jsonl"
+        self.events_path = self.campaign_dir / "events.jsonl"
+        self.late_path = self.campaign_dir / "late_results.jsonl"
+        self.stop_path = self.campaign_dir / "STOP"
+        self.windows_dir = self.campaign_dir / "windows"
+        self.configs: dict[str, dict[str, Any]] = {}
+        self.assignments: list[dict[str, Any]] = []
+        self.state: dict[str, Any] = {}
+        self.guard: PhaseBudgetGuard | None = None
+        self.signer = HMACSHA256Signer(config.signing_key)
+        self.binder = AuthenticatedEvaluationBinder(config.signing_key)
+        self.prepared = prepared_workload()
+        self.references: dict[str, CalibrationReferenceB] = {}
+        self.current: WindowRun | None = None
+        self.frozen_digests: dict[str, str] = {}
+
+    # ------------------------------------------------------------------ utils
+    def now(self) -> str:
+        return _timestamp(self._clock())
+
+    def _scientific(self) -> bool:
+        return self.phase == "confirmatory"
+
+    def _classification(self, kind: str) -> dict[str, Any]:
+        if not self._scientific():
+            return {"phase": "dry_run", "evidence_class": "synthetic_dry_run", "scientific_evidence": False, "physical_execution_evidence": False, "derived_from_sealed_confirmatory_evidence": False}
+        if kind == "physical":
+            return {"phase": "confirmatory", "evidence_class": "confirmatory_physical_unit", "scientific_evidence": True, "physical_execution_evidence": True, "derived_from_sealed_confirmatory_evidence": False}
+        if kind == "replay":
+            return {"phase": "confirmatory", "evidence_class": "confirmatory_policy_replay", "scientific_evidence": True, "physical_execution_evidence": False, "derived_from_sealed_confirmatory_evidence": True}
+        return {"phase": "confirmatory", "evidence_class": "acquisition_audit", "scientific_evidence": False, "physical_execution_evidence": False, "derived_from_sealed_confirmatory_evidence": False}
+
+    def _write_json(self, path: Path, payload: Mapping[str, Any]) -> None:
+        target = guard_write_path(path, self.repo_root)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        temporary = target.with_suffix(target.suffix + ".tmp")
+        with temporary.open("w", encoding="utf-8", newline="\n") as stream:
+            stream.write(json.dumps(payload, indent=2, sort_keys=True, allow_nan=False) + "\n")
+        # Windows: a transient sharing violation (indexer/antivirus) can deny the atomic replace; retry briefly.
+        for attempt in range(20):
+            try:
+                temporary.replace(target)
+                break
+            except PermissionError:
+                if attempt == 19:
+                    raise
+                __import__("time").sleep(0.1 * (attempt + 1))
+
+    def _append_line(self, path: Path, payload: Mapping[str, Any]) -> None:
+        target = guard_write_path(path, self.repo_root)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        with target.open("a", encoding="utf-8", newline="\n") as stream:
+            stream.write(_json_line(payload))
+
+    def _event(self, kind: str, **fields: Any) -> None:
+        record = {"at": self.now(), "kind": kind, **fields}
+        validate_no_secret_values(record, self.config)
+        self._append_line(self.events_path, record)
+        self._log(_json_line(record).rstrip())
+
+    def _incident(self, text: str) -> None:
+        """Record a KC-B7 provider-semantics incident and halt before any further submit."""
+
+        self.state.setdefault("provider_semantics_incidents", []).append({"at": self.now(), "incident": text})
+        self.state["fatal_kill_criterion"] = "KC-B7: " + text
+        self.save_state()
+        self._event("provider_semantics_incident", incident=text)
+        raise CampaignHalt("KC-B7 provider/API semantics incompatible: " + text)
+
+    # ------------------------------------------------------------------ state
+    def _default_state(self) -> dict[str, Any]:
+        return {
+            "schema_version": STATE_SCHEMA_VERSION,
+            "campaign": CAMPAIGN_ID,
+            "phase": self.phase,
+            "instance_alias": INSTANCE_ALIAS,
+            "backend": BACKEND_ID,
+            "scientific_evidence": False,
+            "evidence_class": "mutable_campaign_state",
+            "contains_scientific_evidence": False,
+            "intended_preregistration_tag": INTENDED_PREREG_TAG,
+            "campaign_status": "not_started",
+            "status_reason": None,
+            "started_at": None,
+            "first_submit_at": None,
+            "last_gate_open_at": None,
+            "updated_at": None,
+            "nonconformity_score": {"id": NONCONFORMITY_SCORE_ID, "definition": NONCONFORMITY_SCORE_DEFINITION, "reused_from_campaign_a": True},
+            "workload_context_projection": {"definition": PROJECTION_DEFINITION, "digest": PROJECTION_DEFINITION_DIGEST, "reused_from_campaign_a": True},
+            "frozen_digests": {},
+            "polling_rule": {"discovery_cadence_seconds": DISCOVERY_INTERVAL_SECONDS, "gated_repoll_seconds": GATED_REPOLL_INTERVAL_SECONDS, "confirmation_cadence_seconds": CONFIRMATION_INTERVAL_SECONDS},
+            "accepted_windows": [],
+            "incomplete_windows": [],
+            "candidate_epochs": 0,
+            "gate_statistics": {"polls": 0, "gate_open_polls": 0, "gated_candidate_polls": 0, "candidate_rollovers": 0, "windows_opened": 0},
+            "current_context": None,
+            "last_accepted_context": None,
+            "current_window": None,
+            "jobs_consumed": 0,
+            "qpu_seconds_consumed_estimate": 0.0,
+            "qpu_seconds_provider_reported": 0.0,
+            "cancel_requests": 0,
+            "acquisition_reruns_used_total": 0,
+            "scientific_terminal_units": 0,
+            "unbound_units": 0,
+            "windows_lost_to_unbound_units": 0,
+            "post_window_terminal_results": 0,
+            "provider_semantics_incidents": [],
+            "fatal_kill_criterion": None,
+            "preflight_binding_self_test_passed": None,
+            "budget": {"hard_max_jobs": HARD_MAX_JOBS, "hard_max_qpu_seconds": HARD_MAX_QPU_SECONDS, "estimated_qpu_seconds_per_job": ESTIMATED_QPU_SECONDS_PER_JOB, "remaining_jobs": HARD_MAX_JOBS, "remaining_qpu_seconds": HARD_MAX_QPU_SECONDS},
+            "provider_quota": None,
+            "next_poll_at": None,
+            "next_randomized_unit": None,
+            "kill_criteria": {},
+            "stopping": {"target_usable_transition_windows": TARGET_USABLE_TRANSITION_WINDOWS, "maximum_candidate_epochs": MAX_CANDIDATE_EPOCHS, "hard_max_jobs": HARD_MAX_JOBS, "hard_max_qpu_seconds": HARD_MAX_QPU_SECONDS},
+            "preflight": None,
+        }
+
+    def load_state(self) -> dict[str, Any]:
+        self.state = json.loads(self.state_path.read_text(encoding="utf-8")) if self.state_path.is_file() else self._default_state()
+        return self.state
+
+    def save_state(self) -> None:
+        self.state["updated_at"] = self.now()
+        self.state["evidence_class"] = "mutable_campaign_state"
+        self.state["scientific_evidence"] = False
+        self.state["contains_scientific_evidence"] = self._scientific() and any(int(item.get("bound_sealed_units", 0)) > 0 for item in self.state.get("accepted_windows", []))
+        if self.guard is not None:
+            self.state["jobs_consumed"] = self.guard.consumed_jobs
+            self.state["qpu_seconds_consumed_estimate"] = self.guard.consumed_qpu_seconds
+            self.state["budget"]["remaining_jobs"] = HARD_MAX_JOBS - self.guard.consumed_jobs
+            self.state["budget"]["remaining_qpu_seconds"] = HARD_MAX_QPU_SECONDS - self.guard.consumed_qpu_seconds
+        validate_no_secret_values(self.state, self.config)
+        self._write_json(self.state_path, self.state)
+
+    def _scan(self) -> dict[str, Any]:
+        return {
+            "scientific_terminal_units": int(self.state.get("scientific_terminal_units", 0)),
+            "unbound_units": int(self.state.get("unbound_units", 0)),
+            "windows_lost_to_unbound_units": int(self.state.get("windows_lost_to_unbound_units", 0)),
+            "preflight_binding_self_test_passed": self.state.get("preflight_binding_self_test_passed"),
+            "provider_semantics_incidents": [item["incident"] for item in self.state.get("provider_semantics_incidents", [])],
+            "budget_or_quota_stop": self.state.get("budget_or_quota_stop"),
+            "operational_infeasibility_stop": self.state.get("operational_infeasibility_stop"),
+        }
+
+    def _update_kill_criteria(self, *, final: bool) -> None:
+        self.state["kill_criteria"] = evaluate_kill_criteria(self.state, self._scan(), final=final)
+
+    # -------------------------------------------------------------- identity
+    def verify_frozen_identity(self) -> dict[str, str]:
+        self.configs = load_configs(self.repo_root)
+        randomization = self.configs["randomization.v1.json"]
+        self.assignments = list(randomization["assignments"])
+        if sha256_digest({"assignments": self.assignments}) != randomization["assignment_digest"]:
+            raise CampaignHalt("randomization assignment digest mismatch")
+        commitment = acquisition_commitment(randomization["seed_derivation"], self.assignments)
+        if commitment["commitment_digest"] != randomization["acquisition_commitment"]["commitment_digest"]:
+            raise CampaignHalt("acquisition commitment digest mismatch (seed/PRNG/bootstrap ordering/assignments)")
+        if bootstrap_orderings(self.assignments) != randomization["bootstrap_execution"]["orderings"]:
+            raise CampaignHalt("preregistered bootstrap ordering mismatch")
+        if self.prepared.input_identity["dataset_workload_digest"] != DATASET_DIGEST or self.prepared.semantic_identity["circuit_semantic_hash"] != SEMANTIC_HASH:
+            raise CampaignHalt("workload identity mismatch")
+        observed: dict[str, str] = {}
+        for name in CONFIG_FILES:
+            observed[(CONFIG_DIR / name).as_posix()] = sha256((self.repo_root / CONFIG_DIR / name).read_bytes()).hexdigest()
+        for relative in FROZEN_SOURCE_FILES:
+            path = self.repo_root / relative
+            if path.is_file():
+                observed[relative] = sha256(path.read_bytes()).hexdigest()
+        if self.expected_frozen_digests:
+            for relative, expected in self.expected_frozen_digests.items():
+                if observed.get(relative) != expected:
+                    raise CampaignHalt(f"frozen file digest mismatch: {relative}")
+        self.frozen_digests = observed
+        return observed
+
+    # -------------------------------------------------------------- preflight
+    def preflight(self) -> dict[str, Any]:
+        immutability = verify_campaign_a_immutable(self.repo_root, require_git=self.require_git_for_immutability, campaign_a_dir=self.campaign_a_dir)
+        observed = self.verify_frozen_identity()
+        self.load_state()
+        self.state["frozen_digests"] = observed
+        self._load_references()
+        self.guard = guard_from_ledger(_read_lines(self.ledger_path))
+        if getattr(self.provider, "instance_alias", None) != INSTANCE_ALIAS or getattr(self.provider, "instance_role", None) != "confirmatory":
+            raise CampaignHalt("provider is not the explicit confirmatory instance role")
+        if self.config.pilot_instance == self.config.confirmatory_instance:
+            raise CampaignHalt("pilot and confirmatory instance mappings are not distinct")
+        quota = self.provider.usage()
+        live = self._poll("preflight")
+        if not live.support.executable:
+            raise CampaignHalt("fixed physical support [0,1] is not executable: " + "; ".join(live.support.reasons))
+        circuits = self.provider.transpile(PRIMARY_OPTIMIZATION_LEVEL, 19062026)
+        check = verify_transpiled_support(circuits)
+        if not check["ok"]:
+            raise CampaignHalt("frozen execution rule fails for the fixed support: " + "; ".join(check["problems"]))
+        self_test = self._binding_self_test()
+        late = self._reconcile_open_jobs()
+        preflight = {
+            "at": self.now(),
+            "campaign_a_immutability": immutability,
+            "frozen_digests_recorded": len(observed),
+            "randomization_assignment_digest": self.configs["randomization.v1.json"]["assignment_digest"],
+            "backend": {"backend_id": live.record.backend_id, "operational": live.record.backend_operational, "pending_jobs": live.record.pending_jobs, "status_message": live.record.status_message},
+            "provider_quota": quota,
+            "budget_guard": {"consumed_jobs": self.guard.consumed_jobs, "consumed_qpu_seconds": self.guard.consumed_qpu_seconds, "max_jobs": HARD_MAX_JOBS, "max_qpu_seconds": HARD_MAX_QPU_SECONDS},
+            "fixed_support": {"executable": live.support.executable, "reasons": list(live.support.reasons)},
+            "transpile_check": check,
+            "binding_self_test": self_test,
+            "late_results_reconciled": late,
+            "software_environment_digest": software_environment_digest(),
+            "qpu_jobs": 0,
+        }
+        self.state["preflight"] = preflight
+        self.state["provider_quota"] = quota
+        if self.state["campaign_status"] == "not_started":
+            self.state["started_at"] = self.now()
+            self.state["last_gate_open_at"] = self.state["last_gate_open_at"] or self.state["started_at"]
+        if self.state["campaign_status"] in ("not_started", "acquiring", "candidate_gated"):
+            self.state["campaign_status"] = "polling"
+        self._update_kill_criteria(final=False)
+        self.save_state()
+        self._event("preflight_pass", backend=BACKEND_ID, remaining_jobs=self.state["budget"]["remaining_jobs"], binding_self_test=self_test["passed"])
+        return preflight
+
+    def _binding_self_test(self) -> dict[str, Any]:
+        reference = self.provider.binding_self_test_reference()
+        if reference is None:
+            self.state["preflight_binding_self_test_passed"] = False
+            raise CampaignHalt("KC-B3 fatal: provider offers no historical-binding self-test reference")
+        at, expected = reference
+        snapshot = self.provider.historical_snapshot(at)
+        workload_digest, backend_digest, calibration = context_digest_of(snapshot)
+        passed = snapshot is not None and workload_digest == expected
+        self.state["preflight_binding_self_test_passed"] = passed
+        result = {"passed": passed, "reference_running_at": _timestamp(at), "expected_workload_digest": expected, "observed_workload_digest": workload_digest, "observed_backend_digest": backend_digest, "observed_calibration_timestamp": calibration}
+        if not passed:
+            self.state["fatal_kill_criterion"] = "KC-B3: preflight historical-binding self-test failed"
+            self.save_state()
+            raise CampaignHalt("KC-B3 fatal: historical-binding self-test failed; no submit")
+        return result
+
+    def _reconcile_open_jobs(self) -> list[dict[str, Any]]:
+        """Classify jobs that were still non-terminal when a window closed (late results, audit-only)."""
+
+        registry = _read_lines(self.registry_path)
+        latest: dict[str, dict[str, Any]] = {}
+        for entry in registry:
+            latest[entry["key"]] = entry
+        open_entries = [entry for entry in latest.values() if entry["status"] in ("submitted", "cancel_requested", "cancel_pending")]
+        if not open_entries:
+            return []
+        mapping = {item["job_id_pseudonym"]: item for item in _read_lines(self.private_dir / "campaign_b_job_ids.jsonl")}
+        lookup = getattr(self.provider, "job_handle_from_raw", None)
+        reconciled = []
+        for entry in open_entries:
+            private = mapping.get(entry["job_id_pseudonym"])
+            if private is None or lookup is None:
+                reconciled.append({"key": entry["key"], "status": "unresolvable"})
+                continue
+            handle = lookup(private["raw_job_id"])
+            status = str(self.provider.job_status(handle)).upper()
+            if status not in PROVIDER_TERMINAL_STATES:
+                reconciled.append({"key": entry["key"], "status": status})
+                continue
+            metrics = self.provider.job_metrics(handle)
+            timestamps = dict(metrics.get("timestamps") or {})
+            usage = dict(metrics.get("usage") or {})
+            bound = None
+            historical_digest = None
+            if status == "DONE" and timestamps.get("running"):
+                snapshot = self.provider.historical_snapshot(_instant(timestamps["running"]), handle)
+                historical_digest, _, _ = context_digest_of(snapshot)
+                bound = historical_digest == entry.get("window_workload_digest")
+            record = {
+                "at": self.now(), "key": entry["key"], "candidate_id": entry["candidate_id"], "unit_id": entry["unit_id"], "attempt": entry["attempt"],
+                "job_id_pseudonym": entry["job_id_pseudonym"], "classification": POST_WINDOW_CLASSIFICATION, "late_after_close": True, "provider_status": status,
+                "provider_timestamps": timestamps, "provider_usage": usage, "historical_workload_digest": historical_digest,
+                "window_workload_digest": entry.get("window_workload_digest"), "context_bound_for_audit": bound, "promotes_to_scientific_evidence": False, "excluded_from": list(POST_WINDOW_EXCLUSIONS),
+                "scientific_evidence": False, "evidence_class": "acquisition_audit" if self._scientific() else "synthetic_dry_run", "incorporated": False,
+            }
+            charge = usage.get("qpu_charge_time_seconds")
+            if isinstance(charge, (int, float)) and not isinstance(charge, bool):
+                self.state["qpu_seconds_provider_reported"] = float(self.state.get("qpu_seconds_provider_reported", 0.0)) + float(charge)
+            validate_no_secret_values(record, self.config)
+            self._append_line(self.late_path, record)
+            self._append_line(self.registry_path, {**{k: entry[k] for k in ("key", "candidate_id", "unit_id", "sequence", "attempt", "window_id", "job_id_pseudonym", "window_workload_digest")}, "at": self.now(), "status": "late_" + status.lower(), "envelope_digest": None})
+            self._event("late_result", key=entry["key"], provider_status=status, context_bound_for_audit=bound)
+            reconciled.append({"key": entry["key"], "status": status, "context_bound_for_audit": bound})
+        return reconciled
+
+    # ---------------------------------------------------------------- polling
+    def _poll(self, purpose: str) -> LivePoll:
+        live = self.provider.poll(captured_at=self.now())
+        gate = evaluate_gate(live.record.to_dict())
+        record = {"purpose": purpose, **live.record.to_dict(), **gate.to_dict()}
+        validate_record(self.repo_root, "poll", record)
+        validate_no_secret_values(record, self.config)
+        self._append_line(self.polls_path, record)
+        self.state["current_context"] = record
+        stats = self.state.setdefault("gate_statistics", {"polls": 0, "gate_open_polls": 0, "gated_candidate_polls": 0, "candidate_rollovers": 0, "windows_opened": 0})
+        stats["polls"] += 1
+        if gate.open:
+            stats["gate_open_polls"] += 1
+            self.state["last_gate_open_at"] = record["captured_at"]
+        if self.current is not None and purpose in ("pre_submit_revalidation", "in_flight_revalidation", "post_result_revalidation"):
+            self.current.queue_depth_samples.append({"at": record["captured_at"], "purpose": purpose, "pending_jobs": record["pending_jobs"], "status_message": record["status_message"]})
+        return live
+
+    def _poll_summary(self, purpose: str, live: LivePoll) -> dict[str, Any]:
+        record = live.record.to_dict()
+        return {"purpose": purpose, **record, **evaluate_gate(record).to_dict()}
+
+    def _context_poll(self, live: LivePoll) -> ContextPoll:
+        record = live.record
+        return ContextPoll(record.instance_alias, record.backend_id, record.provider_calibration_timestamp, record.captured_at, record.backend_operational, live.identity, True)
+
+    def _last_accepted_window(self) -> AcceptedWindow | None:
+        context = self.state.get("last_accepted_context")
+        if not context:
+            return None
+        return AcceptedWindow(context["window_id"], context["provider_calibration_timestamp"], SnapshotIdentity(context["backend_snapshot_digest"], context["workload_context_digest"]), INSTANCE_ALIAS, BACKEND_ID)
+
+    def _stop_requested(self) -> bool:
+        return self.stop_path.exists()
+
+    def _operator_stop_reason(self) -> str:
+        if self.stop_path.is_file():
+            for line in self.stop_path.read_text(encoding="utf-8").splitlines():
+                if line.strip().startswith("reason ="):
+                    reason = line.split("=", 1)[1].strip()
+                    if reason:
+                        return reason
+        return "operator STOP file present"
+
+    def _wait(self, seconds: float, reason: str) -> None:
+        target = self._clock() + timedelta(seconds=seconds)
+        self.state["next_poll_at"] = _timestamp(target)
+        self.state["status_reason"] = reason
+        self.save_state()
+        remaining = seconds
+        while remaining > 0:
+            if self._stop_requested():
+                return
+            step = min(300.0, remaining)
+            self._sleep(step)
+            remaining -= step
+
+    # ------------------------------------------------------------- main loop
+    def run(self, *, max_windows: int | None = None, once: bool = False, poll_only: bool = False, resume_halted: bool = False) -> dict[str, Any]:
+        if self._stop_requested():
+            self.load_state()
+            self._halt(self._operator_stop_reason())
+            return self.state
+        if self.state_path.is_file():
+            self.load_state()
+            if self.state.get("campaign_status") == "halted" and not resume_halted:
+                self._halt("campaign is halted; operator review is required before resumption")
+                return self.state
+        try:
+            self.preflight()
+        except CampaignHalt as exc:
+            if not self.state:
+                self.load_state()
+            self._halt(str(exc))
+            return self.state
+        executed = 0
+        candidate: LivePoll | None = None
+        try:
+            status = self.state.get("campaign_status")
+            if status in ("complete", "stopped"):
+                self._event("campaign_already_closed", status=status)
+                return self.state
+            if self.state.get("current_window"):
+                self._resume_interrupted_window()
+            while True:
+                if self._stop_requested():
+                    self._halt(self._operator_stop_reason())
+                    break
+                stop_status, reason = stopping_reason(self.state, now=self.now(), guard=self.guard, usage=self.state.get("provider_quota"))
+                if stop_status is not None:
+                    self._complete(stop_status, reason)
+                    break
+                if max_windows is not None and executed >= max_windows:
+                    self.state["campaign_status"] = "polling"
+                    self.state["status_reason"] = "process window limit reached; campaign continues on restart"
+                    self.save_state()
+                    break
+                self.state["campaign_status"] = "polling"
+                if candidate is None:
+                    live = self._poll("candidate_detection")
+                    genuine, reason = is_genuine_transition(live.record.to_dict(), self.state.get("last_accepted_context"))
+                    gate = evaluate_gate(live.record.to_dict())
+                    self._event("poll", candidate=genuine, gate_open=gate.open, reason=reason, gate_reasons=list(gate.reasons), workload_context_digest=live.record.workload_context_digest, backend_snapshot_digest=live.record.backend_snapshot_digest, provider_calibration_timestamp=live.record.provider_calibration_timestamp, pending_jobs=live.record.pending_jobs)
+                    if not genuine:
+                        if once:
+                            break
+                        self._wait(DISCOVERY_INTERVAL_SECONDS, "no candidate epoch; discovery cadence")
+                        continue
+                    if not gate.open:
+                        self.state["campaign_status"] = "candidate_gated"
+                        self.state["gate_statistics"]["gated_candidate_polls"] += 1
+                        self._event("candidate_gated", reasons=list(gate.reasons), pending_jobs=live.record.pending_jobs, status_message=live.record.status_message, epoch_consumed=False)
+                        if once:
+                            break
+                        self._wait(GATED_REPOLL_INTERVAL_SECONDS, "genuine candidate context present; availability gate closed; re-poll")
+                        continue
+                    candidate = live
+                    self._event("candidate_detected", workload_context_digest=live.record.workload_context_digest, pending_jobs=live.record.pending_jobs)
+                self._wait(CONFIRMATION_INTERVAL_SECONDS, "candidate epoch pending; confirmation cadence")
+                if self._stop_requested():
+                    self._halt(self._operator_stop_reason())
+                    break
+                second = self._poll("candidate_confirmation")
+                acceptance = evaluate_window_candidate(self._context_poll(candidate), self._context_poll(second), self._last_accepted_window(), expected_backend_id=BACKEND_ID)
+                gate2 = evaluate_gate(second.record.to_dict())
+                if not acceptance.accepted or acceptance.window is None or not gate2.open:
+                    candidate = self._rollover(second, acceptance.reason if not acceptance.accepted else "availability gate closed at confirmation", gate2.open)
+                    if candidate is None and once:
+                        break
+                    continue
+                third = self._poll("pre_open")
+                gate3 = evaluate_gate(third.record.to_dict())
+                if identity_key(third.record.to_dict()) != identity_key(second.record.to_dict()) or not gate3.open:
+                    candidate = self._rollover(third, "context or gate changed at pre-open" if gate3.open else "availability gate closed at pre-open", gate3.open)
+                    if candidate is None and once:
+                        break
+                    continue
+                accepted_candidate, candidate = candidate, None
+                if poll_only:
+                    self._event("window_would_open", window_id=acceptance.window.window_id, note="poll-only mode; no submit")
+                    break
+                self._execute_window(accepted_candidate, second, third, acceptance.window)
+                executed += 1
+                if once:
+                    break
+        except CampaignHalt as exc:
+            self._halt(str(exc))
+        return self.state
+
+    def _rollover(self, latest: LivePoll, reason: str, gate_open: bool) -> LivePoll | None:
+        """Rolling confirmation: the latest snapshot becomes the pending candidate when it qualifies."""
+
+        self.state["gate_statistics"]["candidate_rollovers"] += 1
+        genuine, why = is_genuine_transition(latest.record.to_dict(), self.state.get("last_accepted_context"))
+        self._event("candidate_rollover", reason=reason, gate_open=gate_open, latest_is_candidate=genuine and gate_open, epoch_consumed=False, workload_context_digest=latest.record.workload_context_digest)
+        if genuine and gate_open:
+            return latest
+        if genuine and not gate_open:
+            self.state["campaign_status"] = "candidate_gated"
+            self.state["gate_statistics"]["gated_candidate_polls"] += 1
+            self._wait(GATED_REPOLL_INTERVAL_SECONDS, "candidate context present; availability gate closed after rollover; re-poll")
+            return None
+        self._wait(DISCOVERY_INTERVAL_SECONDS, "snapshot after rollover is not a candidate; discovery cadence")
+        return None
+
+    def _halt(self, reason: str) -> None:
+        self.state["campaign_status"] = "halted"
+        self.state["status_reason"] = reason
+        self.save_state()
+        self._event("halt", reason=reason)
+
+    def _complete(self, status: str, reason: str | None) -> None:
+        self.state["campaign_status"] = status
+        self.state["status_reason"] = reason
+        if reason and ("hard cap" in reason or "quota" in reason):
+            self.state["budget_or_quota_stop"] = reason
+        if reason and "KC-B9" in reason:
+            self.state["operational_infeasibility_stop"] = reason
+        self._update_kill_criteria(final=True)
+        self.save_state()
+        self._event("campaign_stop", status=status, reason=reason, accepted_windows=len(self.state["accepted_windows"]), usable_windows=sum(1 for item in self.state["accepted_windows"] if item.get("usable_transition_window")))
+
+    # ------------------------------------------------------------- window
+    def _execute_window(self, detection: LivePoll, confirmation: LivePoll, pre_open: LivePoll, window: AcceptedWindow) -> None:
+        candidate_index = int(self.state["candidate_epochs"]) + 1
+        candidate_id = f"C{candidate_index:02d}"
+        intended_label = f"W{len(self.state['accepted_windows']) + 1:02d}"
+        directory = self.windows_dir / candidate_id
+        block_id = f"B{candidate_index:02d}"
+        bootstrap = self.state.get("last_accepted_context") is None
+        assignments = sorted((item for item in self.assignments if item["block"] == block_id and (not bootstrap or item.get("executed_in_bootstrap_epoch"))), key=lambda item: item["sequence"])
+        if not assignments:
+            raise CampaignHalt(f"no preregistered assignment block for candidate epoch {candidate_id}")
+        if bootstrap and [item["unit_id"] for item in assignments] != self.configs["randomization.v1.json"]["bootstrap_execution"]["orderings"][block_id]:
+            raise CampaignHalt("bootstrap execution order differs from the preregistered ordering")
+        run = WindowRun(candidate_id, intended_label, window, directory, self._poll_summary("candidate_detection", detection), self._poll_summary("candidate_confirmation", confirmation), self._poll_summary("pre_open", pre_open), self.now(), assignments, bootstrap=bootstrap, block_id=block_id)
+        directory.mkdir(parents=True, exist_ok=True)
+        snapshot = {"schema_version": "athena-aegis.campaign-b-accepted-snapshot/1.0.0", "campaign": CAMPAIGN_ID, **{key: self._classification("audit")[key] for key in ("phase", "scientific_evidence")}, "evidence_class": "synthetic_dry_run" if not self._scientific() else "campaign_b_acquisition_context", "candidate_id": candidate_id, "window_id": window.window_id, "provider_snapshot": pre_open.provider_snapshot, "workload_context_projection": pre_open.workload_projection, "backend_snapshot_digest": window.identity.backend_snapshot_digest, "workload_context_digest": window.identity.workload_context_digest}
+        validate_no_secret_values(snapshot, self.config)
+        self._write_json(directory / "accepted_snapshot.json", snapshot)
+        self.state["candidate_epochs"] = candidate_index
+        self.state["gate_statistics"]["windows_opened"] += 1
+        run.stale_selection = select_stale_reference(self.state["accepted_windows"], now=run.opened_at)
+        if run.stale_selection.available:
+            run.stale_reference = self.references.get(str(run.stale_selection.reference_label))
+            if run.stale_reference is None:
+                raise CampaignHalt(f"stale reference {run.stale_selection.reference_label} selected but not loaded")
+        self.current = run
+        run.quota_before = self.provider.usage()
+        self.state["campaign_status"] = "acquiring"
+        self._persist_window(run)
+        self._event("window_open", candidate_id=candidate_id, intended_label=intended_label, window_id=window.window_id, units_planned=len(assignments), pending_jobs_at_open=pre_open.record.pending_jobs, stale_reference=run.stale_selection.to_dict())
+        try:
+            self._acquire(run)
+        except WindowIncomplete as exc:
+            if run.expiry_reason is None:
+                run.expiry_reason = str(exc)
+            self._event("window_expiry", candidate_id=candidate_id, reason=run.expiry_reason, stage_c_done=run.stage_c_done)
+        except CampaignHalt as exc:
+            run.expiry_reason = f"halt: {exc}"
+            self._finalize_window(run)
+            raise
+        self._finalize_window(run)
+
+    def _acquire(self, run: WindowRun) -> None:
+        for assignment in run.assignments:
+            if run.expiry_reason is not None:
+                break
+            if any(unit.assignment["sequence"] == assignment["sequence"] and unit.terminal for unit in run.units):
+                continue
+            phase = assignment["phase"]
+            if phase == "calibration" and run.calibration_started_at is None:
+                run.calibration_started_at = self.now()
+                self._event("recalibration_start", candidate_id=run.candidate_id, at=run.calibration_started_at)
+            if phase == "post_recovery_verification" and not run.stage_c_done:
+                self._finalize_reference(run)
+                self._stage_c(run)
+            outcome = self._unit_with_rerun(run, assignment)
+            if phase == "pre_recovery_service":
+                self._stage_a(run, outcome)
+            elif phase == "post_recovery_verification":
+                self._verification_records(run, outcome)
+            self._persist_window(run)
+            if run.expiry_reason is not None:
+                raise WindowIncomplete(run.expiry_reason)
+        if not run.stage_c_done and run.expiry_reason is None:
+            self._finalize_reference(run)
+            self._stage_c(run)
+
+    def _unit_with_rerun(self, run: WindowRun, assignment: dict[str, Any]) -> UnitOutcome:
+        outcome = self._execute_unit(run, assignment, attempt=1, rerun_of=None)
+        if outcome.state == UNIT_STATE_PRE_PROVIDER_ERROR:  # AMENDMENT_002: unreachable by construction (the unit raises CampaignHalt); defense in depth
+            raise CampaignHalt(f"PRE_PROVIDER_IMPLEMENTATION_ERROR in {assignment['unit_id']}; rerun never authorized")
+        if outcome.state in (UNIT_STATE_EXECUTION_FAILURE, UNIT_STATE_SUBMIT_FAILED) and run.expiry_reason is None and run.reruns_used < MAX_ACQUISITION_RERUNS_PER_WINDOW:
+            run.reruns_used += 1
+            self.state["acquisition_reruns_used_total"] = int(self.state.get("acquisition_reruns_used_total", 0)) + 1
+            self._event("acquisition_rerun", candidate_id=run.candidate_id, unit_id=assignment["unit_id"], reason=outcome.failure_category, provider_final_status=outcome.provider_final_status, note="rerun only after terminal provider failure; never after a queued wait")
+            return self._execute_unit(run, assignment, attempt=2, rerun_of=outcome)
+        if outcome.state in (UNIT_STATE_EXECUTION_FAILURE, UNIT_STATE_SUBMIT_FAILED):
+            self._event("rerun_not_authorized", candidate_id=run.candidate_id, unit_id=assignment["unit_id"], reason="rerun cap reached or window expiring")
+        return outcome
+
+    def _terminate_window(self, run: WindowRun, reason: str, **fields: Any) -> None:
+        """Scientific termination: immediate, immutable, no further scientific submits (author closure 2)."""
+
+        if run.scientific_terminated_at is not None:
+            return
+        run.scientific_terminated_at = self.now()
+        run.termination_reason = reason
+        run.expiry_reason = reason
+        self._event("scientific_window_terminated", candidate_id=run.candidate_id, reason=reason, terminated_at=run.scientific_terminated_at, stage_c_done=run.stage_c_done, **fields)
+
+    def _pre_submit_gate(self, run: WindowRun, assignment: dict[str, Any]) -> LivePoll:
+        if self._stop_requested():
+            raise CampaignHalt(self._operator_stop_reason() + " (STOP present before submit)")
+        if run.scientific_terminated_at is not None:
+            raise WindowIncomplete(f"scientific window terminated ({run.termination_reason}); no scientific submit")
+        if (self._clock() - _instant(run.opened_at)).total_seconds() >= WINDOW_WALL_CLOCK_CAP_SECONDS:
+            self._terminate_window(run, "acquisition_deadline", unit_id=assignment["unit_id"], provider_status=None)
+            raise WindowIncomplete("24-hour window wall-clock cap reached before submit")
+        live = self._poll("pre_submit_revalidation")
+        record = live.record
+        if record.provider_calibration_timestamp != run.window.provider_calibration_timestamp or live.identity.backend_snapshot_digest != run.window.identity.backend_snapshot_digest:
+            event = {"at": record.captured_at, "unit_id": assignment["unit_id"], "provider_calibration_timestamp": record.provider_calibration_timestamp, "backend_snapshot_digest": live.identity.backend_snapshot_digest, "workload_context_digest": live.identity.workload_context_digest}
+            if not run.background_variation_events or run.background_variation_events[-1]["backend_snapshot_digest"] != event["backend_snapshot_digest"]:
+                run.background_variation_events.append(event)
+        if live.identity.workload_context_digest != run.window.identity.workload_context_digest:
+            self._terminate_window(run, "context_expired", unit_id=assignment["unit_id"], provider_status=None)
+            raise WindowIncomplete("workload context digest changed before submit")
+        if record.instance_alias != INSTANCE_ALIAS or record.backend_id != BACKEND_ID:
+            self._terminate_window(run, "instance_or_backend_changed", unit_id=assignment["unit_id"], provider_status=None)
+            raise WindowIncomplete("instance or backend changed before submit")
+        if not live.support.executable:
+            self._terminate_window(run, "fixed_support_not_executable", unit_id=assignment["unit_id"], provider_status=None)
+            raise WindowIncomplete("fixed physical support became non-executable: " + "; ".join(live.support.reasons))
+        assert self.guard is not None
+        try:
+            self.guard.check_before_submit(ESTIMATED_QPU_SECONDS_PER_JOB)
+        except RuntimeError as exc:
+            self.state["budget_or_quota_stop"] = str(exc)
+            raise CampaignHalt(f"budget guard blocked before submit: {exc}") from None
+        return live
+
+    def _execute_unit(self, run: WindowRun, assignment: dict[str, Any], *, attempt: int, rerun_of: UnitOutcome | None) -> UnitOutcome:
+        outcome = UnitOutcome(assignment=assignment, attempt=attempt)
+        handle: JobHandle | None = None
+        try:
+            live = self._pre_submit_gate(run, assignment)
+            # AMENDMENT_002: every local step between the frozen pre-submit gate and the provider
+            # adapter is pre-provider.  A failure there is PRE_PROVIDER_IMPLEMENTATION_ERROR: no
+            # provider job can exist, no rerun is authorized and the campaign halts (handled below).
+            try:
+                circuits = self.provider.transpile(int(assignment["optimization_level"]), int(assignment["transpiler_seed"]))
+                check = verify_transpiled_support(circuits)
+                if not check["ok"]:
+                    self._terminate_window(run, "fixed_support_not_executable", unit_id=assignment["unit_id"], provider_status=None)
+                    raise WindowIncomplete("frozen execution rule failed at transpile: " + "; ".join(check["problems"]))
+                metadata = {
+                    "workload_id": WORKLOAD_ID, "circuit_semantic_hash": SEMANTIC_HASH, "kernel_definition": "ZZFeatureMap compute-uncompute fidelity, reps=2",
+                    "software_environment_digest": software_environment_digest(), "dataset_workload_digest": DATASET_DIGEST, "model_reference_version": "exact-statevector-kernel-oracle-v1",
+                    "calibration_window_id": run.window.window_id, "candidate_id": run.candidate_id, "phase": str(assignment["phase"]), "label": run.intended_label,
+                }
+                boundary, local = partition_request_metadata(metadata)
+                submission = Submission(circuits, SHOTS, int(assignment["optimization_level"]), int(assignment["transpiler_seed"]), str(assignment["unit_id"]), run.window.window_id, attempt, metadata)
+            except (WindowIncomplete, CampaignHalt, PreProviderImplementationError):
+                raise
+            except Exception as exc:
+                raise PreProviderImplementationError(PRE_PROVIDER_STAGE_PREPARATION, type(exc).__name__) from exc
+            outcome.request_metadata = {"provider_boundary_keys": sorted(boundary), "campaign_b_local": dict(local)}
+            outcome.timings["submit_started_at"] = self.now()
+            outcome.queue_depth_at_submit = live.record.pending_jobs
+            outcome.status_message_at_submit = live.record.status_message
+            try:
+                handle = self.provider.submit(submission)
+            except PreProviderImplementationError:
+                raise
+            except Exception as exc:
+                outcome.state = UNIT_STATE_SUBMIT_FAILED
+                outcome.failure_category = f"submit_failed:{type(exc).__name__}"
+                assert self.guard is not None
+                self.guard.record_submitted(ESTIMATED_QPU_SECONDS_PER_JOB)
+                self._ledger(run, assignment, attempt, None, confirmed=False)
+                self._record_unit(run, outcome, rerun_of)
+                return outcome
+            outcome.provider_job_created = True
+            outcome.submitted = True
+            outcome.job_id_pseudonym = handle.job_id_pseudonym
+            outcome.timings["accepted_at"] = self.now()
+            assert self.guard is not None
+            self.guard.record_submitted(ESTIMATED_QPU_SECONDS_PER_JOB)
+            if self.state.get("first_submit_at") is None:
+                self.state["first_submit_at"] = outcome.timings["accepted_at"]
+            self._ledger(run, assignment, attempt, handle.job_id_pseudonym, confirmed=True)
+            self._private_job_record(run, assignment, attempt, handle)
+            self._registry(run, assignment, attempt, handle.job_id_pseudonym, "submitted", None)
+            self.save_state()
+            final_status = self._await_terminal(run, handle, outcome)
+            outcome.timings["terminal_observed_at"] = self.now()
+            if final_status is None:
+                outcome.state = "CANCEL_PENDING"
+                outcome.failure_category = "cancel_pending:provider_never_reached_terminal_state_within_grace"
+                self._registry(run, assignment, attempt, handle.job_id_pseudonym, "cancel_pending", None)
+            elif final_status == "DONE" and run.scientific_terminated_at is not None:
+                self._post_window_provenance(run, outcome, handle, live.identity.workload_context_digest)
+            elif final_status == "DONE":
+                self._bind_and_seal(run, outcome, handle, submission, circuits, live.identity.workload_context_digest)
+            elif final_status == "CANCELLED" and outcome.cancel is not None:
+                outcome.state = UNIT_STATE_CANCELLED_BY_RUNNER
+                outcome.failure_category = "cancelled_by_runner:" + str(outcome.cancel.get("reason"))
+                self._registry(run, assignment, attempt, handle.job_id_pseudonym, "cancelled", None)
+            else:
+                outcome.state = UNIT_STATE_EXECUTION_FAILURE
+                outcome.failure_category = f"provider_terminal:{final_status}"
+                self._registry(run, assignment, attempt, handle.job_id_pseudonym, "failed", None)
+            self._usage_from_metrics(outcome, handle)
+        except WindowIncomplete:
+            if outcome.failure_category is None:
+                outcome.failure_category = "not_submitted:" + str(run.expiry_reason)
+            self._record_unit(run, outcome, rerun_of)
+            raise
+        except CampaignHalt:
+            if outcome.failure_category is None:
+                outcome.failure_category = "not_submitted:campaign_halt"
+            self._record_unit(run, outcome, rerun_of)
+            raise
+        except PreProviderImplementationError as exc:
+            # AMENDMENT_002: fail-closed classification; no provider job, no rerun, no next unit.
+            outcome.state = UNIT_STATE_PRE_PROVIDER_ERROR
+            outcome.failure_category = exc.failure_category
+            outcome.submitted = False
+            outcome.provider_job_created = False
+            self._event("pre_provider_implementation_error", candidate_id=run.candidate_id, unit_id=assignment["unit_id"], attempt=attempt, stage=exc.stage, exception_type=exc.exception_type, provider_job_created=False, rerun_authorized=False, ledger_charged=False, amendment="AMENDMENT_002")
+            self._record_unit(run, outcome, rerun_of)
+            raise CampaignHalt(f"PRE_PROVIDER_IMPLEMENTATION_ERROR in {assignment['unit_id']} attempt {attempt} ({exc.stage}:{exc.exception_type}); fatal: no rerun, no further scientific unit (AMENDMENT_002)") from exc
+        self._record_unit(run, outcome, rerun_of)
+        return outcome
+
+    def _usage_from_metrics(self, outcome: UnitOutcome, handle: JobHandle) -> None:
+        try:
+            metrics = self.provider.job_metrics(handle)
+        except Exception:
+            return
+        usage = dict(metrics.get("usage") or {})
+        outcome.provider_usage = usage or None
+        charge = usage.get("qpu_charge_time_seconds")
+        if isinstance(charge, (int, float)) and not isinstance(charge, bool):
+            self.state["qpu_seconds_provider_reported"] = float(self.state.get("qpu_seconds_provider_reported", 0.0)) + float(charge)
+
+    def _poll_interval(self, elapsed: float) -> float:
+        for bound, interval in JOB_STATUS_POLL_SCHEDULE:
+            if elapsed < bound:
+                return interval
+        return JOB_STATUS_POLL_SCHEDULE[-1][1]
+
+    def _await_terminal(self, run: WindowRun, handle: JobHandle, outcome: UnitOutcome) -> str | None:
+        """Provider-aware waiting: no local timeout; context expiry and the window cap are the only boundaries."""
+
+        started = self._clock()
+        last_context = started
+        cancel_requested_at: datetime | None = None
+        running_awaited_logged = False
+        while True:
+            status = str(self.provider.job_status(handle)).upper()
+            if status not in PROVIDER_TERMINAL_STATES and status not in PROVIDER_WAITING_STATES and status != "RUNNING":
+                self._incident(f"unknown provider job status {status!r}")
+            outcome.provider_final_status = status
+            if status in PROVIDER_TERMINAL_STATES:
+                return status
+            now = self._clock()
+            if (now - last_context).total_seconds() >= CONTEXT_REPOLL_SECONDS:
+                live = self._poll("in_flight_revalidation")
+                last_context = now
+                if run.scientific_terminated_at is None and live.identity.workload_context_digest != run.window.identity.workload_context_digest:
+                    self._event("context_expired_in_flight", candidate_id=run.candidate_id, unit_id=outcome.assignment["unit_id"], provider_status=status)
+                    self._terminate_window(run, "context_expired", unit_id=outcome.assignment["unit_id"], provider_status=status)
+            if run.scientific_terminated_at is None and (now - _instant(run.opened_at)).total_seconds() >= WINDOW_WALL_CLOCK_CAP_SECONDS:
+                self._event("window_cap_in_flight", candidate_id=run.candidate_id, unit_id=outcome.assignment["unit_id"], provider_status=status)
+                self._terminate_window(run, "acquisition_deadline", unit_id=outcome.assignment["unit_id"], provider_status=status)
+            if run.expiry_reason is not None and cancel_requested_at is None:
+                if status in PROVIDER_WAITING_STATES:
+                    cancel_requested_at = now
+                    self.provider.cancel(handle)
+                    self.state["cancel_requests"] = int(self.state.get("cancel_requests", 0)) + 1
+                    outcome.cancel = {"requested_at": _timestamp(now), "reason": run.expiry_reason, "provider_status_at_request": status}
+                    self._registry(run, outcome.assignment, outcome.attempt, handle.job_id_pseudonym, "cancel_requested", None)
+                    self._event("cancel_requested", candidate_id=run.candidate_id, unit_id=outcome.assignment["unit_id"], reason=run.expiry_reason, provider_status=status)
+                elif not running_awaited_logged:
+                    running_awaited_logged = True
+                    self._event("running_unit_awaited_after_termination", candidate_id=run.candidate_id, unit_id=outcome.assignment["unit_id"], note="RUNNING jobs are never cancelled; provider state is read only for reconciliation and provenance; any DONE after termination is a post_window_terminal_result")
+            if cancel_requested_at is not None and status in PROVIDER_WAITING_STATES and (now - cancel_requested_at).total_seconds() >= CANCEL_GRACE_SECONDS:
+                self._event("cancel_pending_after_grace", candidate_id=run.candidate_id, unit_id=outcome.assignment["unit_id"], note="provider did not reach a terminal state; reconciled read-only at next preflight")
+                return None
+            self._sleep(self._poll_interval((now - started).total_seconds()))
+
+    def _post_window_provenance(self, run: WindowRun, outcome: UnitOutcome, handle: JobHandle, pre_submit_digest: str) -> None:
+        """DONE observed after scientific termination: audit-only provenance; never scientific evidence."""
+
+        post = self._poll("post_result_revalidation")
+        timestamps: dict[str, Any] = {}
+        try:
+            metrics = self.provider.job_metrics(handle)
+            timestamps = dict(metrics.get("timestamps") or {})
+        except Exception as exc:
+            self._incident(f"job metrics unavailable after DONE: {type(exc).__name__}")
+        running = timestamps.get("running")
+        historical = None
+        if running:
+            try:
+                historical = self.provider.historical_snapshot(_instant(str(running)), handle)
+            except Exception:
+                historical = None
+        historical_workload, historical_backend, historical_calibration = context_digest_of(historical)
+        evidence = binding_module.BindingEvidence(
+            provider_status="DONE", created_at=timestamps.get("created"), running_at=running, finished_at=timestamps.get("finished"),
+            window_workload_digest=run.window.identity.workload_context_digest, pre_submit_workload_digest=pre_submit_digest, post_result_workload_digest=post.identity.workload_context_digest,
+            historical_available=historical is not None, historical_workload_digest=historical_workload, historical_backend_digest=historical_backend, historical_calibration_timestamp=historical_calibration,
+            integrity_ok=False, integrity_reasons=["result payload not retrieved: post-window terminal result (provenance only)"],
+        )
+        decision = binding_module.classify_binding(evidence)
+        outcome.binding = {**decision.to_dict(), "provenance_only": True, "historical_context_matches_window": decision.checks.get("J3_historical_properties_at_running_match"), "pre_submit_workload_digest": pre_submit_digest, "post_result_workload_digest": post.identity.workload_context_digest, "historical_workload_digest": historical_workload, "historical_backend_digest": historical_backend, "historical_calibration_timestamp": historical_calibration, "window_workload_digest": run.window.identity.workload_context_digest, "promotes_to_scientific_evidence": False}
+        outcome.timings.update({"provider_created_at": timestamps.get("created"), "provider_running_at": running, "provider_finished_at": timestamps.get("finished"), "provider_queue_wait_seconds": binding_module.queue_wait_seconds(evidence), "provider_execution_seconds": binding_module.execution_seconds(evidence)})
+        outcome.state = UNIT_STATE_POST_WINDOW
+        outcome.failure_category = f"{POST_WINDOW_CLASSIFICATION}:{run.termination_reason}"
+        self.state["post_window_terminal_results"] = int(self.state.get("post_window_terminal_results", 0)) + 1
+        self._registry(run, outcome.assignment, outcome.attempt, handle.job_id_pseudonym, POST_WINDOW_CLASSIFICATION, None)
+        self._event("post_window_terminal_result", candidate_id=run.candidate_id, unit_id=outcome.assignment["unit_id"], attempt=outcome.attempt, termination_reason=run.termination_reason, historical_context_matches_window=outcome.binding["historical_context_matches_window"], excluded_from=list(POST_WINDOW_EXCLUSIONS))
+
+    def _bind_and_seal(self, run: WindowRun, outcome: UnitOutcome, handle: JobHandle, submission: Submission, circuits: Sequence[Any], pre_submit_digest: str) -> None:
+        post = self._poll("post_result_revalidation")
+        try:
+            metrics = self.provider.job_metrics(handle)
+        except Exception as exc:
+            self._incident(f"job metrics unavailable after DONE: {type(exc).__name__}")
+        timestamps = dict(metrics.get("timestamps") or {})
+        integrity_reasons: list[str] = []
+        counts: list[dict[str, int]] | None = None
+        try:
+            raw = self.provider.job_result(handle)
+            if not isinstance(raw, CountsResult):
+                raise TypeError("result not normalized to CountsResult")
+            counts = [dict(raw.get_counts(index)) for index in range(len(self.prepared.circuits))]
+            if any(sum(item.values()) != SHOTS for item in counts):
+                integrity_reasons.append("normalized counts do not sum to the frozen shot count")
+        except Exception as exc:
+            integrity_reasons.append(f"result retrieval failed: {type(exc).__name__}")
+        running = timestamps.get("running")
+        historical = None
+        if running:
+            try:
+                historical = self.provider.historical_snapshot(_instant(str(running)), handle)
+            except Exception as exc:
+                historical = None
+                integrity_reasons.append(f"historical snapshot query failed: {type(exc).__name__}")
+        historical_workload, historical_backend, historical_calibration = context_digest_of(historical)
+        evidence = binding_module.BindingEvidence(
+            provider_status="DONE", created_at=timestamps.get("created"), running_at=running, finished_at=timestamps.get("finished"),
+            window_workload_digest=run.window.identity.workload_context_digest, pre_submit_workload_digest=pre_submit_digest, post_result_workload_digest=post.identity.workload_context_digest,
+            historical_available=historical is not None, historical_workload_digest=historical_workload, historical_backend_digest=historical_backend, historical_calibration_timestamp=historical_calibration,
+            integrity_ok=not integrity_reasons, integrity_reasons=integrity_reasons,
+        )
+        decision = binding_module.classify_binding(evidence)
+        outcome.binding = {**decision.to_dict(), "pre_submit_workload_digest": pre_submit_digest, "post_result_workload_digest": post.identity.workload_context_digest, "historical_workload_digest": historical_workload, "historical_backend_digest": historical_backend, "historical_calibration_timestamp": historical_calibration, "window_workload_digest": run.window.identity.workload_context_digest}
+        outcome.timings.update({"provider_created_at": timestamps.get("created"), "provider_running_at": running, "provider_finished_at": timestamps.get("finished"), "provider_queue_wait_seconds": binding_module.queue_wait_seconds(evidence), "provider_execution_seconds": binding_module.execution_seconds(evidence)})
+        self.state["scientific_terminal_units"] = int(self.state.get("scientific_terminal_units", 0)) + 1
+        if counts is not None:
+            outcome.raw_result_digest = sha256_digest(counts)
+        if not decision.bound:
+            outcome.state = UNIT_STATE_UNBOUND
+            outcome.failure_category = "unbound:" + "; ".join(decision.reasons)
+            self.state["unbound_units"] = int(self.state.get("unbound_units", 0)) + 1
+            self._event("unit_unbound", candidate_id=run.candidate_id, unit_id=outcome.assignment["unit_id"], attempt=outcome.attempt, reasons=list(decision.reasons))
+            fraction = unbound_fraction(self._scan())
+            if fraction["fatal"]:
+                self.state["fatal_kill_criterion"] = f"KC-B3: {fraction['unbound_units']}/{fraction['scientific_terminal_units']} scientific terminal units unbound"
+                self.save_state()
+                raise CampaignHalt(self.state["fatal_kill_criterion"])
+            return
+        assert counts is not None
+        outcome.counts = counts
+        context = self.provider.execution_context(handle, submission, circuits)
+        try:
+            matrix, oracle, correct, score = postprocess(raw)
+            outcome.matrix, outcome.metrics, outcome.oracle_correct, outcome.score = matrix, oracle, correct, score
+        except Exception as exc:
+            outcome.matrix, outcome.metrics, outcome.oracle_correct, outcome.score = None, None, None, None
+            outcome.oracle_indeterminate_reason = f"oracle evaluation failed: {type(exc).__name__}"
+        matrix_digest = sha256_digest(outcome.matrix) if outcome.matrix is not None else sha256_digest({"oracle": "indeterminate"})
+        binding = self.binder.bind(f"{run.candidate_id}/{outcome.assignment['unit_id']}/{outcome.attempt}", outcome.assignment["unit_id"], matrix_digest, outcome.oracle_correct)
+        outcome.binding_valid = self.binder.verify(binding)
+        outcome.binding_mac = binding.mac
+        timestamp = self.now()
+        phase = outcome.assignment["phase"]
+        if phase == "calibration":
+            decision_record = DecisionRecord("calibration-protocol", "CALIBRATION_UNIT", "HOLD", ("context-bound calibration execution unit under the frozen epoch snapshot",), timestamp)
+        else:
+            decision_record = DecisionRecord("sealed-service-probe", "SEALED", "HOLD", ("context-bound physical probe sealed before policy replay",), timestamp)
+        recovery = RecoveryRecord(STRATEGY_NONE, False, None, "not applicable")
+        provenance: tuple[str, ...] = ()
+        if outcome.attempt > 1:
+            failed = [unit for unit in run.units if unit.assignment["sequence"] == outcome.assignment["sequence"] and not unit.sealed]
+            parent = failed[-1].record_digest if failed and failed[-1].record_digest else None
+            recovery = RecoveryRecord("acquisition-rerun-after-terminal-provider-failure-v1", True, True, "acquisition rerun after terminal provider failure (not a recovery rerun)", outcome.timings.get("submit_started_at"), timestamp, matrix_digest, parent)
+            provenance = (parent,) if parent else ()
+        envelope = EvidenceEnvelope(
+            execution_context=context,
+            input_identity={**dict(self.prepared.input_identity), "unit_id": outcome.assignment["unit_id"], "sequence": outcome.assignment["sequence"], "attempt": outcome.attempt},
+            workload_identity={"workload_id": WORKLOAD_ID},
+            circuit_semantic_identity=semantic_identity(),
+            transpiled_identity={"digest": context.value("transpiled_circuit_hash"), "optimization_level": int(outcome.assignment["optimization_level"]), "transpiler_seed": int(outcome.assignment["transpiler_seed"])},
+            provider_reported_evidence=self._provider_evidence(context, run, outcome),
+            raw_result_digest=sha256_digest(counts),
+            postprocessed_result_digest=matrix_digest,
+            decision=decision_record,
+            enforcement=EnforcementRecord("HOLD", "HOLD", "result sealed for frozen policy replay", timestamp, timestamp, sha256_digest("sealed")),
+            recovery=recovery,
+            provenance_chain=provenance,
+            authenticated_bindings_digest=self.binder.batch_digest([binding]),
+            created_at=timestamp,
+        ).seal(self.signer)
+        if not envelope.verify_digest() or not envelope.verify_signature(self.signer):
+            raise CampaignHalt("envelope verification failed; possible implementation defect")
+        validate_envelope(self.repo_root, envelope.to_dict())
+        outcome.context = context
+        outcome.envelope = envelope
+        outcome.state = UNIT_STATE_BOUND
+
+    def _provider_evidence(self, context: Any, run: WindowRun, outcome: UnitOutcome) -> dict[str, Any]:
+        names = ("backend_calibration_timestamp", "t1_summary", "t2_summary", "readout_error_summary", "gate_error_summary", "queue_metadata", "scheduling_metadata")
+        evidence = {name: context.value(name) for name in names if context.value(name) is not None}
+        evidence.update({
+            **self._classification("physical"),
+            "campaign": CAMPAIGN_ID,
+            "intended_preregistration_tag": INTENDED_PREREG_TAG,
+            "instance_alias": INSTANCE_ALIAS,
+            "candidate_id": run.candidate_id,
+            "window_id": run.window.window_id,
+            "backend_snapshot_digest": run.window.identity.backend_snapshot_digest,
+            "workload_context_digest": run.window.identity.workload_context_digest,
+            "context_binding": {"state": UNIT_STATE_BOUND, "checks": dict((outcome.binding or {}).get("checks", {}))},
+        })
+        return evidence
+
+    def _ledger(self, run: WindowRun, assignment: dict[str, Any], attempt: int, pseudonym: str | None, *, confirmed: bool) -> None:
+        assert self.guard is not None
+        entry = {"at": self.now(), "campaign": CAMPAIGN_ID, "phase": self.phase, "candidate_id": run.candidate_id, "intended_label": run.intended_label, "unit_id": assignment["unit_id"], "sequence": assignment["sequence"], "attempt": attempt, "job_id_pseudonym": pseudonym, "provider_acceptance_confirmed": confirmed, "estimated_qpu_seconds": ESTIMATED_QPU_SECONDS_PER_JOB, "consumed_jobs_after": self.guard.consumed_jobs, "consumed_qpu_seconds_after": self.guard.consumed_qpu_seconds}
+        validate_no_secret_values(entry, self.config)
+        self._append_line(self.ledger_path, entry)
+
+    def _registry(self, run: WindowRun, assignment: dict[str, Any], attempt: int, pseudonym: str | None, status: str, envelope_digest: str | None) -> None:
+        key = f"{run.candidate_id}/{assignment['unit_id']}/{attempt}"
+        if status == "submitted" and any(item["key"] == key for item in _read_lines(self.registry_path)):
+            raise CampaignHalt(f"duplicate registry key: {key}")
+        entry = {"key": key, "at": self.now(), "candidate_id": run.candidate_id, "unit_id": assignment["unit_id"], "sequence": assignment["sequence"], "attempt": attempt, "window_id": run.window.window_id, "window_workload_digest": run.window.identity.workload_context_digest, "job_id_pseudonym": pseudonym, "status": status, "envelope_digest": envelope_digest}
+        validate_no_secret_values(entry, self.config)
+        self._append_line(self.registry_path, entry)
+
+    def _private_job_record(self, run: WindowRun, assignment: dict[str, Any], attempt: int, handle: JobHandle) -> None:
+        target = guard_write_path(self.private_dir / "campaign_b_job_ids.jsonl", self.repo_root)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        with target.open("a", encoding="utf-8", newline="\n") as stream:
+            stream.write(_json_line({"at": self.now(), "candidate_id": run.candidate_id, "unit_id": assignment["unit_id"], "attempt": attempt, "raw_job_id": handle.raw_job_id, "job_id_pseudonym": handle.job_id_pseudonym}))
+
+    def _record_unit(self, run: WindowRun, outcome: UnitOutcome, rerun_of: UnitOutcome | None) -> None:
+        classification = self._classification("physical" if outcome.sealed else "audit")
+        record: dict[str, Any] = {
+            "schema_version": "athena-aegis.campaign-b-unit/1.0.0",
+            "campaign": CAMPAIGN_ID,
+            **classification,
+            "intended_preregistration_tag": INTENDED_PREREG_TAG,
+            "candidate_id": run.candidate_id,
+            "intended_label": run.intended_label,
+            "window_id": run.window.window_id,
+            "window_workload_digest": run.window.identity.workload_context_digest,
+            "assignment": outcome.assignment,
+            "attempt": outcome.attempt,
+            "rerun_of_attempt": None if rerun_of is None else rerun_of.attempt,
+            "terminal_state": outcome.state,
+            "status": "done" if outcome.sealed else "failed",
+            "submitted": outcome.submitted,
+            "failure_category": outcome.failure_category,
+            "sanitized_error": None if outcome.failure_category is None else "unit did not produce bound evidence; provider message suppressed",
+            "job_id_pseudonym": outcome.job_id_pseudonym,
+            "provider_final_status": outcome.provider_final_status,
+            "timings": outcome.timings,
+            "queue_depth_at_submit": outcome.queue_depth_at_submit,
+            "status_message_at_submit": outcome.status_message_at_submit,
+            "cancel": outcome.cancel,
+            "binding": outcome.binding,
+            "post_window_terminal_result": outcome.state == UNIT_STATE_POST_WINDOW,
+            "scientific_window_terminated_at": run.scientific_terminated_at,
+            "post_window_exclusions": list(POST_WINDOW_EXCLUSIONS) if outcome.state == UNIT_STATE_POST_WINDOW else None,
+            "estimated_qpu_seconds": ESTIMATED_QPU_SECONDS_PER_JOB if outcome.submitted or outcome.state == UNIT_STATE_SUBMIT_FAILED else 0.0,
+            "provider_job_created": outcome.provider_job_created,
+            "request_metadata": outcome.request_metadata,
+            "provider_usage": outcome.provider_usage,
+            "raw_result_digest": outcome.raw_result_digest,
+            "counts": outcome.counts,
+            "kernel_matrix": outcome.matrix,
+            "oracle_metrics": outcome.metrics,
+            "nonconformity_score": outcome.score,
+            "nonconformity_score_id": NONCONFORMITY_SCORE_ID,
+            "oracle_service_correct": outcome.oracle_correct,
+            "oracle_determinate": outcome.sealed and outcome.oracle_correct is not None,
+            "oracle_indeterminate_reason": outcome.oracle_indeterminate_reason,
+            "binding_valid": outcome.binding_valid,
+            "binding_mac": outcome.binding_mac,
+            "execution_context": None if outcome.context is None else outcome.context.to_dict(),
+            "metadata_missingness": None if outcome.context is None else context_missingness(outcome.context),
+            "envelope": None if outcome.envelope is None else outcome.envelope.to_dict(),
+            "budget_state": None if self.guard is None else {"consumed_jobs": self.guard.consumed_jobs, "consumed_qpu_seconds": self.guard.consumed_qpu_seconds, "hard_max_jobs": HARD_MAX_JOBS, "hard_max_qpu_seconds": HARD_MAX_QPU_SECONDS},
+        }
+        record["record_digest"] = sha256_digest({key: value for key, value in record.items() if key != "record_digest"})
+        outcome.record_digest = record["record_digest"]
+        validate_record(self.repo_root, "unit", record)
+        validate_no_secret_values(record, self.config)
+        self._append_line(run.directory / "units.jsonl", record)
+        run.units.append(outcome)
+        if outcome.envelope is not None:
+            self._registry(run, outcome.assignment, outcome.attempt, outcome.job_id_pseudonym, "sealed", outcome.envelope.envelope_digest)
+        elif outcome.state == UNIT_STATE_UNBOUND:
+            self._registry(run, outcome.assignment, outcome.attempt, outcome.job_id_pseudonym, "unbound_audit_only", None)
+        self.state["next_randomized_unit"] = self._next_assignment_summary(run)
+        self._event("unit", candidate_id=run.candidate_id, unit_id=outcome.assignment["unit_id"], attempt=outcome.attempt, terminal_state=outcome.state, provider_final_status=outcome.provider_final_status, failure_category=outcome.failure_category, queue_depth_at_submit=outcome.queue_depth_at_submit, jobs_consumed=None if self.guard is None else self.guard.consumed_jobs)
+
+    def _next_assignment_summary(self, run: WindowRun) -> dict[str, Any] | None:
+        done = {unit.assignment["sequence"] for unit in run.units if unit.terminal}
+        for item in run.assignments:
+            if item["sequence"] not in done:
+                return {key: item[key] for key in ("sequence", "window", "phase", "unit_id", "optimization_level", "transpiler_seed")}
+        following = [item for item in self.assignments if item["sequence"] > run.assignments[-1]["sequence"]]
+        return {key: following[0][key] for key in ("sequence", "window", "phase", "unit_id", "optimization_level", "transpiler_seed")} if following else None
+
+    # ----------------------------------------------------------- calibration
+    def _finalize_reference(self, run: WindowRun) -> None:
+        units = sorted(run.bound_by_phase("calibration"), key=lambda unit: unit.assignment["block_position"])
+        scores = [{"unit_id": unit.assignment["unit_id"], "block_position": unit.assignment["block_position"], "attempt": unit.attempt, "score": unit.score, "envelope_digest": unit.envelope.envelope_digest if unit.envelope else None, "context_bound": True} for unit in units]
+        usable_scores = [float(unit.score) for unit in units if unit.score is not None]
+        complete = len(units) == CALIBRATION_UNITS and len(usable_scores) == CALIBRATION_UNITS
+        model = None
+        support = None
+        version = self._runtime_version(units[0]) if units else "unknown"
+        if complete:
+            model = EmpiricalQuantileCalibration(_calibration_specification(run.intended_label)).fit(usable_scores)
+            support = ExactStrataSupport(STRATUM_FIELDS).fit([StratumView(stratum_fields(workload_context_digest=run.window.identity.workload_context_digest, optimization_level=PRIMARY_OPTIMIZATION_LEVEL, runtime_primitive_version=version), run.window.window_id) for _ in units])
+        ready_at = self.now()
+        payload = {"label": run.intended_label, "window_id": run.window.window_id, "scores": scores, "complete": complete, "threshold": None if model is None else model.threshold}
+        reference = CalibrationReferenceB(run.intended_label, run.candidate_id, run.window.window_id, run.window.identity.workload_context_digest, model, support, scores, sha256_digest(payload), ready_at, complete, len(units), version)
+        run.reference = reference
+        validate_no_secret_values(reference.to_dict(), self.config)
+        self._write_json(run.directory / "calibration_reference.json", reference.to_dict())
+        self._event("recalibration_ready", candidate_id=run.candidate_id, complete=complete, bound_units=len(units), at=ready_at)
+
+    def _runtime_version(self, outcome: UnitOutcome) -> str:
+        if outcome.context is not None:
+            value = outcome.context.value("runtime_primitive_version")
+            if value is not None:
+                return str(value)
+        return "unknown"
+
+    def _probe_stratum(self, run: WindowRun, outcome: UnitOutcome) -> StratumView:
+        return StratumView(stratum_fields(workload_context_digest=run.window.identity.workload_context_digest, optimization_level=int(outcome.assignment["optimization_level"]), runtime_primitive_version=self._runtime_version(outcome)), run.window.window_id)
+
+    def _load_references(self) -> None:
+        for entry in self.state.get("accepted_windows") or []:
+            label = entry.get("label")
+            if label in self.references or not entry.get("calibration_reference_eligible_for_p2"):
+                continue
+            path = self.windows_dir / entry["candidate_id"] / "calibration_reference.json"
+            if not path.is_file():
+                raise CampaignHalt(f"calibration reference file missing for accepted window {label}")
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            if not payload.get("complete") or len(payload.get("scores", [])) != CALIBRATION_UNITS:
+                raise CampaignHalt(f"calibration reference for {label} is not a complete 39-unit block")
+            model = EmpiricalQuantileCalibration(_calibration_specification(label)).fit([float(item["score"]) for item in payload["scores"]])
+            version = str(payload.get("runtime_primitive_version", "unknown"))
+            support = ExactStrataSupport(STRATUM_FIELDS).fit([StratumView(stratum_fields(workload_context_digest=payload["workload_context_digest"], optimization_level=PRIMARY_OPTIMIZATION_LEVEL, runtime_primitive_version=version), payload["window_id"])])
+            self.references[label] = CalibrationReferenceB(label, payload["candidate_id"], payload["window_id"], payload["workload_context_digest"], model, support, list(payload["scores"]), payload["digest"], payload["ready_at"], True, int(payload.get("calibration_units_bound", 0)), version, bool(payload.get("integrity_verified")))
+
+    # -------------------------------------------------------------- policies
+    def _attempt_selection(self, run: WindowRun, outcome: UnitOutcome) -> AttemptSelection:
+        candidates = [item for item in run.units if item.assignment["unit_id"] == outcome.assignment["unit_id"]]
+        selection = select_attempt(candidates)
+        if selection.source is not outcome:
+            raise CampaignHalt("policy replay source is not the selected attempt")
+        return selection
+
+    def _policy_envelope(self, run: WindowRun, outcome: UnitOutcome, *, policy_id: str, decision: PolicyDecision, executed: Action, enforcement_outcome: str, recovery: RecoveryRecord | None, served_digest: str | None, provenance: Sequence[str | None], decided_at: str, completed_at: str) -> dict[str, Any]:
+        assert outcome.envelope is not None and outcome.context is not None
+        envelope = EvidenceEnvelope(
+            execution_context=outcome.context,
+            input_identity={**dict(self.prepared.input_identity), "unit_id": outcome.assignment["unit_id"], "probe_id": outcome.assignment["unit_id"]},
+            workload_identity={"workload_id": WORKLOAD_ID},
+            circuit_semantic_identity=semantic_identity(),
+            transpiled_identity=dict(outcome.envelope.transpiled_identity),
+            provider_reported_evidence={**dict(outcome.envelope.provider_reported_evidence), **self._classification("replay"), "policy_replay_on_sealed_evidence": True, "qpu_jobs": 0},
+            raw_result_digest=outcome.envelope.raw_result_digest,
+            postprocessed_result_digest=served_digest or outcome.envelope.postprocessed_result_digest,
+            decision=DecisionRecord(policy_id, decision.state, decision.action.value, tuple(decision.reasons), decided_at),
+            enforcement=EnforcementRecord(decision.action.value, executed.value, enforcement_outcome, decided_at, completed_at, sha256_digest(enforcement_outcome)),
+            recovery=recovery,
+            provenance_chain=tuple(item for item in provenance if item),
+            authenticated_bindings_digest=outcome.envelope.authenticated_bindings_digest,
+            created_at=completed_at,
+        ).seal(self.signer)
+        if not envelope.verify_digest() or not envelope.verify_signature(self.signer):
+            raise CampaignHalt("policy envelope verification failed")
+        payload = envelope.to_dict()
+        validate_envelope(self.repo_root, payload)
+        validate_no_secret_values(payload, self.config)
+        self._append_line(run.directory / "policy_envelopes.jsonl", payload)
+        run.policy_envelopes.append(payload)
+        return payload
+
+    def _policy_record(self, run: WindowRun, outcome: UnitOutcome, *, policy_id: str, served: bool, served_source: str | None, oracle_correct: bool | None, assurance_valid: bool | None, primary: bool, initially_held: bool = False, recovered: bool = False, fallback: bool = False, recalibration_event: bool = False, timestamps: dict[str, Any] | None = None, extra: dict[str, Any] | None = None) -> dict[str, Any]:
+        selection = self._attempt_selection(run, outcome)
+        oracle_determinate = isinstance(oracle_correct, bool)
+        assurance_determinate = isinstance(assurance_valid, bool)
+        oracle_flag = oracle_correct is True
+        assurance_flag = assurance_valid is True
+        classification = self._classification("replay" if outcome.sealed else "audit")
+        record: dict[str, Any] = {
+            "schema_version": "athena-aegis.campaign-b-policy-record/1.0.0",
+            "campaign": CAMPAIGN_ID,
+            "intended_preregistration_tag": INTENDED_PREREG_TAG,
+            "policy_id": policy_id,
+            "campaign_phase": classification["phase"],
+            "evidence_class": classification["evidence_class"],
+            "scientific_evidence": classification["scientific_evidence"],
+            "physical_execution_evidence": False,
+            "derived_from_sealed_confirmatory_evidence": classification["derived_from_sealed_confirmatory_evidence"],
+            "source_unit_record_digest": outcome.record_digest,
+            "source_envelope_digest": None if outcome.envelope is None else outcome.envelope.envelope_digest,
+            "window_id": run.window.window_id,
+            "candidate_id": run.candidate_id,
+            "intended_label": run.intended_label,
+            "phase": outcome.assignment["phase"],
+            "probe_id": outcome.assignment["unit_id"],
+            "attempt": outcome.attempt,
+            "primary_contrast_eligible": primary,
+            "primary_endpoint_eligible": primary,
+            "assurance_endpoint_eligible": primary,
+            "eligible_request": True,
+            "context_bound": outcome.sealed,
+            "held_physical_result_exists": outcome.sealed,
+            "service_probe_qpu_rerun": False,
+            "served": served,
+            "served_source": served_source if served else None,
+            "oracle_service_correct": oracle_correct if served or oracle_determinate else None,
+            "oracle_determinate": oracle_determinate,
+            "assurance_valid_for_serving": assurance_valid,
+            "assurance_determinate": assurance_determinate,
+            "supported_correct": assurance_flag and oracle_flag,
+            "false_hold": assurance_flag and oracle_flag and not served,
+            "recovery_attempted": recovered,
+            "initially_held_for_invalid_support": initially_held,
+            "recovery_path_predeclared": recovered,
+            "eligible_after_recovery": recovered and served,
+            "trusted_invariants_held": outcome.binding_valid,
+            "fallback_executed": fallback,
+            "fallback_correct": fallback and oracle_flag,
+            "recalibration_attempted": recalibration_event,
+            "recalibration_success": recalibration_event and served,
+            "rerun_attempted": outcome.attempt > 1,
+            "rerun_success": outcome.attempt > 1 and outcome.sealed,
+            "rollback_attempted": False,
+            "rollback_success": False,
+            "calibrated_assertion": served,
+            "validity_violation": served and not assurance_flag,
+            "nonconformity_score": outcome.score,
+            "sensitivity_stratum": False,
+            **selection.metadata(),
+        }
+        if served and (not oracle_determinate or not assurance_determinate):
+            record.update({"unsafe_service_continuation": True, "assurance_invalid_continuation": True, "service_assurance_classification": "SERVED_WITH_INDETERMINATE_ORACLE_OR_ASSURANCE"})
+        else:
+            record.update(continuation_endpoints({"served": served, "oracle_service_correct": oracle_flag, "assurance_valid_for_serving": assurance_flag}))
+        within_deadline = True
+        if timestamps:
+            record.update(timestamps)
+            latencies = recovery_latencies(record)
+            record.update(latencies)
+            within_deadline = float(latencies["total_recovery_latency_seconds"]) <= SERVICE_DEADLINE_SECONDS
+        record["available_correct_within_deadline"] = served and oracle_flag and assurance_flag and within_deadline
+        record["within_service_deadline"] = within_deadline
+        record["context_validity_restored"] = recovery_context_validity_restored(record) if recovered else False
+        record["service_correctness_restored"] = recovery_service_correctness_restored(record) if recovered else False
+        record["recovery_success"] = recovery_success(record) if recovered else False
+        record.update(extra or {})
+        if policy_id == POLICY_P5 and outcome.assignment["phase"] == "pre_recovery_service" and timestamps:
+            record.update(probe_recovered_valid_service(record))
+        validate_record(self.repo_root, "policy", record)
+        validate_no_secret_values(record, self.config)
+        self._append_line(run.directory / "policy_records.jsonl", record)
+        run.policy_records.append(record)
+        return record
+
+    def _stage_a(self, run: WindowRun, outcome: UnitOutcome) -> None:
+        """Pre-recovery replay at the new epoch: stale P2 (selected reference), P4 HOLD, P5 HOLD->RECALIBRATE."""
+
+        probe_id = outcome.assignment["unit_id"]
+        stale = run.stale_reference
+        stale_fields = run.stale_selection.to_dict() if run.stale_selection is not None else {}
+        if not outcome.sealed:
+            held = {"probe_id": probe_id, "sealed": False, "t0": self.now(), "unit_state": outcome.state}
+            run.held[probe_id] = held
+            for policy_id, primary in ((POLICY_P2, True), (POLICY_P4, False)):
+                self._policy_record(run, outcome, policy_id=policy_id, served=False, served_source=None, oracle_correct=None, assurance_valid=False, primary=primary, initially_held=policy_id == POLICY_P4, extra={"policy_state": "NO_BOUND_HELD_RESULT", "action_requested": "HOLD", "action_executed": "HOLD", "reasons": [f"no context-bound physical result ({outcome.state}); nothing to serve"], "decided_at": held["t0"], **stale_fields})
+            held["p5_stage_a"] = {"state": "NO_BOUND_HELD_RESULT", "action": "BLOCK", "decided_at": held["t0"]}
+            self._event("stage_a", candidate_id=run.candidate_id, probe_id=probe_id, bound=False)
+            return
+        stale_model = None if stale is None else stale.model
+        stratum = self._probe_stratum(run, outcome)
+        support = None if stale is None or stale.support is None else stale.support.evaluate(stratum)
+        p2_decision, accept, p_value = stage_a_p2(stale_model, outcome.score)
+        held = {"probe_id": probe_id, "sealed": True, "stale_accept": accept, "stale_p_value": p_value}
+        run.held[probe_id] = held
+        order = list(outcome.assignment["policy_replay_order"]) or [POLICY_P2, POLICY_P4, POLICY_P5]
+        for policy_id in order:
+            decided_at = self.now()
+            if policy_id == POLICY_P2:
+                served = p2_decision.action is Action.ALLOW
+                self._policy_envelope(run, outcome, policy_id=policy_id, decision=p2_decision, executed=p2_decision.action, enforcement_outcome="stale selected reference without context guard; " + ("candidate served" if served else "result withheld"), recovery=None, served_digest=None, provenance=(outcome.envelope.envelope_digest,), decided_at=decided_at, completed_at=decided_at)
+                self._policy_record(run, outcome, policy_id=policy_id, served=served, served_source=SERVED_SOURCE_HELD if served else None, oracle_correct=outcome.oracle_correct, assurance_valid=False, primary=True, extra={"policy_state": p2_decision.state, "action_requested": p2_decision.action.value, "action_executed": p2_decision.action.value, "reasons": list(p2_decision.reasons), "decided_at": decided_at, "calibrated_accept": accept, "p_value": p_value, **stale_fields})
+            elif policy_id == POLICY_P4:
+                decision = stage_a_p4(stale_model, outcome.score, support)
+                served = decision.action is Action.ALLOW
+                self._policy_envelope(run, outcome, policy_id=policy_id, decision=decision, executed=decision.action, enforcement_outcome="deterministic context-support guard; " + ("candidate served" if served else "result withheld"), recovery=None, served_digest=None, provenance=(outcome.envelope.envelope_digest,), decided_at=decided_at, completed_at=decided_at)
+                self._policy_record(run, outcome, policy_id=policy_id, served=served, served_source=SERVED_SOURCE_HELD if served else None, oracle_correct=outcome.oracle_correct, assurance_valid=False, primary=False, initially_held=not served, extra={"policy_state": decision.state, "action_requested": decision.action.value, "action_executed": decision.action.value, "reasons": list(decision.reasons), "decided_at": decided_at, "calibrated_accept": accept, "p_value": p_value, "support_reason": None if support is None else support.reason})
+            else:
+                decision = stage_a_p5(stale_model, outcome.score, support, binding_valid=outcome.binding_valid)
+                executed = Action.BLOCK if decision.action is Action.BLOCK else Action.HOLD
+                outcome_text = "terminal block: trusted invariant failure" if executed is Action.BLOCK else "held pending complete 39-unit context-bound recalibration of the new epoch"
+                recovery = RecoveryRecord(STRATEGY_REEVALUATE, executed is Action.HOLD, None, "recalibration requested", decided_at, None, None, outcome.envelope.envelope_digest)
+                payload = self._policy_envelope(run, outcome, policy_id=policy_id, decision=decision, executed=executed, enforcement_outcome=outcome_text, recovery=recovery, served_digest=None, provenance=(outcome.envelope.envelope_digest,), decided_at=decided_at, completed_at=decided_at)
+                held["t0"] = decided_at
+                held["p5_stage_a"] = {"state": decision.state, "action": decision.action.value, "executed": executed.value, "reasons": list(decision.reasons), "decided_at": decided_at, "envelope_digest": payload["envelope_digest"]}
+                if executed is Action.BLOCK:
+                    self._policy_record(run, outcome, policy_id=policy_id, served=False, served_source=None, oracle_correct=outcome.oracle_correct, assurance_valid=False, primary=True, initially_held=True, timestamps={"t0_support_invalid_or_held": decided_at, "t1_recovery_started": decided_at, "t2_recovery_ready": decided_at, "t3_safely_served_or_terminal": decided_at, "observable_queue_latency_seconds": None}, extra={"policy_state": decision.state, "action_requested": decision.action.value, "action_executed": "BLOCK", "reasons": list(decision.reasons), "decided_at": decided_at, "terminal": True})
+                    held["terminal"] = True
+        self._event("stage_a", candidate_id=run.candidate_id, probe_id=probe_id, bound=True, stale_accept=accept, p5_action=held.get("p5_stage_a", {}).get("action"))
+
+    def _stage_c(self, run: WindowRun) -> None:
+        """Zero-QPU re-evaluation of held probes under the new reference; fallback only on calibrated rejection."""
+
+        reference = run.reference
+        assert reference is not None
+        probe_ids = list(dict.fromkeys(unit.assignment["unit_id"] for unit in run.units if unit.assignment["phase"] == "pre_recovery_service"))
+        for probe_id in probe_ids:
+            held = run.held.get(probe_id)
+            if held is None or held.get("terminal"):
+                continue
+            candidates = [unit for unit in run.units if unit.assignment["unit_id"] == probe_id]
+            outcome = select_attempt(candidates).source
+            t0 = held.get("t0") or self.now()
+            t1 = run.calibration_started_at or reference.ready_at
+            t2 = reference.ready_at
+            decided_at = self.now()
+            stratum = self._probe_stratum(run, outcome) if outcome.sealed else None
+            support = None if reference.support is None or stratum is None else reference.support.evaluate(stratum)
+            decision: StageCDecision = stage_c_p5(held_bound_result=outcome.sealed, reference_complete=reference.complete, new_model=reference.model, score=outcome.score, support=support, binding_valid=outcome.binding_valid)
+            served_digest = None
+            oracle_correct: bool | None = outcome.oracle_correct
+            fallback = False
+            if decision.served and decision.served_source == SERVED_SOURCE_FALLBACK:
+                _, _, correct, served_digest = classical_fallback()
+                oracle_correct = correct
+                fallback = True
+            elif not decision.served:
+                oracle_correct = outcome.oracle_correct if outcome.sealed else None
+            t3 = self.now()
+            recovery = RecoveryRecord(STRATEGY_FALLBACK if fallback else STRATEGY_REEVALUATE, outcome.sealed, decision.served if outcome.sealed else False, decision.reasons[-1] if decision.reasons else decision.executed.value, t1, decided_at, served_digest if fallback else (outcome.envelope.postprocessed_result_digest if decision.served and outcome.envelope else None), held.get("p5_stage_a", {}).get("envelope_digest"))
+            payload_digest = None
+            if outcome.sealed:
+                payload = self._policy_envelope(run, outcome, policy_id=POLICY_P5, decision=decision.decision, executed=decision.executed, enforcement_outcome=decision.reasons[-1] if decision.reasons else decision.executed.value, recovery=recovery, served_digest=served_digest, provenance=(outcome.envelope.envelope_digest, held.get("p5_stage_a", {}).get("envelope_digest"), reference.digest), decided_at=decided_at, completed_at=t3)
+                payload_digest = payload["envelope_digest"]
+            self._policy_record(run, outcome, policy_id=POLICY_P5, served=decision.served, served_source=decision.served_source, oracle_correct=oracle_correct, assurance_valid=True if decision.served else (False if outcome.sealed else None), primary=True, initially_held=True, recovered=outcome.sealed and reference.complete, fallback=fallback, recalibration_event=int(str(probe_id).rsplit("-", 1)[1]) == 1, timestamps={"t0_support_invalid_or_held": t0, "t1_recovery_started": t1, "t2_recovery_ready": t2, "t3_safely_served_or_terminal": t3, "observable_queue_latency_seconds": None}, extra={**decision.to_dict(), "decided_at": decided_at, "support_reason": None if support is None else support.reason, "envelope_digest": payload_digest, "reference_complete": reference.complete, "reference_digest": reference.digest, "unit_terminal_state": outcome.state})
+            self._event("stage_c", candidate_id=run.candidate_id, probe_id=probe_id, action=decision.executed.value, served_source=decision.served_source)
+        run.stage_c_done = True
+        run.primary_set_complete = True
+
+    def _verification_records(self, run: WindowRun, outcome: UnitOutcome) -> None:
+        reference = run.reference
+        assert reference is not None
+        probe_id = outcome.assignment["unit_id"]
+        order = list(outcome.assignment["policy_replay_order"]) or [POLICY_P2, POLICY_P4, POLICY_P5]
+        if not outcome.sealed:
+            for policy_id in order:
+                self._policy_record(run, outcome, policy_id=policy_id, served=False, served_source=None, oracle_correct=None, assurance_valid=False, primary=False, initially_held=policy_id != POLICY_P2, extra={"policy_state": "NO_BOUND_HELD_RESULT", "action_requested": "HOLD", "action_executed": "HOLD", "reasons": [f"no context-bound physical result ({outcome.state})"], "decided_at": self.now()})
+            return
+        stratum = self._probe_stratum(run, outcome)
+        support = None if reference.support is None else reference.support.evaluate(stratum)
+        for policy_id in order:
+            decided_at = self.now()
+            if policy_id == POLICY_P2:
+                decision, accept, p_value = stage_a_p2(reference.model, outcome.score)
+                served = decision.action is Action.ALLOW
+                self._policy_envelope(run, outcome, policy_id=policy_id, decision=decision, executed=decision.action, enforcement_outcome="context-agnostic calibrated rule under the new reference; " + ("candidate served" if served else "result withheld"), recovery=None, served_digest=None, provenance=(outcome.envelope.envelope_digest, reference.digest), decided_at=decided_at, completed_at=decided_at)
+                self._policy_record(run, outcome, policy_id=policy_id, served=served, served_source=SERVED_SOURCE_HELD if served else None, oracle_correct=outcome.oracle_correct, assurance_valid=reference.complete and outcome.score is not None, primary=False, extra={"policy_state": decision.state, "action_requested": decision.action.value, "action_executed": decision.action.value, "reasons": list(decision.reasons), "decided_at": decided_at, "calibrated_accept": accept, "p_value": p_value})
+            elif policy_id == POLICY_P4:
+                decision = stage_a_p4(reference.model, outcome.score, support)
+                served = decision.action is Action.ALLOW
+                self._policy_envelope(run, outcome, policy_id=policy_id, decision=decision, executed=decision.action, enforcement_outcome="candidate served" if served else "result withheld by deterministic context-support guard", recovery=None, served_digest=None, provenance=(outcome.envelope.envelope_digest, reference.digest), decided_at=decided_at, completed_at=decided_at)
+                self._policy_record(run, outcome, policy_id=policy_id, served=served, served_source=SERVED_SOURCE_HELD if served else None, oracle_correct=outcome.oracle_correct, assurance_valid=bool(support and support.is_supported and reference.complete), primary=False, initially_held=not served and decision.state == CalibrationState.CONTEXT_OOS.value, extra={"policy_state": decision.state, "action_requested": decision.action.value, "action_executed": decision.action.value, "reasons": list(decision.reasons), "decided_at": decided_at, "support_reason": None if support is None else support.reason})
+            else:
+                c = stage_c_p5(held_bound_result=True, reference_complete=reference.complete, new_model=reference.model, score=outcome.score, support=support, binding_valid=outcome.binding_valid)
+                served_digest = None
+                oracle_correct = outcome.oracle_correct
+                fallback = False
+                if c.served and c.served_source == SERVED_SOURCE_FALLBACK:
+                    _, _, oracle_correct, served_digest = classical_fallback()
+                    fallback = True
+                completed_at = self.now()
+                recovery = RecoveryRecord(STRATEGY_FALLBACK, True, True, "frozen classical fallback served", decided_at, completed_at, served_digest, outcome.envelope.envelope_digest) if fallback else None
+                payload = self._policy_envelope(run, outcome, policy_id=policy_id, decision=c.decision, executed=c.executed, enforcement_outcome=c.reasons[-1] if c.reasons else c.executed.value, recovery=recovery, served_digest=served_digest, provenance=(outcome.envelope.envelope_digest, reference.digest), decided_at=decided_at, completed_at=completed_at)
+                self._policy_record(run, outcome, policy_id=policy_id, served=c.served, served_source=c.served_source, oracle_correct=oracle_correct, assurance_valid=c.served, primary=False, initially_held=False, recovered=fallback, fallback=fallback, extra={**c.to_dict(), "decided_at": decided_at, "support_reason": None if support is None else support.reason, "envelope_digest": payload["envelope_digest"]})
+
+    def _terminal_held_records(self, run: WindowRun) -> None:
+        for probe_id, held in list(run.held.items()):
+            if held.get("terminal") or any(record["policy_id"] == POLICY_P5 and record["probe_id"] == probe_id for record in run.policy_records):
+                continue
+            candidates = [unit for unit in run.units if unit.assignment["unit_id"] == probe_id]
+            if not candidates:
+                continue
+            outcome = select_attempt(candidates).source
+            t0 = held.get("t0") or self.now()
+            t3 = self.now()
+            self._policy_record(run, outcome, policy_id=POLICY_P5, served=False, served_source=None, oracle_correct=outcome.oracle_correct if outcome.sealed else None, assurance_valid=False if outcome.sealed else None, primary=False, initially_held=True, timestamps={"t0_support_invalid_or_held": t0, "t1_recovery_started": run.calibration_started_at or t3, "t2_recovery_ready": t3, "t3_safely_served_or_terminal": t3, "observable_queue_latency_seconds": None}, extra={"policy_state": "WINDOW_INCOMPLETE", "action_requested": "RECALIBRATE", "action_executed": "HOLD", "reasons": ["window closed before recovery completed; audit-only record; fallback not admissible"], "decided_at": t3, "terminal": True, "audit_only": True})
+            held["terminal"] = True
+
+    # ------------------------------------------------------------- finalize
+    def _window_counts(self, run: WindowRun) -> dict[str, Any]:
+        phases = ("pre_recovery_service", "calibration", "post_recovery_verification")
+        bound = {phase: len(run.bound_by_phase(phase)) for phase in phases}
+        planned = {phase: sum(item["phase"] == phase for item in run.assignments) for phase in phases}
+        states: dict[str, int] = {}
+        for unit in run.units:
+            states[unit.state] = states.get(unit.state, 0) + 1
+        return {"bound_by_phase": bound, "planned_by_phase": planned, "unit_states": states}
+
+    def _finalize_window(self, run: WindowRun) -> None:
+        counts = self._window_counts(run)
+        primary_terminal = all(any(unit.assignment["sequence"] == item["sequence"] and unit.terminal for unit in run.units) for item in run.primary_assignments())
+        if run.expiry_reason is not None and not run.stage_c_done:
+            run.status = f"incomplete_{run.expiry_reason}" if not run.expiry_reason.startswith("halt") else "incomplete_halt"
+            self._terminal_held_records(run)
+            if run.expiry_reason.startswith("halt") and run.scientific_terminated_at is None:
+                run.scientific_terminated_at = self.now()
+                run.termination_reason = "halt"
+        else:
+            if run.reference is None and run.expiry_reason is None:
+                self._finalize_reference(run)
+            probes_bound = counts["bound_by_phase"]["pre_recovery_service"]
+            calibration_bound = counts["bound_by_phase"]["calibration"]
+            usable = (not run.is_bootstrap) and probes_bound == PRIMARY_PROBES and calibration_bound == CALIBRATION_UNITS and run.reference is not None and run.reference.complete and run.stage_c_done
+            run.status = "accepted_usable" if usable else "accepted_non_usable"
+            if run.is_bootstrap and run.reference is not None and run.reference.complete:
+                run.status = "accepted_bootstrap"
+        run.completed_at = self.now()
+        run.quota_after = self.provider.usage()
+        unbound_required = any(unit.state == UNIT_STATE_UNBOUND for unit in run.units if unit.assignment["phase"] in ("pre_recovery_service", "calibration"))
+        self.state["current_window"] = None
+        self._persist_window(run)
+        manifest = self._window_manifest(run)
+        integrity_ok = self._verify_window(run, manifest)
+        if run.reference is not None:
+            run.reference.integrity_verified = integrity_ok and run.reference.complete
+            self._write_json(run.directory / "calibration_reference.json", run.reference.to_dict())
+            manifest = self._window_manifest(run)
+        entry = {
+            "label": run.intended_label, "candidate_id": run.candidate_id, "block_id": run.block_id, "bootstrap": run.bootstrap, "window_id": run.window.window_id, "status": run.status,
+            "provider_calibration_timestamp": run.window.provider_calibration_timestamp, "workload_context_digest": run.window.identity.workload_context_digest, "backend_snapshot_digest": run.window.identity.backend_snapshot_digest,
+            "opened_at": run.opened_at, "completed_at": run.completed_at, "expiry_reason": run.expiry_reason, "scientific_terminated_at": run.scientific_terminated_at, "termination_reason": run.termination_reason, "post_window_terminal_results": sum(unit.state == UNIT_STATE_POST_WINDOW for unit in run.units), "primary_set_terminal": primary_terminal, "stage_c_completed": run.stage_c_done,
+            "unit_counts": counts["bound_by_phase"], "unit_states": counts["unit_states"], "physical_submissions": sum(unit.submitted for unit in run.units), "reruns_used": run.reruns_used,
+            "bound_sealed_units": sum(unit.sealed for unit in run.units), "unbound_units": sum(unit.state == UNIT_STATE_UNBOUND for unit in run.units), "cancelled_units": sum(unit.state == UNIT_STATE_CANCELLED_BY_RUNNER for unit in run.units),
+            "probes_bound": counts["bound_by_phase"]["pre_recovery_service"], "calibration_units_bound": counts["bound_by_phase"]["calibration"], "verification_units_bound": counts["bound_by_phase"]["post_recovery_verification"],
+            "calibration_reference_complete": run.reference is not None and run.reference.complete, "calibration_reference_integrity_verified": run.reference is not None and run.reference.integrity_verified,
+            "calibration_reference_ready_at": None if run.reference is None else run.reference.ready_at, "calibration_reference_digest": None if run.reference is None else run.reference.digest,
+            "calibration_reference_eligible_for_p2": run.reference is not None and run.reference.complete and run.reference.integrity_verified and counts["bound_by_phase"]["calibration"] == CALIBRATION_UNITS,
+            "usable_transition_window": run.status == "accepted_usable", "stale_reference": None if run.stale_selection is None else run.stale_selection.to_dict(),
+            "queue_depth_at_open": run.pre_open_poll.get("pending_jobs"), "max_queue_depth_in_window": max((item["pending_jobs"] for item in run.queue_depth_samples if isinstance(item.get("pending_jobs"), int)), default=None),
+        }
+        if run.status.startswith("accepted"):
+            if run.reference is not None and run.reference.complete and entry["calibration_reference_eligible_for_p2"]:
+                self.references[run.intended_label] = run.reference
+            self.state["accepted_windows"].append(entry)
+            self.state["last_accepted_context"] = {"window_id": run.window.window_id, "provider_calibration_timestamp": run.window.provider_calibration_timestamp, "backend_snapshot_digest": run.window.identity.backend_snapshot_digest, "workload_context_digest": run.window.identity.workload_context_digest, "label": run.intended_label, "candidate_id": run.candidate_id}
+            if unbound_required and run.status == "accepted_non_usable":
+                self.state["windows_lost_to_unbound_units"] = int(self.state.get("windows_lost_to_unbound_units", 0)) + 1
+        else:
+            self.state["incomplete_windows"].append({**entry, "excluded_from_primary_analysis": True})
+        self._update_kill_criteria(final=False)
+        self._persist_window(run)
+        self._campaign_manifest(run)
+        self.state["campaign_status"] = "polling"
+        self.state["status_reason"] = f"window {run.candidate_id} closed with status {run.status}"
+        self.save_state()
+        self._event("window_closed", candidate_id=run.candidate_id, status=run.status, usable=run.status == "accepted_usable", bound_units=entry["bound_sealed_units"], unbound_units=entry["unbound_units"], physical_submissions=entry["physical_submissions"])
+        self._commit(f"Record Campaign B window {run.intended_label} ({run.candidate_id}) [{run.status}]")
+        self.current = None
+
+    def _window_record(self, run: WindowRun) -> dict[str, Any]:
+        counts = self._window_counts(run)
+        contains_bound = any(unit.sealed for unit in run.units)
+        classification = self._classification("physical" if contains_bound else "audit")
+        return {
+            "schema_version": "athena-aegis.campaign-b-window/1.0.0",
+            "campaign": CAMPAIGN_ID,
+            "phase": classification["phase"],
+            "evidence_class": ("campaign_b_window_record" if contains_bound else "acquisition_audit") if self._scientific() else "synthetic_dry_run",
+            "scientific_evidence": classification["scientific_evidence"] and contains_bound,
+            "intended_preregistration_tag": INTENDED_PREREG_TAG,
+            "candidate_id": run.candidate_id,
+            "intended_label": run.intended_label,
+            "label": run.intended_label if run.status.startswith("accepted") else None,
+            "block_id": run.block_id,
+            "bootstrap": run.bootstrap,
+            "status": run.status,
+            "expiry_reason": run.expiry_reason,
+            "scientific_terminated_at": run.scientific_terminated_at,
+            "termination_reason": run.termination_reason,
+            "units_post_window_terminal": sum(unit.state == UNIT_STATE_POST_WINDOW for unit in run.units),
+            "window_id": run.window.window_id,
+            "instance_alias": run.window.instance_alias,
+            "backend_id": run.window.backend_id,
+            "provider_calibration_timestamp": run.window.provider_calibration_timestamp,
+            "backend_snapshot_digest": run.window.identity.backend_snapshot_digest,
+            "workload_context_digest": run.window.identity.workload_context_digest,
+            "projection_definition_digest": PROJECTION_DEFINITION_DIGEST,
+            "detection_poll": run.detection_poll,
+            "confirmation_poll": run.confirmation_poll,
+            "pre_open_poll": run.pre_open_poll,
+            "opened_at": run.opened_at,
+            "completed_at": run.completed_at,
+            "units_planned": len(run.assignments),
+            "units_bound": sum(unit.sealed for unit in run.units),
+            "units_unbound": sum(unit.state == UNIT_STATE_UNBOUND for unit in run.units),
+            "units_failed": sum(unit.state in (UNIT_STATE_EXECUTION_FAILURE, UNIT_STATE_SUBMIT_FAILED) for unit in run.units),
+            "units_cancelled": sum(unit.state == UNIT_STATE_CANCELLED_BY_RUNNER for unit in run.units),
+            "units_pre_provider_error": sum(unit.state == UNIT_STATE_PRE_PROVIDER_ERROR for unit in run.units),
+            "units_not_submitted": len(run.assignments) - len({unit.assignment["sequence"] for unit in run.units if unit.submitted or unit.state == UNIT_STATE_SUBMIT_FAILED}),
+            "physical_submissions": sum(unit.submitted for unit in run.units),
+            "reruns_used": run.reruns_used,
+            "bound_by_phase": counts["bound_by_phase"],
+            "planned_by_phase": counts["planned_by_phase"],
+            "unit_states": counts["unit_states"],
+            "calibration_reference_complete": run.reference is not None and run.reference.complete,
+            "calibration_started_at": run.calibration_started_at,
+            "calibration_reference_digest": None if run.reference is None else run.reference.digest,
+            "stage_c_completed": run.stage_c_done,
+            "stale_reference": None if run.stale_selection is None else run.stale_selection.to_dict(),
+            "quota_before": run.quota_before,
+            "quota_after": run.quota_after,
+            "background_variation_events": run.background_variation_events,
+            "queue_depth_samples": run.queue_depth_samples,
+            "policy_records": len(run.policy_records),
+            "policy_envelopes": len(run.policy_envelopes),
+        }
+
+    def _persist_window(self, run: WindowRun) -> None:
+        record = self._window_record(run)
+        validate_record(self.repo_root, "window", record)
+        validate_no_secret_values(record, self.config)
+        self._write_json(run.directory / "window.json", record)
+        self.state["current_window"] = None if run.status != "in_progress" else {"candidate_id": run.candidate_id, "intended_label": run.intended_label, "window_id": run.window.window_id, "units_terminal": sum(unit.terminal for unit in run.units), "units_planned": len(run.assignments)}
+        self.save_state()
+
+    def _window_manifest(self, run: WindowRun) -> dict[str, Any]:
+        manifest = window_manifest(self.campaign_dir, run.directory, phase=self.phase, candidate_id=run.candidate_id, intended_label=run.intended_label, window_id=run.window.window_id, status=run.status)
+        validate_record(self.repo_root, "manifest", manifest)
+        self._write_json(run.directory / "window_manifest.json", manifest)
+        return manifest
+
+    def _verify_window(self, run: WindowRun, manifest: Mapping[str, Any]) -> bool:
+        from athena_aegis.context import snapshot_identity
+
+        for entry in manifest["files"]:
+            path = self.campaign_dir / entry["path"]
+            if path.stat().st_size != entry["bytes"] or sha256_bytes(path.read_bytes()) != entry["sha256"]:
+                raise CampaignHalt(f"window manifest mismatch: {entry['path']}")
+        snapshot = json.loads((run.directory / "accepted_snapshot.json").read_text(encoding="utf-8"))
+        identity = snapshot_identity(snapshot["provider_snapshot"], snapshot["workload_context_projection"])
+        if identity.backend_snapshot_digest != run.window.identity.backend_snapshot_digest or identity.workload_context_digest != run.window.identity.workload_context_digest:
+            raise CampaignHalt("accepted snapshot digests do not recompute")
+        units = _read_lines(run.directory / "units.jsonl")
+        keys = [f"{item['candidate_id']}/{item['assignment']['unit_id']}/{item['attempt']}" for item in units]
+        if len(keys) != len(set(keys)):
+            raise CampaignHalt("duplicate unit records in window")
+        for item in units:
+            envelope = item.get("envelope")
+            if envelope is None:
+                if item.get("terminal_state") == UNIT_STATE_BOUND:
+                    raise CampaignHalt("bound unit without envelope")
+                continue
+            validate_envelope(self.repo_root, envelope)
+            rebuilt = dict(envelope)
+            digest = rebuilt.pop("envelope_digest")
+            signature = rebuilt.pop("local_signature")
+            if sha256_digest(rebuilt) != digest or signature is None or not self.signer.verify(bytes.fromhex(digest), SignatureRecord(**signature)):
+                raise CampaignHalt("unit envelope digest or signature does not verify")
+            if item.get("terminal_state") != UNIT_STATE_BOUND:
+                raise CampaignHalt("envelope present on a non-bound unit")
+        for payload in _read_lines(run.directory / "policy_envelopes.jsonl"):
+            validate_envelope(self.repo_root, payload)
+            rebuilt = dict(payload)
+            digest = rebuilt.pop("envelope_digest")
+            signature = rebuilt.pop("local_signature")
+            if sha256_digest(rebuilt) != digest or signature is None or not self.signer.verify(bytes.fromhex(digest), SignatureRecord(**signature)):
+                raise CampaignHalt("policy envelope digest or signature does not verify")
+        ledger = [entry for entry in _read_lines(self.ledger_path) if entry["candidate_id"] == run.candidate_id]
+        submitted = sum(1 for item in units if item["submitted"] or str(item.get("failure_category") or "").startswith("submit_failed"))
+        if len(ledger) != submitted:
+            raise CampaignHalt("ledger does not reconcile with unit submissions")
+        return True
+
+    def _campaign_manifest(self, run: WindowRun) -> dict[str, Any]:
+        target = self.campaign_dir / "manifests" / f"{run.candidate_id}.json"
+        manifest = campaign_manifest(self.campaign_dir, phase=self.phase, manifest_id=run.candidate_id, target=target)
+        validate_record(self.repo_root, "manifest", manifest)
+        self._write_json(target, manifest)
+        return manifest
+
+    def _commit(self, message: str) -> None:
+        if not self.git_enabled:
+            return
+        scan = subprocess.run([sys.executable, "scripts/secret_scan.py"], cwd=self.repo_root, capture_output=True, text=True)
+        if scan.returncode != 0:
+            raise CampaignHalt("secret scan failed before commit; evidence retained locally")
+        verify_campaign_a_immutable(self.repo_root, require_git=self.require_git_for_immutability)
+        subprocess.run(["git", "add", str(self.campaign_dir.relative_to(self.repo_root))], cwd=self.repo_root, check=True, capture_output=True)
+        full = message + ("\n\n" + self.commit_trailer if self.commit_trailer else "")
+        result = subprocess.run(["git", "commit", "-m", full], cwd=self.repo_root, capture_output=True, text=True)
+        if result.returncode != 0 and "nothing to commit" not in (result.stdout + result.stderr):
+            raise CampaignHalt("git commit failed")
+        self._event("commit", message=message)
+
+    # --------------------------------------------------------------- resume
+    def _resume_interrupted_window(self) -> None:
+        pending = self.state.get("current_window") or {}
+        candidate_id = pending.get("candidate_id")
+        directory = self.windows_dir / str(candidate_id)
+        record_path = directory / "window.json"
+        self._event("resume_check", candidate_id=candidate_id)
+        if not record_path.is_file():
+            self.state["current_window"] = None
+            self.save_state()
+            return
+        record = json.loads(record_path.read_text(encoding="utf-8"))
+        window = AcceptedWindow(record["window_id"], record["provider_calibration_timestamp"], SnapshotIdentity(record["backend_snapshot_digest"], record["workload_context_digest"]), INSTANCE_ALIAS, BACKEND_ID)
+        assignments = sorted((item for item in self.assignments if item["block"] == record.get("block_id") and (not record.get("bootstrap") or item.get("executed_in_bootstrap_epoch"))), key=lambda item: item["sequence"])
+        run = WindowRun(record["candidate_id"], record["intended_label"], window, directory, record["detection_poll"], record["confirmation_poll"], record["pre_open_poll"], record["opened_at"], assignments, bootstrap=bool(record.get("bootstrap")), block_id=str(record.get("block_id")))
+        run.reruns_used = int(record.get("reruns_used", 0))
+        run.calibration_started_at = record.get("calibration_started_at")
+        for item in _read_lines(directory / "units.jsonl"):
+            outcome = UnitOutcome(assignment=item["assignment"], attempt=item["attempt"], state=item["terminal_state"], submitted=item["submitted"], failure_category=item.get("failure_category"), job_id_pseudonym=item.get("job_id_pseudonym"), score=item.get("nonconformity_score"), oracle_correct=item.get("oracle_service_correct"), binding_valid=bool(item.get("binding_valid", True)), timings=item.get("timings", {}), record_digest=item.get("record_digest"))
+            run.units.append(outcome)
+        run.policy_records = _read_lines(directory / "policy_records.jsonl")
+        run.policy_envelopes = _read_lines(directory / "policy_envelopes.jsonl")
+        self.current = run
+        run.expiry_reason = "halt: acquisition interrupted by process restart; resumption of sealed-evidence replay is not implemented, window kept for audit"
+        self._finalize_window(run)
+
+
+__all__ = ["CampaignBRunner", "CampaignHalt", "WindowIncomplete", "WindowRun", "UnitOutcome", "select_attempt", "FROZEN_SOURCE_FILES"]

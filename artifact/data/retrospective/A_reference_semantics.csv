@@ -1,0 +1,9 @@
+candidate,calibration_units_complete,reference_complete,P5_records,scientific_records,recalibration_attempted_flags,recalibration_success_flags,scientific_fallback_records,audit_only_fallback_records
+C03,39,True,6,6,1,1,0,0
+C04,39,True,6,6,1,1,0,0
+C05,39,True,6,6,1,1,0,0
+C06,39,True,6,6,1,1,1,0
+C07,39,True,6,6,1,1,0,0
+C10,39,True,6,4,1,1,0,2
+C11,33,False,6,2,0,0,2,0
+C12,39,True,6,4,0,0,0,2

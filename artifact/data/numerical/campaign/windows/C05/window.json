@@ -1,0 +1,44 @@
+{
+  "candidate_id": "C05",
+  "label": null,
+  "intended_label": "W04",
+  "bootstrap": false,
+  "status": "incomplete_context_expired",
+  "opened_at": "2026-10-13T23:49:24.390994Z",
+  "completed_at": "2026-10-14T00:00:23.733718Z",
+  "calibration_started_at": "2026-10-13T23:51:03.527417Z",
+  "scientific_terminated_at": "2026-10-14T00:00:23.719908Z",
+  "expiry_reason": "context_expired",
+  "provider_calibration_timestamp": "2026-10-14T01:28:56+02:00",
+  "units_bound": 36,
+  "units_unbound": 7,
+  "units_failed": 0,
+  "units_cancelled": 0,
+  "units_pre_provider_error": 0,
+  "unit_states": {
+    "BOUND_SEALED": 36,
+    "NOT_SUBMITTED": 1,
+    "UNBOUND_AUDIT_ONLY": 7
+  },
+  "planned_by_phase": {
+    "calibration": 39,
+    "post_recovery_verification": 2,
+    "pre_recovery_service": 6
+  },
+  "bound_by_phase": {
+    "calibration": 30,
+    "post_recovery_verification": 0,
+    "pre_recovery_service": 6
+  },
+  "stage_c_completed": false,
+  "calibration_reference_complete": false,
+  "termination_reason": "context_expired",
+  "stale_reference": {
+    "reference_candidate_id": "C04",
+    "reference_label": "W03",
+    "reference_age_seconds": 61055.772708,
+    "number_of_context_transitions_since_reference": 1,
+    "stale_reference_available": true,
+    "stale_reference_selection_reason": "most recent prior accepted context with a complete context-bound calibration reference"
+  }
+}

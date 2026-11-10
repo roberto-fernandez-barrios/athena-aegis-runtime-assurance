@@ -1,0 +1,50 @@
+{
+  "title": "Operational limits of reference renewal for retained quantum-service results: reproducibility artifact",
+  "description": "<p>Public reproducibility package for the author preprint <em>Operational limits of reference renewal for retained quantum-service results</em>, prepared for Quantum Information Processing, collection Quantum Software Engineering. This is a bounded physical implementation and operational-limits study, not an accepted article.</p><p>Twelve context transitions retained six physical results each. Ten completed renewal, eight met the prespecified endpoint and five succeeded using retained results alone. The exact one-sided p=0.0546875 does not establish H1-B. A retrospective binding-plus-oracle rule accepts all 60 usable-window physical results and separately the 12 results in C05/C09. The evidence does not demonstrate incremental numerical-correctness utility of reference renewal over direct oracle checking.</p><p>The unchanged v5.1 artifact reconstructs matrices, scores, ranks, decisions, endpoints and statistics from 575 count-bearing units and 429 scores in eleven complete references. It includes incomplete transitions, a separate post-campaign KC-B4 correction and descriptive context comparisons. Both ordinary and isolated Python invocation are supported in the tested environment. The public package includes paper PDFs, editable sources, code, deidentified inputs, manifests and verification instructions. The public wrapper only adds citation, licensing and archival information; no new physical experiment or scientific analysis is introduced.</p><p>Numerical reproduction is conditional on recorded operational states and clocks. It does not revalidate private HMAC authentication, provider authenticity, the full acquisition state machine or independent pre-acquisition temporal precedence. Code: Apache-2.0; derived evidence/documentation: CC BY 4.0; author preprints excluded from these licenses; third-party template terms retained. See LICENSING.md.</p>",
+  "upload_type": "software",
+  "version": "5.1.0",
+  "publication_date": "2026-11-10",
+  "creators": [
+    {
+      "name": "Fernández-Barrios, Roberto",
+      "affiliation": "Faculty of Engineering, University of Deusto",
+      "orcid": "0009-0003-5312-2634"
+    },
+    {
+      "name": "Pastor-López, Iker",
+      "affiliation": "Faculty of Engineering, University of Deusto",
+      "orcid": "0000-0002-3068-6248"
+    },
+    {
+      "name": "Pikatza-Huerga, Amaia",
+      "affiliation": "Faculty of Engineering, University of Deusto",
+      "orcid": "0009-0003-9080-6242"
+    },
+    {
+      "name": "García Bringas, Pablo",
+      "affiliation": "Faculty of Engineering, University of Deusto",
+      "orcid": "0000-0003-3594-9534"
+    }
+  ],
+  "keywords": [
+    "quantum software engineering",
+    "runtime assurance",
+    "context binding",
+    "retained results",
+    "prespecified protocol",
+    "service recovery",
+    "reproducibility",
+    "quantum computing",
+    "operational limits"
+  ],
+  "license": "apache-2.0",
+  "access_right": "open",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/roberto-fernandez-barrios/athena-aegis-runtime-assurance/tree/paper25-qip-v5.1.0",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ],
+  "notes": "This work is part of grant PID2024-155693NB-C43, ATHENA-AEGIS (Advanced Secure Technologies for Hybrid Quantum-Classical Environments and Applications), funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU. MICIU and AEI denote the Ministerio de Ciencia, Innovación y Universidades and the Agencia Estatal de Investigación, respectively; ERDF/EU denotes the European Union through the European Regional Development Fund. OpenAI Codex and Anthropic Claude Code assisted with drafting and language review, literature checking, analysis-code and figure preparation, and internal editorial review. The human authors retain full responsibility for the manuscript. The DOI identifies this reproduction package, not a journal article or a pre-acquisition preregistration."
+}

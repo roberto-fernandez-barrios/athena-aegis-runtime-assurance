@@ -1,0 +1,463 @@
+{
+  "source_files": [
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/campaign_state.json",
+      "sha256": "38dc12378de89d3da8b7eed99cd762ce012ef6a67edfe3119f7e08c0595e9d52",
+      "bytes": 46463
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C01/window.json",
+      "sha256": "b2abdb49f7217e99ffc4708bd4b2f3b3e8e3b02ec5142035d2afaccd1e6067de",
+      "bytes": 10337
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C01/units.jsonl",
+      "sha256": "fdf13592b779c89592678bcd38e04e4a6ca9fc19f5ad5acc5c5878df304a54a7",
+      "bytes": 60041
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C01/accepted_snapshot.json",
+      "sha256": "4b1e86edbf4e1b4d245e083104f3026c1a7486e47c8c40b3219488338975a5f4",
+      "bytes": 2191776
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C02/window.json",
+      "sha256": "d2c29d4f2677995e4d3080eabf2281272b90d3bb6fca2af8a99d741f8f5dbb49",
+      "bytes": 18903
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C02/units.jsonl",
+      "sha256": "8d383f05eb2b62d6b15ad0c932696624d80947999a4fbe98fd4bdf255c6893f6",
+      "bytes": 893753
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C02/policy_records.jsonl",
+      "sha256": "3b06fe7eebcf622f32657106fc521ba720eac6e86b40c99783e637386512e237",
+      "bytes": 15016
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C02/calibration_reference.json",
+      "sha256": "23461bc4c9d5495e626f96e64c64f3c78c42dcb4467610c06aa6a11570016b66",
+      "bytes": 10827
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C02/accepted_snapshot.json",
+      "sha256": "c1af6ecdaf9a861ffae877cf08750dac6baea194564043b1b01f32b043cc3234",
+      "bytes": 2192328
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C03/window.json",
+      "sha256": "561308349c0da66a6fcf509586a3b2d6d0a668a2e8d5d48434b236ccdfc0f92c",
+      "bytes": 20918
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C03/units.jsonl",
+      "sha256": "f369d21c2eff581bf1cb886b18ae440966a59ca219420c29ca4fb4d096e593eb",
+      "bytes": 1024248
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C03/policy_records.jsonl",
+      "sha256": "ff256ee25ea52a2438f64ff2d429ede7f94395c0b2c6ac04094a95aa97f99487",
+      "bytes": 66722
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C03/calibration_reference.json",
+      "sha256": "4395fa5ef47bd7bfb82dea7a7eb5a5ef52f420dad557181c2e28dc00adb2d55b",
+      "bytes": 10820
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C03/accepted_snapshot.json",
+      "sha256": "63b96f5695c6e3c25a9b21652a5fbab1d43a0e7dab468b7a3162b368afd5eb1e",
+      "bytes": 2192711
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C04/window.json",
+      "sha256": "b65c8fb97e783d6cf84083d2f86ee47ff54edd92c20b1014e7620acabe755d08",
+      "bytes": 72826
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C04/units.jsonl",
+      "sha256": "ba06c9f960a08e0d5214ea3a6df6c80762603fa1d8f11ed414b4433dd345dd5e",
+      "bytes": 1024900
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C04/policy_records.jsonl",
+      "sha256": "b770ea4bd094538855cfda95dcfc1ac9ce492028e676973b94ed6adbcf1b7d37",
+      "bytes": 66942
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C04/calibration_reference.json",
+      "sha256": "54f18cf537fbb816773f85274dd6f5be541ce5a593c22ee9fcdd1d4aca1e8478",
+      "bytes": 10827
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C04/accepted_snapshot.json",
+      "sha256": "5b244be9a293ac8ac74c0765219cb4b2e28d39067c0d2c5fe27539ac47dd9073",
+      "bytes": 2191496
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C05/window.json",
+      "sha256": "fd24c327951a985116a007e2ec747b9c0f07704c6a07b2a9ce58f4a17ff07d6d",
+      "bytes": 20231
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C05/units.jsonl",
+      "sha256": "f93b07f8772370e532957b95826dcb088cd1d0f4753d176f7ca21af87b33fd08",
+      "bytes": 814904
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C05/policy_records.jsonl",
+      "sha256": "8c9584f35350813aecd8cafd5c1e5c1653049e18b9e7494438ac4e898dffc10e",
+      "bytes": 49498
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C05/accepted_snapshot.json",
+      "sha256": "e203204f1dd6d4414219bef7c3c1f3cfe3efd3cb1e1b92dcc5b5ce3c5475bcc1",
+      "bytes": 2191536
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C06/window.json",
+      "sha256": "5538b4b24d02c1a8acf26610a23fd237e81c36c1789a7d818e411df71d6ab6eb",
+      "bytes": 100256
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C06/units.jsonl",
+      "sha256": "0e15cc2df66e0cbf1f6fb219bb74a77aab2f7a83d1bd5b420d3c103757b6d766",
+      "bytes": 1025575
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C06/policy_records.jsonl",
+      "sha256": "4e6b4afa61736f3e13ae4574c565437a41dee3fa706a98821637b0ad725e453a",
+      "bytes": 66895
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C06/calibration_reference.json",
+      "sha256": "cee99ee60843b1b07dd29b4221c10aa096b03f306fc675d312387b9c7c7c55ba",
+      "bytes": 10832
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C06/accepted_snapshot.json",
+      "sha256": "eaaf0489b43df6f0c929e2d08605e87bd7d6b906f64543d28e2691052b74cd1e",
+      "bytes": 2192507
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C07/window.json",
+      "sha256": "cdf6f935424f68f97dd5b9c63cbea00f4f71c2db130fe72467c4111ceb0b72f4",
+      "bytes": 20924
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C07/units.jsonl",
+      "sha256": "7a5ee0a5cc76c4835b598ad400cc764ad1b9b2b87c2e8a020ba6d73954bc6328",
+      "bytes": 1025395
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C07/policy_records.jsonl",
+      "sha256": "63c35b2600ef5930912f0c165157cae99888f01a301421aa8b7b7c3e1c7d784c",
+      "bytes": 66696
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C07/calibration_reference.json",
+      "sha256": "6e2d7bda80bfb9f6bb56aca002ab838cb57c7f91bca63976427ba10e8c1db8e4",
+      "bytes": 10829
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C07/accepted_snapshot.json",
+      "sha256": "20dcec5c147274e584494c09199fa64782687cb451c38e7d98c097303e99be81",
+      "bytes": 2192120
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C08/window.json",
+      "sha256": "04cb12412819be92ada286cbaedfc2e73bdfdceafdb900f4c9522ab91f6743ab",
+      "bytes": 20923
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C08/units.jsonl",
+      "sha256": "0a5f54731447c07eb3fa08800871f4b7a148fd9cd0c3286911de2e00e8641e6e",
+      "bytes": 1025113
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C08/policy_records.jsonl",
+      "sha256": "17b28cda7029770985df0b27b2ed2736cc013de1de54e82e8017b50ade100991",
+      "bytes": 66703
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C08/calibration_reference.json",
+      "sha256": "df950a55da683ce449b3b4bf961f835452e01e03762c1a50d80d8d5792c00801",
+      "bytes": 10828
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C08/accepted_snapshot.json",
+      "sha256": "09f55136707ae8a10604f106440b04a61dbc45031487c99d5c090173910d4ed7",
+      "bytes": 2192254
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C09/window.json",
+      "sha256": "77fa26fee311ea88964a5c8c5b3cdd44aae016cdbc06c7de5a163b035ff6cc3d",
+      "bytes": 74022
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C09/units.jsonl",
+      "sha256": "c45bd3a583338669c6a39d4ffff3b1e071b0be9fafdc4d4741a121308583d11a",
+      "bytes": 613738
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C09/policy_records.jsonl",
+      "sha256": "889400936206b208cf98bcee9fd50b4093d86115dd507669a57b3ab7a692bcca",
+      "bytes": 49761
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C09/accepted_snapshot.json",
+      "sha256": "65f9d8dd13c548998fbdc78cbb9c1a1451a3fb4774248acbd06e13cc8902ef03",
+      "bytes": 2191934
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C10/window.json",
+      "sha256": "e28b7078f96b03b81eeffabf86ed811e2fb1e5ba6e06872967f0dd0ccbfedc82",
+      "bytes": 21080
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C10/units.jsonl",
+      "sha256": "a27b5265207e9143bc2c97abf342673bca784789f4bdf727730f354398d0f330",
+      "bytes": 1026652
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C10/policy_records.jsonl",
+      "sha256": "2e2689769feddb9caa2f50a2c2e7c43323f9e6131112d8f768fa3d9e6d06aba9",
+      "bytes": 66690
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C10/calibration_reference.json",
+      "sha256": "0a9922acb29014d35c3a3f03c0fdaf0bf7955610b1ebc0e21f7de2ae61704bbd",
+      "bytes": 10828
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C10/accepted_snapshot.json",
+      "sha256": "2871e7a4a8cd33c2d36e8cdc2174c50329acce70b371609c8e48cffa5656ec06",
+      "bytes": 2192717
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C11/window.json",
+      "sha256": "4c8aee9d2103c942ba8b836106a05159405732572f6a1351430c0b24522b2a3d",
+      "bytes": 20921
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C11/units.jsonl",
+      "sha256": "a8972919b39a4437974ebbb34fa35e68e21219bf6164e2a88ba6790719e46a1d",
+      "bytes": 1025150
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C11/policy_records.jsonl",
+      "sha256": "a1d4594e7c62c0e855b962378b3bb19216b868856a36ad6bc918c6638160228f",
+      "bytes": 66681
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C11/calibration_reference.json",
+      "sha256": "6e6e8c3e3ab52bfb318ada13c80a9531f35aa6979a5bb40f21b160ffb8246834",
+      "bytes": 10822
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C11/accepted_snapshot.json",
+      "sha256": "a6ba62a511ad5191d39f10ed2a71258146e93b23ccbe077a1cdda6e1383929bd",
+      "bytes": 2191886
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C12/window.json",
+      "sha256": "4db2a3788e22d865843246a8dd970be66109aee8cdabe75e2de37c7d115ba72e",
+      "bytes": 20920
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C12/units.jsonl",
+      "sha256": "e35b210156a3145d91354a4c0a12b9553c312fe63db6260839e7581ebb74686a",
+      "bytes": 1025661
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C12/policy_records.jsonl",
+      "sha256": "382ba53b7016ea381cb74a07cc9a774493069fcefedfd2a4b776cc5fbaea1dd6",
+      "bytes": 66687
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C12/calibration_reference.json",
+      "sha256": "c1bfc2d04e0695de099950201f799fdd24a687dce13c2658b00ec099db6bba04",
+      "bytes": 10821
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C12/accepted_snapshot.json",
+      "sha256": "1092337d5253aca808d6c2808c57a1eaf97df8a27b17c17b10f14a373afceae4",
+      "bytes": 2191877
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C13/window.json",
+      "sha256": "0d09d7730f6df78f08a9af109af54ba8082bca8715bbb65944db893ab4c34272",
+      "bytes": 21286
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C13/units.jsonl",
+      "sha256": "f9fb89e8a717e7914bf65bf86ba703235731f432f44c3e908c211b31e22a98d9",
+      "bytes": 1025697
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C13/policy_records.jsonl",
+      "sha256": "a284cc9605ac271cecec4ade9489600c9d72f1f9d0f0c8994664dba696eeda00",
+      "bytes": 66698
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C13/calibration_reference.json",
+      "sha256": "97cd9d46cfd632a3aef5eff87daa7159fe89d226c175ac281e96bd092683a265",
+      "bytes": 10824
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C13/accepted_snapshot.json",
+      "sha256": "49b3ac643d9b11aa7c7de3ba350ffcd4e67d0e2c517dd7205422bed24e7eb701",
+      "bytes": 2191905
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C14/window.json",
+      "sha256": "f313ee1a0a035f925f7f2d9a8aa6b1828043875bed8d7f9d148823a2e97b7386",
+      "bytes": 20919
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C14/units.jsonl",
+      "sha256": "c3e307b542873140153b7152b2e6b760a2dbb18dc93a6ed7915358e276518faf",
+      "bytes": 1026457
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C14/policy_records.jsonl",
+      "sha256": "d2014397e8f176f20ee735781ce426f4776c31ddae2b2fa613641e91673b5dbd",
+      "bytes": 66691
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C14/calibration_reference.json",
+      "sha256": "822c01957d4fbfcc3d971c8f1b19d594a6ed11c0e534a0060ba30be674144ed5",
+      "bytes": 10828
+    },
+    {
+      "path": "artifacts/confirmatory/campaign_b/campaign/windows/C14/accepted_snapshot.json",
+      "sha256": "40369a556ae72d0aa52bb688e47f14cc7229d1fb95757bac8ea9d68da1b8c677",
+      "bytes": 2192164
+    }
+  ],
+  "frozen_executable_code": [
+    {
+      "path": "src/athena_aegis/__init__.py",
+      "export": "code/historical/athena_aegis/__init__.py",
+      "sha256": "836e2d87c88753a8510c9945be71a0327eb589762bfe4eb7b6497dbc01456668",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/analysis/__init__.py",
+      "export": "code/historical/athena_aegis/analysis/__init__.py",
+      "sha256": "ee1a56810bf74a22b768c76f847466c6dfddacf2864ce3d33fd91fa00557e06c",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/analysis/metrics.py",
+      "export": "code/historical/athena_aegis/analysis/metrics.py",
+      "sha256": "a5757162b4114aad4fc6565c621fa3ee60e5a165819f915469c8fcbff2b9bc8f",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/campaign_b/__init__.py",
+      "export": "code/historical/athena_aegis/campaign_b/__init__.py",
+      "sha256": "6b6d5ee7fdddb0d9fafade76b1c5a6e50deaabc475032bff0d4aa24270df9080",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/campaign_b/analysis.py",
+      "export": "code/historical/athena_aegis/campaign_b/analysis.py",
+      "sha256": "db6745dab3fd9ddea81ab50906aa6ee9738bb99b9bd49be07d828ae7aae1e373",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/campaign_b/constants.py",
+      "export": "code/historical/athena_aegis/campaign_b/constants.py",
+      "sha256": "5f90507b1a6eda93ed0f387fe7f94213d25a53951ef995e8ff1a46977f4fd96b",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/campaign_b/endpoints.py",
+      "export": "code/historical/athena_aegis/campaign_b/endpoints.py",
+      "sha256": "507ca15a7171d09d4036a72761bf04b283aaca122386f8a6f370a6dd9111fda0",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/campaign_b/statistics.py",
+      "export": "code/historical/athena_aegis/campaign_b/statistics.py",
+      "sha256": "f1d572f819ec4cfdaee3e06b0398cf29fb1e4c0891e85fe628fbad19a84609f4",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/campaign_b/kill_criteria.py",
+      "export": "code/historical/athena_aegis/campaign_b/kill_criteria.py",
+      "sha256": "a5ec1636e87c40fa3b79d84a7bfcd17e58008e8cf8731f051d9012f30a3cb91c",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/campaign_b/immutability.py",
+      "export": "code/historical/athena_aegis/campaign_b/immutability.py",
+      "sha256": "8fc166b77378388c1a63064c2d7f03ca374ff0284e301ddb6597ecaea456ce7f",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/campaign_b/binding.py",
+      "export": "code/historical/athena_aegis/campaign_b/binding.py",
+      "sha256": "48e7763ccc5d61202522c0d1789e5475a5e151c370c02177260c63cad25330af",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/calibration/__init__.py",
+      "export": "code/historical/athena_aegis/calibration/__init__.py",
+      "sha256": "08f09fa61d9c1e718a06896086422ab0aa4f8d858e9daa5bd26dfc1cd9235c6c",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/calibration/model.py",
+      "export": "code/historical/athena_aegis/calibration/model.py",
+      "sha256": "8bea67fe4007728874c307170d804a39007eb39a2c633b2baeb281db41becba3",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/canonical.py",
+      "export": "code/historical/athena_aegis/canonical.py",
+      "sha256": "f87afd69ce61ffdd91bd7ca97b7fa6bfff0319fabbf6240c25b39660330a954f",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/confirmatory/__init__.py",
+      "export": "code/historical/athena_aegis/confirmatory/__init__.py",
+      "sha256": "830494544804a0443eb70e7b906c14d691d0dc9dc984f4c5ddb15e9c03925f8e",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/confirmatory/context_projection.py",
+      "export": "code/historical/athena_aegis/confirmatory/context_projection.py",
+      "sha256": "7ecc037f9b5c6d92ce6501671aaec7ad1121fda32100e48084003df12e8c63f2",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/confirmatory/randomization.py",
+      "export": "code/historical/athena_aegis/confirmatory/randomization.py",
+      "sha256": "f64fad8d3865989a0ef8f917994796a7a11293cb3aa93a84a0f31f679f8866a8",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/context/__init__.py",
+      "export": "code/historical/athena_aegis/context/__init__.py",
+      "sha256": "c7b28c9eb12fd23fbf07c6131d4f349cc5664bf8ed7c877ad172b6ee7b8ad5c1",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/context/model.py",
+      "export": "code/historical/athena_aegis/context/model.py",
+      "sha256": "84e2f040ff3149636ffc4f67bcb3bec55c715de09e83a1d37032f91fc8b8ed68",
+      "byte_identical": true
+    },
+    {
+      "path": "src/athena_aegis/context/windowing.py",
+      "export": "code/historical/athena_aegis/context/windowing.py",
+      "sha256": "f5486e03a163a15316191ddb4840e97feeba35f568974598c95d7c155da50fd8",
+      "byte_identical": true
+    }
+  ],
+  "transformation": "Whitelisted local count, matrix, score, context-digest, clock and policy fields; signatures and provider/account identifiers excluded. Filtering does not preserve historical record hashes. Original source-file hashes identify inputs, not authenticate this export.",
+  "specification_sha256": "735200c82e3ba9cde274590dcfa5c2557534bf36927499a8834110efbe5af9d9"
+}

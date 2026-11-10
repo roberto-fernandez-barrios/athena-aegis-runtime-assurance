@@ -1,0 +1,4 @@
+candidate,local_interval_seconds,start_field,end_field,original_incomplete_reason,interpretation
+C02,5022.301803,accepted_at,completed_at,workload context digest changed during acquisition,local acquisition interval; not exact backend context duration
+C08,21390.668349,accepted_at,completed_at,workload context digest changed during acquisition,local acquisition interval; not exact backend context duration
+C09,33009.957237,accepted_at,completed_at,workload context digest changed during acquisition,local acquisition interval; not exact backend context duration

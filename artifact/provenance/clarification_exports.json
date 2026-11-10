@@ -1,0 +1,71 @@
+{
+  "observed_utc": "2026-11-09T09:42:18.274743+00:00",
+  "oracle_extract": {
+    "output": "data/primary_physical_oracle.csv",
+    "rows": 60,
+    "selection": "Exactly the candidate_id/probe_id pairs already present in transitions_probes.csv; no new population",
+    "inputs": [
+      {
+        "path": "artifacts/confirmatory/campaign_b/campaign/windows/C03/units.jsonl",
+        "sha256": "f369d21c2eff581bf1cb886b18ae440966a59ca219420c29ca4fb4d096e593eb"
+      },
+      {
+        "path": "artifacts/confirmatory/campaign_b/campaign/windows/C04/units.jsonl",
+        "sha256": "ba06c9f960a08e0d5214ea3a6df6c80762603fa1d8f11ed414b4433dd345dd5e"
+      },
+      {
+        "path": "artifacts/confirmatory/campaign_b/campaign/windows/C06/units.jsonl",
+        "sha256": "0e15cc2df66e0cbf1f6fb219bb74a77aab2f7a83d1bd5b420d3c103757b6d766"
+      },
+      {
+        "path": "artifacts/confirmatory/campaign_b/campaign/windows/C07/units.jsonl",
+        "sha256": "7a5ee0a5cc76c4835b598ad400cc764ad1b9b2b87c2e8a020ba6d73954bc6328"
+      },
+      {
+        "path": "artifacts/confirmatory/campaign_b/campaign/windows/C08/units.jsonl",
+        "sha256": "0a5f54731447c07eb3fa08800871f4b7a148fd9cd0c3286911de2e00e8641e6e"
+      },
+      {
+        "path": "artifacts/confirmatory/campaign_b/campaign/windows/C10/units.jsonl",
+        "sha256": "a27b5265207e9143bc2c97abf342673bca784789f4bdf727730f354398d0f330"
+      },
+      {
+        "path": "artifacts/confirmatory/campaign_b/campaign/windows/C11/units.jsonl",
+        "sha256": "a8972919b39a4437974ebbb34fa35e68e21219bf6164e2a88ba6790719e46a1d"
+      },
+      {
+        "path": "artifacts/confirmatory/campaign_b/campaign/windows/C12/units.jsonl",
+        "sha256": "e35b210156a3145d91354a4c0a12b9553c312fe63db6260839e7581ebb74686a"
+      },
+      {
+        "path": "artifacts/confirmatory/campaign_b/campaign/windows/C13/units.jsonl",
+        "sha256": "f9fb89e8a717e7914bf65bf86ba703235731f432f44c3e908c211b31e22a98d9"
+      },
+      {
+        "path": "artifacts/confirmatory/campaign_b/campaign/windows/C14/units.jsonl",
+        "sha256": "c3e307b542873140153b7152b2e6b760a2dbb18dc93a6ed7915358e276518faf"
+      }
+    ],
+    "sha256": "3ce8102d09f525f7b33f59acf341b75c1a4078eabb3845c0b1fac1c0a80c5ef9",
+    "private_fields": "No raw identifiers, pseudonyms, keys, MACs, full envelopes or request metadata copied"
+  },
+  "c09": {
+    "output": "data/retrospective/C09_cancellation_clarification.json",
+    "inputs": [
+      {
+        "path": "artifacts/confirmatory/campaign_b/campaign/windows/C09/units.jsonl",
+        "sha256": "c45bd3a583338669c6a39d4ffff3b1e071b0be9fafdc4d4741a121308583d11a"
+      },
+      {
+        "path": "artifacts/confirmatory/campaign_b/postwindow/C09_runner_loss_incident_2026-10-15.json",
+        "sha256": "08b8d3bb497d3a88ad57dc7d976c662378162e87dd534001c0185ae8ec96db70"
+      },
+      {
+        "path": "artifacts/confirmatory/campaign_b/postwindow/C09_closure_check_note_2026-10-19.json",
+        "sha256": "6fc805dfe94862da8a4fa588fc4120eb2295a24ff55ec2d4a5efb92f396cabc9"
+      }
+    ],
+    "sha256": "8e32202d0ebe2d23f8d2de11cde8c495e6baf4eb55f1c913e565ff8d0c566bc1"
+  },
+  "no_hmac_or_provider_verification": true
+}

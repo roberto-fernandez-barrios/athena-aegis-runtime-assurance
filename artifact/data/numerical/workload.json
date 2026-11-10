@@ -1,0 +1,71 @@
+{
+  "features": [
+    [
+      0.1,
+      0.2
+    ],
+    [
+      0.3,
+      0.4
+    ],
+    [
+      0.5,
+      0.6
+    ]
+  ],
+  "repetitions": 2,
+  "feature_map": "zz_feature_map",
+  "pair_order": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      2
+    ]
+  ],
+  "shots": 128,
+  "relative_threshold": 0.15,
+  "absolute_threshold": 0.2,
+  "comparison_tolerance": 1e-12,
+  "classical_reference_reconstructed": [
+    [
+      0.9999999999999984,
+      0.10348410466200246,
+      0.1984343337850745
+    ],
+    [
+      0.10348410466200246,
+      0.9999999999999989,
+      0.4133424639847166
+    ],
+    [
+      0.1984343337850745,
+      0.4133424639847166,
+      0.9999999999999982
+    ]
+  ],
+  "reference_provenance": "Regenerated during v5 with unchanged historical workload implementation; not a recovered original matrix file. Independently reconstructed in reproduce.py and compared to all original stored unit errors.",
+  "regeneration_environment": {
+    "python": "3.13.12",
+    "numpy": "2.3.5",
+    "qiskit": "2.3.1"
+  }
+}

@@ -1,0 +1,55 @@
+"""Frozen workload and oracle reused unchanged from Campaign A (author decision 19)."""
+
+from __future__ import annotations
+
+from functools import lru_cache
+from typing import Any
+
+import numpy as np
+
+from athena_aegis.analysis.confirmatory import kernel_oracle_service_correct
+from athena_aegis.campaign_b.constants import DATASET_DIGEST, FEATURES, SEMANTIC_HASH
+from athena_aegis.canonical import sha256_digest
+from athena_aegis.pilot import oracle_metrics
+from athena_aegis.workloads.base import PreparedWorkload
+from athena_aegis.workloads.kernel import KernelInstance, QuantumKernelRegressionWorkload
+
+
+@lru_cache(maxsize=1)
+def workload() -> QuantumKernelRegressionWorkload:
+    return QuantumKernelRegressionWorkload()
+
+
+@lru_cache(maxsize=1)
+def prepared_workload() -> PreparedWorkload:
+    prepared = workload().prepare(KernelInstance(FEATURES))
+    if prepared.input_identity["dataset_workload_digest"] != DATASET_DIGEST:
+        raise RuntimeError("workload dataset digest mismatch with the frozen Campaign A identity")
+    if prepared.semantic_identity["circuit_semantic_hash"] != SEMANTIC_HASH:
+        raise RuntimeError("workload semantic hash mismatch with the frozen Campaign A identity")
+    return prepared
+
+
+def semantic_identity() -> dict[str, Any]:
+    semantic = dict(prepared_workload().semantic_identity)
+    semantic["pair_order"] = [list(pair) for pair in semantic.get("pair_order", [])]
+    return semantic
+
+
+def postprocess(counts_result: Any) -> tuple[list[list[float]], dict[str, float], bool, float]:
+    """Kernel matrix, oracle metrics, oracle verdict and nonconformity score of a sealed result."""
+
+    prepared = prepared_workload()
+    matrix = workload().postprocess(counts_result, prepared)
+    metrics = oracle_metrics(matrix, prepared.classical_reference)
+    correct = kernel_oracle_service_correct(metrics["relative_frobenius_error"], metrics["maximum_absolute_error"])
+    matrix_list = [[float(value) for value in row] for row in np.asarray(matrix).tolist()]
+    return matrix_list, {key: float(value) for key, value in metrics.items()}, bool(correct), float(metrics["relative_frobenius_error"])
+
+
+def classical_fallback() -> tuple[list[list[float]], dict[str, float], bool, str]:
+    prepared = prepared_workload()
+    reference = [[float(value) for value in row] for row in np.asarray(prepared.classical_reference).tolist()]
+    metrics = oracle_metrics(reference, prepared.classical_reference)
+    correct = kernel_oracle_service_correct(metrics["relative_frobenius_error"], metrics["maximum_absolute_error"])
+    return reference, {key: float(value) for key, value in metrics.items()}, bool(correct), sha256_digest(reference)

@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "Cite the version DOI for this exact reproduction package. The DOI does not identify an accepted journal article."
+type: software
+title: "Operational limits of reference renewal for retained quantum-service results: reproducibility artifact"
+version: "5.1.0"
+date-released: "2026-11-10"
+doi: "10.5281/zenodo.24108573"
+repository-code: "https://github.com/roberto-fernandez-barrios/athena-aegis-runtime-assurance"
+url: "https://doi.org/10.5281/zenodo.24108573"
+license: Apache-2.0
+license-url: "https://github.com/roberto-fernandez-barrios/athena-aegis-runtime-assurance/blob/paper25-qip-v5.1.0/LICENSING.md"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24108572"
+    description: "Concept DOI for all public versions"
+authors:
+  - family-names: "Fernández-Barrios"
+    given-names: "Roberto"
+    orcid: "https://orcid.org/0009-0003-5312-2634"
+    affiliation: "Faculty of Engineering, University of Deusto"
+  - family-names: "Pastor-López"
+    given-names: "Iker"
+    orcid: "https://orcid.org/0000-0002-3068-6248"
+    affiliation: "Faculty of Engineering, University of Deusto"
+  - family-names: "Pikatza-Huerga"
+    given-names: "Amaia"
+    orcid: "https://orcid.org/0009-0003-9080-6242"
+    affiliation: "Faculty of Engineering, University of Deusto"
+  - family-names: "García Bringas"
+    given-names: "Pablo"
+    orcid: "https://orcid.org/0000-0003-3594-9534"
+    affiliation: "Faculty of Engineering, University of Deusto"

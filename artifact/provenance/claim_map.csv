@@ -1,0 +1,15 @@
+claim,value_or_limit,artifact_source,fields_or_scope,evidence_role
+B usable windows and successes,10; 8,data/transitions_windows.csv,usable_transition_window; window_recovery_success,frozen primary
+Exact one-sided p; H1-B,.0546875; not established,data/analysis.json,primary.exact_one_sided_p_value; h1_b_declared,frozen primary
+Rejection threshold,at least 9 of 10,protocols/PREREGISTRATION_B_v1.md,prespecified exact binomial rule,preregistered
+Deadline failures,C04 and C06,data/transitions_probes.csv,within_service_deadline_recorded; T0/T3,frozen primary
+Primary retained/fallback,56 / 4 among 60,data/transitions_probes.csv,retained_result; fallback,frozen descriptive
+Transition calibrations,390 plus bootstrap/other acquisition,data/transitions_windows.csv,calibration_units_bound,frozen accounting
+Post-HOLD reruns,0,data/transitions_probes.csv,service_probe_qpu_rerun,frozen observed behavior
+Accepted jobs and ledger,583 / 611; difference 28,data/candidates_accounting.csv,physical_submissions; ledger_entries,frozen accounting
+A separate antecedent,5 usable; original minimum 8,data/retrospective/summary.json; protocols/PREREGISTRATION_v1.md,A and original A contract,separate historical study
+Exact oracle used for scoring/calibration,model premise,code/inspection_only/campaign_b/workload.py.txt; code/inspection_only/campaign_b/reference.py.txt,score construction,implementation
+P2/P4 replay; provider-dependent binding,no physical treatment comparison,code/inspection_only/campaign_b/runner.py.txt; code/inspection_only/campaign_b/binding.py.txt,replay and J1-J4,implementation
+C05 chronology,no identified physical recalibration time,data/retrospective/B_C05_calibration_chronology.csv,running/observed times and returned labels,retrospective
+Failed-window timing,"clock decomposition, no causal queue estimate",data/retrospective/B_clock_partitions.csv,local and provider time fields,retrospective
+KC-B4 limitation,observed verdict unaffected; no complete enforcement guarantee,code/inspection_only/campaign_b/analysis.py.txt; code/inspection_only/campaign_b/kill_criteria.py.txt,declaration-blocking set,frozen software limitation

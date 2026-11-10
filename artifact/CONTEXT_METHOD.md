@@ -1,0 +1,19 @@
+# Retrospective context description in v5.1
+
+This authorized addition describes preserved metadata only. It does not redefine transitions, select a new population, test drift, change thresholds or estimate a causal effect.
+
+Inputs are the ten usable entries already recorded in `data/numerical/campaign/campaign_state.json`, each candidate's `window.json`, the selected stale reference's `calibration_reference.json`, and both `workload_context_projection.json` files. The stale candidate is taken from `stale_reference.reference_candidate_id`, never inferred from candidate adjacency. C06 selects C04 and C10 selects C08. All inputs are unchanged sanitized v5 files.
+
+`context_transitions.py` traverses every scalar leaf. Dictionary keys are matched by key. Parameter and qubit-property lists are matched by `name`; gate, coupling and target lists by operation and ordered qubit tuple. Other lists, including qubit lists, retain their positional meaning. Duplicate record identities fail explicitly. An absent leaf is distinguished from an explicit null. Changed values are compared exactly, without a numerical tolerance. The raw JSON pointer and matched semantic path are both exported. For these inputs, aligned and raw positional change counts coincide. Reordering the named collections and dictionary keys produces no aligned changes, verified separately for both projections in every comparison. This checks description semantics; it does not modify the historical projection or digest algorithm.
+
+The number is a count of scalar JSON fields, not independent physical parameters. Readout error appears as a qubit property, measurement gate error and target-instruction error. CZ/SX errors also appear in gate and target views, and CZ has both ordered qubit directions. Such repetitions are retained for traceability, not treated as additional physical evidence. The table groups changed fields under readout, measurement threshold, CZ/SX error and T1/T2 metadata. Exact values, names and paths are in `context_changed_leaves.csv`; source filenames and hashes are in `context_transitions.json`.
+
+Age uses the existing v5 definition: selected stale reference `ready_at` to current window `opened_at`, in seconds. The existing 1e-5-second comparison tolerance against the recorded selection age is retained. This is not age at HOLD or inferred age of a physical device calibration.
+
+The focused C07-to-C08/W06 comparison contains only two `measure` parameters named `threshold`, for qubits 0 and 1, with empty recorded unit strings. These provider parameters are distinct from the scientific absolute-error thresholds 0.15/0.20 and rank rejection level 0.05. No physical unit is inferred.
+
+The contract treats its observed context changes as invalidating old support. Digest changes do not establish material error-distribution drift; few changes do not establish physical irrelevance; equal observed fields do not establish complete physical equality. No causal metadata-to-result effect is identified.
+
+The command `python reproduce.py` (or the absolute-path ordinary/isolated invocations in README) regenerates the table and per-leaf provenance. Pre-generated copies in `context_description/` are inspection outputs, not substituted inputs for the calculation. The additional 51 context checks consist of five per usable window (selected reference completeness, aligned/raw count agreement, old/new order invariance, existing age anchor) and one population-count check. New artifact files also add one manifest-integrity check each. The original 7,435 checks and ten software tests retain their scientific definitions and tolerances; their count changes only by these additions.
+
+The descriptive group labels cover the changed fields observed in these preserved inputs. They are not a general classifier for other projection schemas or future datasets; no such portability of the physical interpretation is claimed.

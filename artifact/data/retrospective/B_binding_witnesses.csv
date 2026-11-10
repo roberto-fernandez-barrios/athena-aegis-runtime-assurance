@@ -1,0 +1,8 @@
+candidate,unit,phase,provider_final_status,J1,J2,J3,J4,local_pre_equals_post,local_equals_window,historical_equals_window,provider_running_at,provider_finished_at,terminal_observed_at,provider_queue_s,source_line
+C05,B05-calibration-33,calibration,DONE,True,True,False,True,True,True,False,2026-10-13T23:58:48.451358Z,2026-10-13T23:58:53.976413Z,2026-10-13T23:58:55.521167Z,1.109667,37
+C05,B05-calibration-19,calibration,DONE,True,True,False,True,True,True,False,2026-10-13T23:59:02.551767Z,2026-10-13T23:59:09.879431Z,2026-10-13T23:59:11.072737Z,1.751431,38
+C05,B05-calibration-38,calibration,DONE,True,True,False,True,True,True,False,2026-10-13T23:59:17.382189Z,2026-10-13T23:59:23.993294Z,2026-10-13T23:59:24.553092Z,1.079847,39
+C05,B05-calibration-14,calibration,DONE,True,True,False,True,True,True,False,2026-10-13T23:59:31.977982Z,2026-10-13T23:59:37.963879Z,2026-10-13T23:59:38.439525Z,1.819723,40
+C05,B05-calibration-18,calibration,DONE,True,True,False,True,True,True,False,2026-10-13T23:59:45.128115Z,2026-10-13T23:59:51.820576Z,2026-10-13T23:59:52.052919Z,1.26952,41
+C05,B05-calibration-27,calibration,DONE,True,True,False,True,True,True,False,2026-10-13T23:59:59.224561Z,2026-10-14T00:00:05.277751Z,2026-10-14T00:00:05.980868Z,1.487901,42
+C05,B05-calibration-39,calibration,DONE,True,True,False,True,True,True,False,2026-10-14T00:00:12.777685Z,2026-10-14T00:00:18.677335Z,2026-10-14T00:00:19.894102Z,1.325533,43

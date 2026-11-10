@@ -1,0 +1,11 @@
+window,candidate,stale_reference,changed_scalar_leaves,changed_property_groups,reference_age_at_window_open_s,old_reference_ready_at,window_opened_at
+W02,C03,C02,16,"CZ error (both directions); Measurement threshold (q0, q1); Readout errors (q0, q1)",19641.141516,2026-10-10T10:37:54.837732Z,2026-10-10T16:05:15.979248Z
+W03,C04,C03,24,"CZ error (both directions); Coherence: T1, T2 (q0, q1); Measurement threshold (q0, q1); Readout errors (q0, q1); SX error (q0, q1)",204415.172641,2026-10-10T16:16:48.888001Z,2026-10-13T01:03:44.060642Z
+W04,C06,C04,22,"CZ error (both directions); Coherence: T1, T2 (q0, q1); Readout errors (q0, q1); SX error (q0, q1)",90278.086039,2026-10-13T06:51:48.618286Z,2026-10-14T07:56:26.704325Z
+W05,C07,C06,12,"Measurement threshold (q0, q1); Readout errors (q0, q1)",12558.756557,2026-10-14T16:40:00.509507Z,2026-10-14T20:09:19.266064Z
+W06,C08,C07,2,"Measurement threshold (q0, q1)",1030.931033,2026-10-14T20:21:33.692349Z,2026-10-14T20:38:44.623382Z
+W07,C10,C08,24,"CZ error (both directions); Coherence: T1, T2 (q0, q1); Measurement threshold (q0, q1); Readout errors (q0, q1); SX error (q0, q1)",911735.821142,2026-10-14T20:50:45.989656Z,2026-10-25T10:06:21.810798Z
+W08,C11,C10,14,"Coherence: T1, T2 (q0, q1); Readout errors (q0, q1)",3659.961162,2026-10-25T10:18:59.396734Z,2026-10-25T11:19:59.357896Z
+W09,C12,C11,4,"SX error (q0, q1)",2942.947826,2026-10-25T11:32:26.368936Z,2026-10-25T12:21:29.316762Z
+W10,C13,C12,4,CZ error (both directions),1125.085066,2026-10-25T12:32:26.616099Z,2026-10-25T12:51:11.701165Z
+W11,C14,C13,10,"Readout errors (q0, q1)",2971.818077,2026-10-25T13:03:38.473085Z,2026-10-25T13:53:10.291162Z

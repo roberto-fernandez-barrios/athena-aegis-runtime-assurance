@@ -1,0 +1,580 @@
+{
+  "campaign": "paper-2.5b-campaign-b",
+  "campaign_status": "complete",
+  "generated_at": "2026-10-25T19:06:22.696088+01:00",
+  "h1_b_declared": false,
+  "h1_b_statement": "NOT ESTABLISHED",
+  "kill_criteria": {
+    "KC-B1": {
+      "frozen_definition": "no physical evidence: no accepted window with bound, sealed, signature-verified physical units; no physical-execution claim",
+      "note": "11 accepted windows with bound sealed physical units",
+      "state": "not_triggered"
+    },
+    "KC-B2": {
+      "frozen_definition": "target not reached: fewer than 10 usable transition windows at stop; H1-B not tested; descriptive report only",
+      "note": "10 usable transition windows (target 10)",
+      "state": "not_triggered"
+    },
+    "KC-B3": {
+      "fatal": false,
+      "frozen_definition": "binding infeasible: preflight historical-binding self-test failure is fatal; any required UNBOUND unit makes its window non-usable; campaign-level fatal when >= 20% of scientific terminal units are UNBOUND once at least 50 terminal units exist",
+      "note": "preflight self-test passed; unbound 7/582 terminal units; windows lost to unbound units: 0",
+      "scientific_terminal_units": 582,
+      "state": "not_triggered",
+      "unbound_fraction": 0.012027491408934709,
+      "unbound_units": 7
+    },
+    "KC-B4": {
+      "frozen_definition": "recovery correctness failure: any P5 served result oracle-incorrect in any accepted window, any phase; negative result published, no success claim",
+      "note": "0 P5 served oracle-incorrect results across accepted windows",
+      "state": "not_triggered"
+    },
+    "KC-B5": {
+      "frozen_definition": "safety-gate violation on the primary population; H1-B cannot be declared regardless of X",
+      "note": "0 safety-gate violations on the primary population",
+      "state": "not_triggered"
+    },
+    "KC-B6": {
+      "frozen_definition": "service consequence not measurable: a primary P5 record lacks determinate served, oracle, assurance, served_source or T0-T3 fields; no success claim",
+      "note": "0 primary P5 records with missing consequence fields",
+      "state": "not_triggered"
+    },
+    "KC-B7": {
+      "frozen_definition": "provider/API semantics incompatible: status vocabulary, metrics schema or cancellation semantics differ from the frozen expectation; a probe is physically re-executed after HOLD; two DONE attempts for one unit; halt and amend",
+      "note": "provider semantics consistent with the frozen expectation",
+      "state": "not_triggered"
+    },
+    "KC-B8": {
+      "frozen_definition": "budget/quota: campaign hard cap or provider limit reached before the target; stop; KC-B2 follows",
+      "note": "caps not reached",
+      "state": "not_triggered"
+    },
+    "KC-B9": {
+      "frozen_definition": "operational infeasibility: no gate-open opportunity for 30 consecutive days, or the 90-day campaign cap; stop; KC-B2 follows",
+      "note": "gate opportunities and calendar within bounds",
+      "state": "not_triggered"
+    }
+  },
+  "phase": "confirmatory",
+  "population": {
+    "accepted_non_usable": [],
+    "accepted_windows": 11,
+    "bootstrap": [
+      "C02"
+    ],
+    "candidate_epochs": 14,
+    "incomplete": [
+      "C01",
+      "C05",
+      "C09"
+    ],
+    "usable_candidates": [
+      "C03",
+      "C04",
+      "C06",
+      "C07",
+      "C08",
+      "C10",
+      "C11",
+      "C12",
+      "C13",
+      "C14"
+    ],
+    "usable_transition_windows": 10
+  },
+  "primary": {
+    "alpha": 0.05,
+    "alternative_hypothesis": "pi_B > 0.5",
+    "clopper_pearson_95": [
+      0.4439045376923585,
+      0.9747892736731665
+    ],
+    "exact_one_sided_p_value": 0.0546875,
+    "h1_b": "NOT ESTABLISHED",
+    "leave_one_window_out": [
+      {
+        "omitted_candidate_id": "C03",
+        "remaining_windows": 9,
+        "successes_among_remaining": 7
+      },
+      {
+        "omitted_candidate_id": "C04",
+        "remaining_windows": 9,
+        "successes_among_remaining": 8
+      },
+      {
+        "omitted_candidate_id": "C06",
+        "remaining_windows": 9,
+        "successes_among_remaining": 8
+      },
+      {
+        "omitted_candidate_id": "C07",
+        "remaining_windows": 9,
+        "successes_among_remaining": 7
+      },
+      {
+        "omitted_candidate_id": "C08",
+        "remaining_windows": 9,
+        "successes_among_remaining": 7
+      },
+      {
+        "omitted_candidate_id": "C10",
+        "remaining_windows": 9,
+        "successes_among_remaining": 7
+      },
+      {
+        "omitted_candidate_id": "C11",
+        "remaining_windows": 9,
+        "successes_among_remaining": 7
+      },
+      {
+        "omitted_candidate_id": "C12",
+        "remaining_windows": 9,
+        "successes_among_remaining": 7
+      },
+      {
+        "omitted_candidate_id": "C13",
+        "remaining_windows": 9,
+        "successes_among_remaining": 7
+      },
+      {
+        "omitted_candidate_id": "C14",
+        "remaining_windows": 9,
+        "successes_among_remaining": 7
+      }
+    ],
+    "null_hypothesis": "pi_B <= 0.5",
+    "one_sided_95_lower_bound": 0.4930986989367976,
+    "population_statement": "pi_B = P(window_recovery_success | genuine workload-context transition admitted by the frozen Campaign-B availability gate). X >= 9 of 10 establishes evidence against pi_B <= 0.5 under the gate-conditioned population; it does not establish population reliability >= 0.90, and makes no claim at arbitrary provider congestion states.",
+    "reject_h0": false,
+    "rejection_region": "X >= 9 of 10",
+    "required_usable_windows": 10,
+    "role": "primary_H1_B",
+    "status": "TESTED",
+    "successes": 8,
+    "test": "exact one-sided binomial",
+    "usable_windows": 10,
+    "windows": [
+      {
+        "candidate_id": "C03",
+        "fallback_count": 1,
+        "label": "W02",
+        "retained_result_count": 5,
+        "window_recovery_success": true
+      },
+      {
+        "candidate_id": "C04",
+        "fallback_count": 1,
+        "label": "W03",
+        "retained_result_count": 5,
+        "window_recovery_success": false
+      },
+      {
+        "candidate_id": "C06",
+        "fallback_count": 0,
+        "label": "W04",
+        "retained_result_count": 6,
+        "window_recovery_success": false
+      },
+      {
+        "candidate_id": "C07",
+        "fallback_count": 0,
+        "label": "W05",
+        "retained_result_count": 6,
+        "window_recovery_success": true
+      },
+      {
+        "candidate_id": "C08",
+        "fallback_count": 1,
+        "label": "W06",
+        "retained_result_count": 5,
+        "window_recovery_success": true
+      },
+      {
+        "candidate_id": "C10",
+        "fallback_count": 1,
+        "label": "W07",
+        "retained_result_count": 5,
+        "window_recovery_success": true
+      },
+      {
+        "candidate_id": "C11",
+        "fallback_count": 0,
+        "label": "W08",
+        "retained_result_count": 6,
+        "window_recovery_success": true
+      },
+      {
+        "candidate_id": "C12",
+        "fallback_count": 0,
+        "label": "W09",
+        "retained_result_count": 6,
+        "window_recovery_success": true
+      },
+      {
+        "candidate_id": "C13",
+        "fallback_count": 0,
+        "label": "W10",
+        "retained_result_count": 6,
+        "window_recovery_success": true
+      },
+      {
+        "candidate_id": "C14",
+        "fallback_count": 0,
+        "label": "W11",
+        "retained_result_count": 6,
+        "window_recovery_success": true
+      }
+    ]
+  },
+  "qpu_jobs_submitted_by_analysis": 0,
+  "safety_gate": {
+    "records_checked": 60,
+    "safety_gate_pass": true,
+    "violations": []
+  },
+  "schema_version": "athena-aegis.campaign-b-analysis/1.0.0",
+  "scientific_evidence": true,
+  "secondary": {
+    "binding_failures": {
+      "scientific_terminal_units": 582,
+      "unbound_units": 7,
+      "windows_lost_to_unbound_units": 0
+    },
+    "fallbacks": {
+      "count": 4,
+      "fraction_of_served_primary_probes": {
+        "denominator": 60,
+        "estimate": 0.06666666666666667,
+        "experimental_unit": "served primary probe",
+        "lower": 0.026228698724506214,
+        "numerator": 4,
+        "uncertainty": "Wilson 95% interval",
+        "upper": 0.1592535731319717
+      }
+    },
+    "incorrect_service_continuation": {
+      "P2-global-calibrated": {
+        "denominator": 78,
+        "estimate": 0.0,
+        "experimental_unit": "served result",
+        "lower": 0.0,
+        "numerator": 0,
+        "uncertainty": "Wilson 95% interval",
+        "upper": 0.04693780971219429
+      },
+      "P4-context-oos-abstention": {
+        "denominator": 21,
+        "estimate": 0.0,
+        "experimental_unit": "served result",
+        "lower": 0.0,
+        "numerator": 0,
+        "uncertainty": "Wilson 95% interval",
+        "upper": 0.154639018924847
+      },
+      "P5-recovery-enforcement": {
+        "denominator": 82,
+        "estimate": 0.0,
+        "experimental_unit": "served result",
+        "lower": 0.0,
+        "numerator": 0,
+        "uncertainty": "Wilson 95% interval",
+        "upper": 0.04475062369010033
+      }
+    },
+    "missingness": {
+      "accepted_non_usable": [],
+      "incomplete_windows": [
+        "C01",
+        "C05",
+        "C09"
+      ],
+      "late_results": 0,
+      "unit_terminal_states": {
+        "BOUND_SEALED": 575,
+        "CANCELLED_BY_RUNNER": 1,
+        "NOT_SUBMITTED": 2,
+        "SUBMIT_FAILED": 28,
+        "UNBOUND_AUDIT_ONLY": 7
+      }
+    },
+    "observable_provider_queue_wait_seconds": {
+      "max": 19532.816135,
+      "median": 1.2706434999999998,
+      "min": 0.678597,
+      "n": 582
+    },
+    "p2_assurance_invalid_continuation": {
+      "denominator": 60,
+      "estimate": 0.95,
+      "experimental_unit": "pre-recovery probe",
+      "lower": 0.8629948352365147,
+      "numerator": 57,
+      "uncertainty": "Wilson 95% interval",
+      "upper": 0.9828504978356043
+    },
+    "p5_assurance_invalid_continuation": {
+      "denominator": 82,
+      "estimate": 0.0,
+      "experimental_unit": "P5 record",
+      "lower": 0.0,
+      "numerator": 0,
+      "uncertainty": "Wilson 95% interval",
+      "upper": 0.04475062369010033
+    },
+    "post_window_terminal_results": {
+      "in_window_units": 0,
+      "late_after_close": 0,
+      "promoted_to_scientific_evidence": 0
+    },
+    "qpu_resource_usage": {
+      "acquisition_reruns": 1,
+      "cancel_requests": 1,
+      "jobs_consumed": 611,
+      "qpu_seconds_consumed_estimate": 1833.0,
+      "qpu_seconds_provider_reported": 1164.0
+    },
+    "queue_exposure": {
+      "gate_statistics": {
+        "candidate_rollovers": 14,
+        "gate_open_polls": 1251,
+        "gated_candidate_polls": 2983,
+        "polls": 5461,
+        "windows_opened": 14
+      },
+      "max_queue_depth_in_window": [
+        2,
+        0,
+        64,
+        1912,
+        0,
+        0,
+        2,
+        3,
+        1,
+        3,
+        2
+      ],
+      "queue_depth_at_open": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        2,
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    "recalibration_latency_T1_T2_seconds": {
+      "max": 24719.410329,
+      "median": 634.9956285000001,
+      "min": 565.495767,
+      "n": 60
+    },
+    "recovery_latency_T0_T3_seconds": {
+      "max": 26885.649444,
+      "median": 666.0264885,
+      "min": 565.561698,
+      "n": 60
+    },
+    "retained_result_only_window_success": {
+      "usable_windows": 10,
+      "windows": 5
+    },
+    "retained_result_rate": {
+      "denominator": 60,
+      "estimate": 0.9333333333333333,
+      "experimental_unit": "primary probe",
+      "lower": 0.8407464268680283,
+      "numerator": 56,
+      "uncertainty": "Wilson 95% interval",
+      "upper": 0.9737713012754938
+    },
+    "service_availability": {
+      "P2-global-calibrated": {
+        "denominator": 82,
+        "estimate": 0.25609756097560976,
+        "experimental_unit": "service request",
+        "lower": 0.1740357615326263,
+        "numerator": 21,
+        "uncertainty": "Wilson 95% interval",
+        "upper": 0.35998893295034956
+      },
+      "P4-context-oos-abstention": {
+        "denominator": 82,
+        "estimate": 0.25609756097560976,
+        "experimental_unit": "service request",
+        "lower": 0.1740357615326263,
+        "numerator": 21,
+        "uncertainty": "Wilson 95% interval",
+        "upper": 0.35998893295034956
+      },
+      "P5-recovery-enforcement": {
+        "denominator": 82,
+        "estimate": 0.8536585365853658,
+        "experimental_unit": "service request",
+        "lower": 0.7614058151019909,
+        "numerator": 70,
+        "uncertainty": "Wilson 95% interval",
+        "upper": 0.9142583778976943
+      }
+    },
+    "verification_probe_behavior": {
+      "P2-global-calibrated": {
+        "denominator": 22,
+        "estimate": 0.9545454545454546,
+        "experimental_unit": "verification probe",
+        "lower": 0.7820195416134267,
+        "numerator": 21,
+        "uncertainty": "Wilson 95% interval",
+        "upper": 0.991930572378736
+      },
+      "P4-context-oos-abstention": {
+        "denominator": 22,
+        "estimate": 0.9545454545454546,
+        "experimental_unit": "verification probe",
+        "lower": 0.7820195416134267,
+        "numerator": 21,
+        "uncertainty": "Wilson 95% interval",
+        "upper": 0.991930572378736
+      },
+      "P5-recovery-enforcement": {
+        "denominator": 22,
+        "estimate": 1.0,
+        "experimental_unit": "verification probe",
+        "lower": 0.8513451253913791,
+        "numerator": 22,
+        "uncertainty": "Wilson 95% interval",
+        "upper": 1.0
+      }
+    }
+  },
+  "stale_reference_selections": [
+    {
+      "candidate_id": "C02",
+      "number_of_context_transitions_since_reference": null,
+      "reference_age_seconds": null,
+      "reference_candidate_id": null,
+      "reference_context_digest": null,
+      "reference_label": null,
+      "reference_window_id": null,
+      "stale_reference_available": false,
+      "stale_reference_selection_reason": "no prior accepted context with a complete context-bound calibration reference; P2 = CALIBRATION_INVALID"
+    },
+    {
+      "candidate_id": "C03",
+      "number_of_context_transitions_since_reference": 1,
+      "reference_age_seconds": 19641.141516,
+      "reference_candidate_id": "C02",
+      "reference_context_digest": "7e181aa37bc1ef2e8fe4c1da24754a996e9d5d78afb38ecbdb6ff7e45a2e7112",
+      "reference_label": "W01",
+      "reference_window_id": "dd0ccce313b4a79caa6a0682befe56de5f07f13f045984dba6088aac4082bf09",
+      "stale_reference_available": true,
+      "stale_reference_selection_reason": "most recent prior accepted context with a complete context-bound calibration reference"
+    },
+    {
+      "candidate_id": "C04",
+      "number_of_context_transitions_since_reference": 1,
+      "reference_age_seconds": 204415.172641,
+      "reference_candidate_id": "C03",
+      "reference_context_digest": "fb789ff35b578d5145e4b6a6e16ede4715a9bf5a9da98f5d001f09a827811288",
+      "reference_label": "W02",
+      "reference_window_id": "9e04869095dda72f289ffb1e3e3d4e43812483172c98fcc09368ac7dcb2217b5",
+      "stale_reference_available": true,
+      "stale_reference_selection_reason": "most recent prior accepted context with a complete context-bound calibration reference"
+    },
+    {
+      "candidate_id": "C06",
+      "number_of_context_transitions_since_reference": 1,
+      "reference_age_seconds": 90278.086039,
+      "reference_candidate_id": "C04",
+      "reference_context_digest": "e50c53cb2c42053360889d4f9049f7f566262eea25a676124612bcad66b01579",
+      "reference_label": "W03",
+      "reference_window_id": "44438a3f3d28c4bea073fb5ab72122621b968acc024fd94ab8ea3c3e705f82c9",
+      "stale_reference_available": true,
+      "stale_reference_selection_reason": "most recent prior accepted context with a complete context-bound calibration reference"
+    },
+    {
+      "candidate_id": "C07",
+      "number_of_context_transitions_since_reference": 1,
+      "reference_age_seconds": 12558.756557,
+      "reference_candidate_id": "C06",
+      "reference_context_digest": "55c2c29e03e0b06af55ccf26f49464377f17856c1c40401509e131380ffc54ca",
+      "reference_label": "W04",
+      "reference_window_id": "c42713625a92d62f7525d8b42296209a2cf79d6ea34a7bf436b2c0bd3e25c14d",
+      "stale_reference_available": true,
+      "stale_reference_selection_reason": "most recent prior accepted context with a complete context-bound calibration reference"
+    },
+    {
+      "candidate_id": "C08",
+      "number_of_context_transitions_since_reference": 1,
+      "reference_age_seconds": 1030.931033,
+      "reference_candidate_id": "C07",
+      "reference_context_digest": "5c339932cf5629056b8bd95585e19db844284d8b3afe2b3db3cec072b39e17da",
+      "reference_label": "W05",
+      "reference_window_id": "0eff557feaca9f25459d2987d8c554b1d33f0379abd96285523f858ee6cdb3ff",
+      "stale_reference_available": true,
+      "stale_reference_selection_reason": "most recent prior accepted context with a complete context-bound calibration reference"
+    },
+    {
+      "candidate_id": "C10",
+      "number_of_context_transitions_since_reference": 1,
+      "reference_age_seconds": 911735.821142,
+      "reference_candidate_id": "C08",
+      "reference_context_digest": "4183f7668ec91bd6816b74ecf30466f56f01b7edb5196a2d9b2c9c678b8be37a",
+      "reference_label": "W06",
+      "reference_window_id": "51340b1be8d5dcc220112d23f8525acb0aec7343b4c383db36bcb5c194994ff6",
+      "stale_reference_available": true,
+      "stale_reference_selection_reason": "most recent prior accepted context with a complete context-bound calibration reference"
+    },
+    {
+      "candidate_id": "C11",
+      "number_of_context_transitions_since_reference": 1,
+      "reference_age_seconds": 3659.961162,
+      "reference_candidate_id": "C10",
+      "reference_context_digest": "90370ff122a2854833bb2810fd79aa5360cbae12b0c576a4702dbe6dcf76e57c",
+      "reference_label": "W07",
+      "reference_window_id": "a28f070cf169383b8d394382c0e6283be29fc09e1864b6adac5e088bc312f398",
+      "stale_reference_available": true,
+      "stale_reference_selection_reason": "most recent prior accepted context with a complete context-bound calibration reference"
+    },
+    {
+      "candidate_id": "C12",
+      "number_of_context_transitions_since_reference": 1,
+      "reference_age_seconds": 2942.947826,
+      "reference_candidate_id": "C11",
+      "reference_context_digest": "8d3d517add777a4381f7db000343b8d84cc7729d74a91842748e3264a9f0befd",
+      "reference_label": "W08",
+      "reference_window_id": "10106d741558493f9beaafe346c06fc3a94db9f48942ba5c777e69227eb76a36",
+      "stale_reference_available": true,
+      "stale_reference_selection_reason": "most recent prior accepted context with a complete context-bound calibration reference"
+    },
+    {
+      "candidate_id": "C13",
+      "number_of_context_transitions_since_reference": 1,
+      "reference_age_seconds": 1125.085066,
+      "reference_candidate_id": "C12",
+      "reference_context_digest": "681dc1ad5ba9226cecda2d6ea13f610168080eb864e1dc97086dc8e2e454919c",
+      "reference_label": "W09",
+      "reference_window_id": "ae41185979d9941565e4bfdd4cc9a442be523308b7551a0ee052d7a3a3f65215",
+      "stale_reference_available": true,
+      "stale_reference_selection_reason": "most recent prior accepted context with a complete context-bound calibration reference"
+    },
+    {
+      "candidate_id": "C14",
+      "number_of_context_transitions_since_reference": 1,
+      "reference_age_seconds": 2971.818077,
+      "reference_candidate_id": "C13",
+      "reference_context_digest": "edef853d64e15c6db1517c2a327c4696ec33c9ddb783a5de19eaf2511c6303a3",
+      "reference_label": "W10",
+      "reference_window_id": "5a4ce597caba0bdce4a4c88d4086ab53d04afcc67b007d161b8a78abb819d0eb",
+      "stale_reference_available": true,
+      "stale_reference_selection_reason": "most recent prior accepted context with a complete context-bound calibration reference"
+    }
+  ],
+  "status_reason": "target of 10 usable transition windows reached"
+}

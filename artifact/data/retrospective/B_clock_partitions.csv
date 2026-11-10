@@ -1,0 +1,3 @@
+candidate,window_wall_s,open_to_first_hold_s,first_hold_to_cal_start_s,cal_start_to_reference_s,reference_to_last_service_s,last_service_to_close_s,calibration_queue_sum_s,calibration_execution_sum_s,reference_interval_minus_provider_intervals_s,provider_intervals_nonoverlapping_and_nested,first_preprobe_queue_s
+C04,20926.529705,17.026595,77.763807,20789.767242,0.050633,41.921428,19606.429412,878.70307,304.63476000000037,True,2.260929
+C06,31445.923935,4528.159738,2166.235115,24719.410329,0.046886,32.071867,23570.315911,713.661954,435.4324639999969,True,4473.832165

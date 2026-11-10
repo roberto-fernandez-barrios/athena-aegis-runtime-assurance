@@ -1,0 +1,42 @@
+{
+  "candidate_id": "C01",
+  "label": null,
+  "intended_label": "W01",
+  "bootstrap": true,
+  "status": "incomplete_halt",
+  "opened_at": "2026-10-09T17:49:47.821717Z",
+  "completed_at": "2026-10-09T17:50:29.201671Z",
+  "calibration_started_at": "2026-10-09T17:49:48.141840Z",
+  "scientific_terminated_at": "2026-10-09T17:50:29.201671Z",
+  "expiry_reason": "halt: operator STOP file present (STOP present before submit)",
+  "provider_calibration_timestamp": "2026-10-09T19:13:56+02:00",
+  "units_bound": 0,
+  "units_unbound": 0,
+  "units_failed": 28,
+  "units_cancelled": 0,
+  "unit_states": {
+    "NOT_SUBMITTED": 1,
+    "SUBMIT_FAILED": 28
+  },
+  "planned_by_phase": {
+    "calibration": 39,
+    "post_recovery_verification": 2,
+    "pre_recovery_service": 0
+  },
+  "bound_by_phase": {
+    "calibration": 0,
+    "post_recovery_verification": 0,
+    "pre_recovery_service": 0
+  },
+  "stage_c_completed": false,
+  "calibration_reference_complete": false,
+  "termination_reason": "halt",
+  "stale_reference": {
+    "reference_candidate_id": null,
+    "reference_label": null,
+    "reference_age_seconds": null,
+    "number_of_context_transitions_since_reference": null,
+    "stale_reference_available": false,
+    "stale_reference_selection_reason": "no prior accepted context with a complete context-bound calibration reference; P2 = CALIBRATION_INVALID"
+  }
+}

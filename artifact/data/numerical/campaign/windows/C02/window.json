@@ -1,0 +1,42 @@
+{
+  "candidate_id": "C02",
+  "label": "W01",
+  "intended_label": "W01",
+  "bootstrap": true,
+  "status": "accepted_bootstrap",
+  "opened_at": "2026-10-10T10:28:08.876273Z",
+  "completed_at": "2026-10-10T10:38:24.356564Z",
+  "calibration_started_at": "2026-10-10T10:28:09.157332Z",
+  "scientific_terminated_at": null,
+  "expiry_reason": null,
+  "provider_calibration_timestamp": "2026-10-10T12:06:11+02:00",
+  "units_bound": 41,
+  "units_unbound": 0,
+  "units_failed": 0,
+  "units_cancelled": 0,
+  "units_pre_provider_error": 0,
+  "unit_states": {
+    "BOUND_SEALED": 41
+  },
+  "planned_by_phase": {
+    "calibration": 39,
+    "post_recovery_verification": 2,
+    "pre_recovery_service": 0
+  },
+  "bound_by_phase": {
+    "calibration": 39,
+    "post_recovery_verification": 2,
+    "pre_recovery_service": 0
+  },
+  "stage_c_completed": true,
+  "calibration_reference_complete": true,
+  "termination_reason": null,
+  "stale_reference": {
+    "reference_candidate_id": null,
+    "reference_label": null,
+    "reference_age_seconds": null,
+    "number_of_context_transitions_since_reference": null,
+    "stale_reference_available": false,
+    "stale_reference_selection_reason": "no prior accepted context with a complete context-bound calibration reference; P2 = CALIBRATION_INVALID"
+  }
+}

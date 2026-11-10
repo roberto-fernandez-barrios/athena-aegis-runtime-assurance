@@ -1,0 +1,44 @@
+\begin{thebibliography}{1}
+
+\bibitem{fernandez2026observational}
+Roberto Fern{\'a}ndez-Barrios, Iker Pastor-L{\'o}pez, Amaia Pikatza-Huerga, and
+  Pablo Garc{\'i}a~Bringas.
+\newblock Observational indistinguishability and integrity blind regions in
+  hybrid quantum-classical workflows.
+\newblock Preprint at \url{https://arxiv.org/abs/2609.17150v1}, 2026.
+
+\bibitem{fernandez2026candidate}
+Roberto Fern{\'a}ndez-Barrios, Iker Pastor-L{\'o}pez, Amaia Pikatza-Huerga, and
+  Pablo Garc{\'i}a~Bringas.
+\newblock Candidate comparability before promotion: Conditional validation in
+  adaptive network intrusion detection.
+\newblock Preprint at \url{https://arxiv.org/abs/2609.04388v1}, 2026.
+
+\bibitem{fernandez2026certificates}
+Roberto Fern{\'a}ndez-Barrios, Iker Pastor-L{\'o}pez, Asier
+  Gonz{\'a}lez-Santocildes, and Pablo Garc{\'i}a~Bringas.
+\newblock Sharp target-domain certificates for quantum-kernel advantage under
+  distribution shift.
+\newblock Preprint at \url{https://arxiv.org/abs/2610.00080v1}, 2026.
+
+\bibitem{fernandez2026collider}
+Roberto Fern{\'a}ndez-Barrios, Iker Pastor-L{\'o}pez, Asier
+  Gonz{\'a}lez-Santocildes, and Pablo Garc{\'i}a~Bringas.
+\newblock Information and reference requirements for auditing collider
+  classifiers.
+\newblock Preprint at \url{https://arxiv.org/abs/2609.02781v2}, 2026.
+
+\bibitem{javadiabhari2024qiskit}
+Ali Javadi-Abhari, Matthew Treinish, Kevin Krsulich, Christopher~J. Wood, Jake
+  Lishman, Julien Gacon, Simon Martiel, Paul~D. Nation, Lev~S. Bishop,
+  Andrew~W. Cross, Blake~R. Johnson, and Jay~M. Gambetta.
+\newblock Quantum computing with {Qiskit}.
+\newblock Preprint at \url{https://arxiv.org/abs/2405.08810v3}, 2024.
+
+\bibitem{rfc2104}
+Hugo Krawczyk, Mihir Bellare, and Ran Canetti.
+\newblock {HMAC}: Keyed-hashing for message authentication.
+\newblock RFC 2104, RFC Editor, 1997.
+\newblock \url{https://doi.org/10.17487/RFC2104}.
+
+\end{thebibliography}

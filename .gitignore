@@ -1,31 +1,10 @@
 .venv/
-.venv*/
-.pytest_cache/
-.ruff_cache/
 __pycache__/
 *.py[cod]
-*.egg-info/
-build/
-dist/
-
-# Credentials and provider-local state. Never commit these paths.
+.pytest_cache/
+_build/
+reproduced*/
 .env
 .env.*
-!.env.example.disabled
-credentials/
 *.credential.json
 .qiskit/
-qiskit-ibm.json
-provider-cache/
-
-# QPU records can contain account, job, session, or workload identifiers.
-artifacts/qpu/private/
-artifacts/qpu/raw/
-artifacts/preflight/private/
-artifacts/pilot/private/
-artifacts/pilot/raw/
-
-# Generated scratch data.
-tmp/
-coverage.xml
-.coverage

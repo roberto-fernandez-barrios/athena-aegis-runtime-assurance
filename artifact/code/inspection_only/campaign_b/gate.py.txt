@@ -1,0 +1,79 @@
+"""Availability gate and genuine-transition predicate (author decision 6).
+
+The gate is evaluated on read-only poll records.  It never reads a scientific
+outcome.  A closed gate before window open does not consume a candidate epoch.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from datetime import datetime
+from typing import Any, Mapping
+
+from athena_aegis.campaign_b.constants import GATE_MAX_PENDING_JOBS, GATE_REQUIRED_STATUS_MESSAGE
+
+
+@dataclass(frozen=True)
+class GateDecision:
+    open: bool
+    reasons: tuple[str, ...]
+    pending_jobs: int | None
+    status_message: str | None
+    operational: bool | None
+    fixed_support_executable: bool | None
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "gate_open": self.open,
+            "gate_reasons": list(self.reasons),
+            "pending_jobs": self.pending_jobs,
+            "status_message": self.status_message,
+            "backend_operational": self.operational,
+            "fixed_support_executable": self.fixed_support_executable,
+            "gate_rule": f"operational AND status_msg == '{GATE_REQUIRED_STATUS_MESSAGE}' AND pending_jobs <= {GATE_MAX_PENDING_JOBS} AND fixed support executable",
+        }
+
+
+def evaluate_gate(poll: Mapping[str, Any]) -> GateDecision:
+    """Deterministic gate on one sanitized poll record."""
+
+    reasons: list[str] = []
+    operational = poll.get("backend_operational")
+    status = poll.get("status_message")
+    pending = poll.get("pending_jobs")
+    support = poll.get("fixed_support_executable")
+    if operational is not True:
+        reasons.append("backend not operational")
+    if status != GATE_REQUIRED_STATUS_MESSAGE:
+        reasons.append(f"status_message is {status!r}, required {GATE_REQUIRED_STATUS_MESSAGE!r}")
+    if not isinstance(pending, int) or isinstance(pending, bool):
+        reasons.append("pending_jobs unavailable")
+    elif pending > GATE_MAX_PENDING_JOBS:
+        reasons.append(f"pending_jobs {pending} > {GATE_MAX_PENDING_JOBS}")
+    if support is not True:
+        reasons.append("fixed physical support not executable")
+    return GateDecision(not reasons, tuple(reasons), pending if isinstance(pending, int) else None, status, operational, support)
+
+
+def _instant(value: str) -> datetime:
+    return datetime.fromisoformat(value.replace("Z", "+00:00"))
+
+
+def is_genuine_transition(poll: Mapping[str, Any], last_accepted: Mapping[str, Any] | None) -> tuple[bool, str]:
+    """Workload-relevant transition relative to the last accepted context (A semantics, unchanged)."""
+
+    timestamp = poll.get("provider_calibration_timestamp")
+    if not timestamp:
+        return False, "provider calibration timestamp unavailable"
+    if last_accepted is None:
+        return True, "initial workload context candidate (bootstrap)"
+    if _instant(str(timestamp)) <= _instant(str(last_accepted["provider_calibration_timestamp"])):
+        return False, "provider calibration timestamp is not later than the last accepted context"
+    if poll.get("workload_context_digest") == last_accepted.get("workload_context_digest"):
+        changed = poll.get("backend_snapshot_digest") != last_accepted.get("backend_snapshot_digest")
+        return False, "workload context unchanged" + ("; backend-only background variation" if changed else "")
+    return True, "later provider calibration timestamp with changed workload context digest"
+
+
+def identity_key(poll: Mapping[str, Any]) -> tuple[Any, Any, Any]:
+    return (poll.get("provider_calibration_timestamp"), poll.get("workload_context_digest"), poll.get("backend_snapshot_digest"))

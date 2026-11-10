@@ -1,0 +1,19 @@
+{
+  "source_date_epoch_convention": 1794268800,
+  "temporal_attestation": false,
+  "latex_version": "MiKTeX-pdfTeX 4.27 (MiKTeX 26.5)",
+  "documents": [
+    {
+      "pdf": "manuscript.pdf",
+      "warnings": [],
+      "sha256": "8b889126470fc40cfcad4112e8426f15abd6a19ca80093af182e649f46e8b46e",
+      "source_sha256": "10832ce82e1fedc190943a1962e03407c091537f28342ccd05414bdd219184f4"
+    },
+    {
+      "pdf": "ESM_1.pdf",
+      "warnings": [],
+      "sha256": "a55d6dc4f4b224eecd6335b2509ac6de3197db96001b10ddb15f34f3988c05f2",
+      "source_sha256": "b75d14a4a31df82ca8072b41fdf8c386c1eb9cf9cd1a50b51432088a169e5d1e"
+    }
+  ]
+}

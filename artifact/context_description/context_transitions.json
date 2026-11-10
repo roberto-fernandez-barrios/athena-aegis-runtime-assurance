@@ -1,0 +1,238 @@
+{
+  "scope": "Retrospective metadata description; not a new test, endpoint, transition definition, or causal drift analysis.",
+  "rows": [
+    {
+      "window": "W02",
+      "candidate": "C03",
+      "stale_reference": "C02",
+      "changed_scalar_leaves": 16,
+      "changed_property_groups": "CZ error (both directions); Measurement threshold (q0, q1); Readout errors (q0, q1)",
+      "reference_age_at_window_open_s": 19641.141516,
+      "old_reference_ready_at": "2026-10-10T10:37:54.837732Z",
+      "window_opened_at": "2026-10-10T16:05:15.979248Z"
+    },
+    {
+      "window": "W03",
+      "candidate": "C04",
+      "stale_reference": "C03",
+      "changed_scalar_leaves": 24,
+      "changed_property_groups": "CZ error (both directions); Coherence: T1, T2 (q0, q1); Measurement threshold (q0, q1); Readout errors (q0, q1); SX error (q0, q1)",
+      "reference_age_at_window_open_s": 204415.172641,
+      "old_reference_ready_at": "2026-10-10T16:16:48.888001Z",
+      "window_opened_at": "2026-10-13T01:03:44.060642Z"
+    },
+    {
+      "window": "W04",
+      "candidate": "C06",
+      "stale_reference": "C04",
+      "changed_scalar_leaves": 22,
+      "changed_property_groups": "CZ error (both directions); Coherence: T1, T2 (q0, q1); Readout errors (q0, q1); SX error (q0, q1)",
+      "reference_age_at_window_open_s": 90278.086039,
+      "old_reference_ready_at": "2026-10-13T06:51:48.618286Z",
+      "window_opened_at": "2026-10-14T07:56:26.704325Z"
+    },
+    {
+      "window": "W05",
+      "candidate": "C07",
+      "stale_reference": "C06",
+      "changed_scalar_leaves": 12,
+      "changed_property_groups": "Measurement threshold (q0, q1); Readout errors (q0, q1)",
+      "reference_age_at_window_open_s": 12558.756557,
+      "old_reference_ready_at": "2026-10-14T16:40:00.509507Z",
+      "window_opened_at": "2026-10-14T20:09:19.266064Z"
+    },
+    {
+      "window": "W06",
+      "candidate": "C08",
+      "stale_reference": "C07",
+      "changed_scalar_leaves": 2,
+      "changed_property_groups": "Measurement threshold (q0, q1)",
+      "reference_age_at_window_open_s": 1030.931033,
+      "old_reference_ready_at": "2026-10-14T20:21:33.692349Z",
+      "window_opened_at": "2026-10-14T20:38:44.623382Z"
+    },
+    {
+      "window": "W07",
+      "candidate": "C10",
+      "stale_reference": "C08",
+      "changed_scalar_leaves": 24,
+      "changed_property_groups": "CZ error (both directions); Coherence: T1, T2 (q0, q1); Measurement threshold (q0, q1); Readout errors (q0, q1); SX error (q0, q1)",
+      "reference_age_at_window_open_s": 911735.821142,
+      "old_reference_ready_at": "2026-10-14T20:50:45.989656Z",
+      "window_opened_at": "2026-10-25T10:06:21.810798Z"
+    },
+    {
+      "window": "W08",
+      "candidate": "C11",
+      "stale_reference": "C10",
+      "changed_scalar_leaves": 14,
+      "changed_property_groups": "Coherence: T1, T2 (q0, q1); Readout errors (q0, q1)",
+      "reference_age_at_window_open_s": 3659.961162,
+      "old_reference_ready_at": "2026-10-25T10:18:59.396734Z",
+      "window_opened_at": "2026-10-25T11:19:59.357896Z"
+    },
+    {
+      "window": "W09",
+      "candidate": "C12",
+      "stale_reference": "C11",
+      "changed_scalar_leaves": 4,
+      "changed_property_groups": "SX error (q0, q1)",
+      "reference_age_at_window_open_s": 2942.947826,
+      "old_reference_ready_at": "2026-10-25T11:32:26.368936Z",
+      "window_opened_at": "2026-10-25T12:21:29.316762Z"
+    },
+    {
+      "window": "W10",
+      "candidate": "C13",
+      "stale_reference": "C12",
+      "changed_scalar_leaves": 4,
+      "changed_property_groups": "CZ error (both directions)",
+      "reference_age_at_window_open_s": 1125.085066,
+      "old_reference_ready_at": "2026-10-25T12:32:26.616099Z",
+      "window_opened_at": "2026-10-25T12:51:11.701165Z"
+    },
+    {
+      "window": "W11",
+      "candidate": "C14",
+      "stale_reference": "C13",
+      "changed_scalar_leaves": 10,
+      "changed_property_groups": "Readout errors (q0, q1)",
+      "reference_age_at_window_open_s": 2971.818077,
+      "old_reference_ready_at": "2026-10-25T13:03:38.473085Z",
+      "window_opened_at": "2026-10-25T13:53:10.291162Z"
+    }
+  ],
+  "provenance": [
+    {
+      "candidate": "C03",
+      "stale_reference": "C02",
+      "old_projection": "data/numerical/campaign/windows/C02/workload_context_projection.json",
+      "old_sha256": "292bec188a9a3bf325bf9a861f3e19a9b85bdfaaf68a9ecea0d4a18a977694f3",
+      "new_projection": "data/numerical/campaign/windows/C03/workload_context_projection.json",
+      "new_sha256": "259cf4ef34c41aa3080f1936c23f8c196c882c2cd8f0e68b11f9ff5ffb866556",
+      "selection_source": "data/numerical/campaign/windows/C03/window.json",
+      "selection_sha256": "62e7df2bd81cb337010c9a4f9d580d23d54add9d2c7def64760f0f1475ca46ee"
+    },
+    {
+      "candidate": "C04",
+      "stale_reference": "C03",
+      "old_projection": "data/numerical/campaign/windows/C03/workload_context_projection.json",
+      "old_sha256": "259cf4ef34c41aa3080f1936c23f8c196c882c2cd8f0e68b11f9ff5ffb866556",
+      "new_projection": "data/numerical/campaign/windows/C04/workload_context_projection.json",
+      "new_sha256": "2dee3aad6b80832930758682f296e69fce6a3b145519494c874a82b31bdc9be5",
+      "selection_source": "data/numerical/campaign/windows/C04/window.json",
+      "selection_sha256": "75c64ab9f1d2d8942ecff2292e636fc28993955c0d1cd301285d189b02ce616b"
+    },
+    {
+      "candidate": "C06",
+      "stale_reference": "C04",
+      "old_projection": "data/numerical/campaign/windows/C04/workload_context_projection.json",
+      "old_sha256": "2dee3aad6b80832930758682f296e69fce6a3b145519494c874a82b31bdc9be5",
+      "new_projection": "data/numerical/campaign/windows/C06/workload_context_projection.json",
+      "new_sha256": "004f812f637dde1696e595f3d7c1bf2207ac1806b9c65dc16a1982264f4773a5",
+      "selection_source": "data/numerical/campaign/windows/C06/window.json",
+      "selection_sha256": "d87f24c06547f1d581b3c1bf2feb61504144432f5eb22597546d31c549410149"
+    },
+    {
+      "candidate": "C07",
+      "stale_reference": "C06",
+      "old_projection": "data/numerical/campaign/windows/C06/workload_context_projection.json",
+      "old_sha256": "004f812f637dde1696e595f3d7c1bf2207ac1806b9c65dc16a1982264f4773a5",
+      "new_projection": "data/numerical/campaign/windows/C07/workload_context_projection.json",
+      "new_sha256": "9b2b73f5e34f1eb0d67242f703025e1c79fc93eb5e7c5281def2b4563454aad1",
+      "selection_source": "data/numerical/campaign/windows/C07/window.json",
+      "selection_sha256": "d501b70febe796f7379ec3166cfbabae22914aea94272016670164cbdc4d7ec9"
+    },
+    {
+      "candidate": "C08",
+      "stale_reference": "C07",
+      "old_projection": "data/numerical/campaign/windows/C07/workload_context_projection.json",
+      "old_sha256": "9b2b73f5e34f1eb0d67242f703025e1c79fc93eb5e7c5281def2b4563454aad1",
+      "new_projection": "data/numerical/campaign/windows/C08/workload_context_projection.json",
+      "new_sha256": "d9b896c6f9c22796b436d1cf9a9672c9fbb536635aca78a0f7c854b8da0ba086",
+      "selection_source": "data/numerical/campaign/windows/C08/window.json",
+      "selection_sha256": "6e0510ad3d0fa49fe5efe413b7a1b35e1e600f2576992b566eec4de018de8bf2"
+    },
+    {
+      "candidate": "C10",
+      "stale_reference": "C08",
+      "old_projection": "data/numerical/campaign/windows/C08/workload_context_projection.json",
+      "old_sha256": "d9b896c6f9c22796b436d1cf9a9672c9fbb536635aca78a0f7c854b8da0ba086",
+      "new_projection": "data/numerical/campaign/windows/C10/workload_context_projection.json",
+      "new_sha256": "a2a47568f51c68b076dad72c93af7cc81434c035c285dea87c02e03dd97cd160",
+      "selection_source": "data/numerical/campaign/windows/C10/window.json",
+      "selection_sha256": "7844d0551fd8e029d4a401861432a98a443dbdcfec692fc5717d427c3d1f7858"
+    },
+    {
+      "candidate": "C11",
+      "stale_reference": "C10",
+      "old_projection": "data/numerical/campaign/windows/C10/workload_context_projection.json",
+      "old_sha256": "a2a47568f51c68b076dad72c93af7cc81434c035c285dea87c02e03dd97cd160",
+      "new_projection": "data/numerical/campaign/windows/C11/workload_context_projection.json",
+      "new_sha256": "b1ad216365962f693fe63e5f7e786410760d95fc5ca0c4fc7975d99c353179d5",
+      "selection_source": "data/numerical/campaign/windows/C11/window.json",
+      "selection_sha256": "3c082a2aeab16d8be5b989a57a96decfdca1e72b965291fc0800c3d4dbb7d446"
+    },
+    {
+      "candidate": "C12",
+      "stale_reference": "C11",
+      "old_projection": "data/numerical/campaign/windows/C11/workload_context_projection.json",
+      "old_sha256": "b1ad216365962f693fe63e5f7e786410760d95fc5ca0c4fc7975d99c353179d5",
+      "new_projection": "data/numerical/campaign/windows/C12/workload_context_projection.json",
+      "new_sha256": "955c98e1c9c3e1ffd6b00458df231e7d40da9b38b195d2d6e2d160c049aa512e",
+      "selection_source": "data/numerical/campaign/windows/C12/window.json",
+      "selection_sha256": "b19caf57cd673088c3c96accc290ad62269f4965148a39ef1507b3932eb83a21"
+    },
+    {
+      "candidate": "C13",
+      "stale_reference": "C12",
+      "old_projection": "data/numerical/campaign/windows/C12/workload_context_projection.json",
+      "old_sha256": "955c98e1c9c3e1ffd6b00458df231e7d40da9b38b195d2d6e2d160c049aa512e",
+      "new_projection": "data/numerical/campaign/windows/C13/workload_context_projection.json",
+      "new_sha256": "47a27909983be073bf2cddded0b969eab2cc0a035b2210a9297910dd08700c51",
+      "selection_source": "data/numerical/campaign/windows/C13/window.json",
+      "selection_sha256": "2600c1bab1550145b68662b4107a032ce9e8cbf07a20ff503ea2ccbb66e62468"
+    },
+    {
+      "candidate": "C14",
+      "stale_reference": "C13",
+      "old_projection": "data/numerical/campaign/windows/C13/workload_context_projection.json",
+      "old_sha256": "47a27909983be073bf2cddded0b969eab2cc0a035b2210a9297910dd08700c51",
+      "new_projection": "data/numerical/campaign/windows/C14/workload_context_projection.json",
+      "new_sha256": "90c67c2946c0a0d0821035e0f029c15a451e44d29ed16367a8c4b04bf600bc37",
+      "selection_source": "data/numerical/campaign/windows/C14/window.json",
+      "selection_sha256": "da95d66b695fafac883ab93f28fbf8b6d858792b81e349c0d2324c01b3e3960e"
+    }
+  ],
+  "focal_C07_to_C08": [
+    {
+      "window": "W06",
+      "candidate": "C08",
+      "stale_reference": "C07",
+      "semantic_path": "/relevant_calibration_properties/gates/operation=measure;qubits=0/parameters/name=threshold/value",
+      "old_json_pointer": "/relevant_calibration_properties/gates/2/parameters/2/value",
+      "new_json_pointer": "/relevant_calibration_properties/gates/2/parameters/2/value",
+      "old_present": true,
+      "new_present": true,
+      "old_value": -1957467.2925183177,
+      "new_value": 1528450.53322123,
+      "group": "Measurement threshold (q0, q1)"
+    },
+    {
+      "window": "W06",
+      "candidate": "C08",
+      "stale_reference": "C07",
+      "semantic_path": "/relevant_calibration_properties/gates/operation=measure;qubits=1/parameters/name=threshold/value",
+      "old_json_pointer": "/relevant_calibration_properties/gates/3/parameters/2/value",
+      "new_json_pointer": "/relevant_calibration_properties/gates/3/parameters/2/value",
+      "old_present": true,
+      "new_present": true,
+      "old_value": -15193635.503231034,
+      "new_value": -5181933.927591786,
+      "group": "Measurement threshold (q0, q1)"
+    }
+  ],
+  "changed_scalar_leaves_total": 132,
+  "count_definition": "Scalar leaves after alignment of named record collections; duplicate views remain separate JSON leaves, not independent physical properties. Raw positional counts coincide for these recorded files.",
+  "reference_age_definition": "Selected stale reference ready_at to current window opened_at, as in v5."
+}

@@ -1,0 +1,312 @@
+{
+  "export": "Paper 2.5 QIP Online Resource 2, v1",
+  "created_utc": "2026-11-09T09:29:08.558305+00:00",
+  "canonical_documentary_commit": "2c1fd720abc129b6a67f894cae0af4b707c25af3",
+  "editorial_reference_commit": "9f634c6998f1d7796f4107b377754aa4e85c834b",
+  "files": [
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/data/analysis.json",
+      "source_sha256": "694efdbcb9545395e40d409a8af54d64f349eebb494a0b5dce46160d13bc860a",
+      "export_path": "data/analysis.json",
+      "export_sha256": "ff64b54996600f1aaece1e67c5e2619ae312093946040cb9947117343763da4d",
+      "operation": "privacy-only derivative",
+      "detail": "Removed top-level campaign_a_immutability (local absolute path and historical identity-check report); all scientific keys and values unchanged."
+    },
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/data/candidates_accounting.csv",
+      "source_sha256": "8781fb93658fe03c13bfb2d34862a53c71a0e67a71a0f0194a49dfe6181946ea",
+      "export_path": "data/candidates_accounting.csv",
+      "export_sha256": "8781fb93658fe03c13bfb2d34862a53c71a0e67a71a0f0194a49dfe6181946ea",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/data/retrospective/A_incomplete_intervals.csv",
+      "source_sha256": "8f726daa8f11fc0511d1f6a4ee5bbf81f92a97f83b9f9ede51dc685b13f34bfa",
+      "export_path": "data/retrospective/A_incomplete_intervals.csv",
+      "export_sha256": "8f726daa8f11fc0511d1f6a4ee5bbf81f92a97f83b9f9ede51dc685b13f34bfa",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/data/retrospective/A_reference_semantics.csv",
+      "source_sha256": "b1959b26db753dee01e7453e5ef73a712bc7bf562e7c2e6b432e4138b25dfce1",
+      "export_path": "data/retrospective/A_reference_semantics.csv",
+      "export_sha256": "b1959b26db753dee01e7453e5ef73a712bc7bf562e7c2e6b432e4138b25dfce1",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/data/retrospective/A_timeout_attempts.csv",
+      "source_sha256": "4877f4a48d77ce599a8995cc46b3060f0454452c3b1de4300576f6f440cea439",
+      "export_path": "data/retrospective/A_timeout_attempts.csv",
+      "export_sha256": "4877f4a48d77ce599a8995cc46b3060f0454452c3b1de4300576f6f440cea439",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/data/retrospective/B_binding_witnesses.csv",
+      "source_sha256": "956f40b76057dba8494db634b0cc92f72d51b52a68d7b23542d7987f6938e4fb",
+      "export_path": "data/retrospective/B_binding_witnesses.csv",
+      "export_sha256": "956f40b76057dba8494db634b0cc92f72d51b52a68d7b23542d7987f6938e4fb",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/data/retrospective/B_C05_calibration_chronology.csv",
+      "source_sha256": "bfd550eec33ac5a9576458710637a0674133ca9a888070a505a48da245cf77d9",
+      "export_path": "data/retrospective/B_C05_calibration_chronology.csv",
+      "export_sha256": "bfd550eec33ac5a9576458710637a0674133ca9a888070a505a48da245cf77d9",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/data/retrospective/B_clock_partitions.csv",
+      "source_sha256": "5de15de0634a6ff81fadb3bc337d521e97a1acaf920b7dbd08d953086d80566b",
+      "export_path": "data/retrospective/B_clock_partitions.csv",
+      "export_sha256": "5de15de0634a6ff81fadb3bc337d521e97a1acaf920b7dbd08d953086d80566b",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/data/retrospective/B_timing.csv",
+      "source_sha256": "f7765df28c5191bb01610d12473e7e8d7c7b3efb1ccb902e58fd878662a76ecc",
+      "export_path": "data/retrospective/B_timing.csv",
+      "export_sha256": "f7765df28c5191bb01610d12473e7e8d7c7b3efb1ccb902e58fd878662a76ecc",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/data/retrospective/candidates.csv",
+      "source_sha256": "d156f320ece58196b455c65768f6b07fe1033817ddaea73a6db9dbd44efa82e9",
+      "export_path": "data/retrospective/candidates.csv",
+      "export_sha256": "d156f320ece58196b455c65768f6b07fe1033817ddaea73a6db9dbd44efa82e9",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/data/retrospective/review_checks.json",
+      "source_sha256": "34c80b48df2a66f9f90fa85260c8cb210f491012db9ddd255693d1f0b9dc2b4c",
+      "export_path": "data/retrospective/review_checks.json",
+      "export_sha256": "34c80b48df2a66f9f90fa85260c8cb210f491012db9ddd255693d1f0b9dc2b4c",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/data/retrospective/summary.json",
+      "source_sha256": "c1b57e55f31cb0b9c336fbe67c6faa453ddf6f857e593836a369034e5d45fdc1",
+      "export_path": "data/retrospective/summary.json",
+      "export_sha256": "c1b57e55f31cb0b9c336fbe67c6faa453ddf6f857e593836a369034e5d45fdc1",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/data/secondary_endpoints.json",
+      "source_sha256": "533e14cd0405bee7008318a0b6dcb20b52193f526c14a32d76cd6c24b7869884",
+      "export_path": "data/secondary_endpoints.json",
+      "export_sha256": "533e14cd0405bee7008318a0b6dcb20b52193f526c14a32d76cd6c24b7869884",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/data/secondary_rates_supplement.json",
+      "source_sha256": "0768fa6b6541cadf347fa37d417e0e416cdec241425d697c8e9970716c0cf719",
+      "export_path": "data/secondary_rates_supplement.json",
+      "export_sha256": "0768fa6b6541cadf347fa37d417e0e416cdec241425d697c8e9970716c0cf719",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/data/transitions_probes.csv",
+      "source_sha256": "e54a3a2821fb1ab049982f7f529985eadd693ecefa7a8df081ce97b4206b8f67",
+      "export_path": "data/transitions_probes.csv",
+      "export_sha256": "274019bb25efbd37be60d5deac904f0d236626177d198d0198f44be1b797a486",
+      "operation": "privacy-only derivative",
+      "detail": "Removed columns: job_id_pseudonym; row order and all other values unchanged."
+    },
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/data/transitions_windows.csv",
+      "source_sha256": "34f7c0a269db9b3a09efd1184b185af29a52fe6f47bfb2920dd35934637023ab",
+      "export_path": "data/transitions_windows.csv",
+      "export_sha256": "34f7c0a269db9b3a09efd1184b185af29a52fe6f47bfb2920dd35934637023ab",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "src/athena_aegis/campaign_b/binding.py",
+      "source_sha256": "48e7763ccc5d61202522c0d1789e5475a5e151c370c02177260c63cad25330af",
+      "export_path": "code/inspection_only/campaign_b/binding.py.txt",
+      "export_sha256": "48e7763ccc5d61202522c0d1789e5475a5e151c370c02177260c63cad25330af",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "src/athena_aegis/campaign_b/constants.py",
+      "source_sha256": "5f90507b1a6eda93ed0f387fe7f94213d25a53951ef995e8ff1a46977f4fd96b",
+      "export_path": "code/inspection_only/campaign_b/constants.py.txt",
+      "export_sha256": "5f90507b1a6eda93ed0f387fe7f94213d25a53951ef995e8ff1a46977f4fd96b",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "src/athena_aegis/campaign_b/endpoints.py",
+      "source_sha256": "507ca15a7171d09d4036a72761bf04b283aaca122386f8a6f370a6dd9111fda0",
+      "export_path": "code/inspection_only/campaign_b/endpoints.py.txt",
+      "export_sha256": "507ca15a7171d09d4036a72761bf04b283aaca122386f8a6f370a6dd9111fda0",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "src/athena_aegis/campaign_b/recovery.py",
+      "source_sha256": "8fb3d000a72b05952e2df5ff19c5f91f81bf9acbcdc413dbecb73697981f26e4",
+      "export_path": "code/inspection_only/campaign_b/recovery.py.txt",
+      "export_sha256": "8fb3d000a72b05952e2df5ff19c5f91f81bf9acbcdc413dbecb73697981f26e4",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "src/athena_aegis/campaign_b/reference.py",
+      "source_sha256": "56513bd0ad4faf7a67f6f0c152ad47b48c5c76cddd1aefb0f80e242f0a5855db",
+      "export_path": "code/inspection_only/campaign_b/reference.py.txt",
+      "export_sha256": "56513bd0ad4faf7a67f6f0c152ad47b48c5c76cddd1aefb0f80e242f0a5855db",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "src/athena_aegis/campaign_b/workload.py",
+      "source_sha256": "6eb821c1a4e20f18929af066dd742ce911b62c096b535029c51bad1e2864c043",
+      "export_path": "code/inspection_only/campaign_b/workload.py.txt",
+      "export_sha256": "6eb821c1a4e20f18929af066dd742ce911b62c096b535029c51bad1e2864c043",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "src/athena_aegis/campaign_b/gate.py",
+      "source_sha256": "a4d0d8002f933aeebc650092bb33460947506254eeadc8b0e5b9a2f3bb8b1e44",
+      "export_path": "code/inspection_only/campaign_b/gate.py.txt",
+      "export_sha256": "a4d0d8002f933aeebc650092bb33460947506254eeadc8b0e5b9a2f3bb8b1e44",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "src/athena_aegis/campaign_b/analysis.py",
+      "source_sha256": "db6745dab3fd9ddea81ab50906aa6ee9738bb99b9bd49be07d828ae7aae1e373",
+      "export_path": "code/inspection_only/campaign_b/analysis.py.txt",
+      "export_sha256": "db6745dab3fd9ddea81ab50906aa6ee9738bb99b9bd49be07d828ae7aae1e373",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "src/athena_aegis/campaign_b/kill_criteria.py",
+      "source_sha256": "a5ec1636e87c40fa3b79d84a7bfcd17e58008e8cf8731f051d9012f30a3cb91c",
+      "export_path": "code/inspection_only/campaign_b/kill_criteria.py.txt",
+      "export_sha256": "a5ec1636e87c40fa3b79d84a7bfcd17e58008e8cf8731f051d9012f30a3cb91c",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "src/athena_aegis/campaign_b/runner.py",
+      "source_sha256": "ca22d1046fb309a1b893937eea746e2b3e6c342b9f5df9df654a1635ef9e2a07",
+      "export_path": "code/inspection_only/campaign_b/runner.py.txt",
+      "export_sha256": "ca22d1046fb309a1b893937eea746e2b3e6c342b9f5df9df654a1635ef9e2a07",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "src/athena_aegis/calibration/model.py",
+      "source_sha256": "8bea67fe4007728874c307170d804a39007eb39a2c633b2baeb281db41becba3",
+      "export_path": "code/inspection_only/calibration/model.py.txt",
+      "export_sha256": "8bea67fe4007728874c307170d804a39007eb39a2c633b2baeb281db41becba3",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "src/athena_aegis/policies/models.py",
+      "source_sha256": "669c9aa522552b9d49b9b271773f76d59b7e662f8a1971f912bc90b68a2d0cca",
+      "export_path": "code/inspection_only/policies/models.py.txt",
+      "export_sha256": "669c9aa522552b9d49b9b271773f76d59b7e662f8a1971f912bc90b68a2d0cca",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "src/athena_aegis/confirmatory/context_projection.py",
+      "source_sha256": "7ecc037f9b5c6d92ce6501671aaec7ad1121fda32100e48084003df12e8c63f2",
+      "export_path": "code/inspection_only/confirmatory/context_projection.py.txt",
+      "export_sha256": "7ecc037f9b5c6d92ce6501671aaec7ad1121fda32100e48084003df12e8c63f2",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/inputs/PREREGISTRATION_v1.md",
+      "source_sha256": "2e278faa6e5eea4597a83b36a517ea6f4c97abf1b1ac397c5f0e821de040ff3e",
+      "export_path": "protocols/PREREGISTRATION_v1.md",
+      "export_sha256": "2e278faa6e5eea4597a83b36a517ea6f4c97abf1b1ac397c5f0e821de040ff3e",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/inputs/PREREGISTRATION_B_v1.md",
+      "source_sha256": "1e02a38be3f3d1f489d17148b5c1afbf0a63517d69ccb83ff85c22c26e251e79",
+      "export_path": "protocols/PREREGISTRATION_B_v1.md",
+      "export_sha256": "1e02a38be3f3d1f489d17148b5c1afbf0a63517d69ccb83ff85c22c26e251e79",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "docs/campaign_b/AMENDMENT_001_FROZEN_DIGEST_SCOPE.md",
+      "source_sha256": "1b7f4bb96b4293390fe5ef96f2b96a17da26b20286760660702a50aa43fbf873",
+      "export_path": "protocols/AMENDMENT_001_FROZEN_DIGEST_SCOPE.md",
+      "export_sha256": "1b7f4bb96b4293390fe5ef96f2b96a17da26b20286760660702a50aa43fbf873",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "docs/campaign_b/AMENDMENT_002_PROVIDER_REQUEST_BOUNDARY.md",
+      "source_sha256": "de90e02aa110f80478a1b63349b0a9620c2843890ff408279925205a60f03ddc",
+      "export_path": "protocols/AMENDMENT_002_PROVIDER_REQUEST_BOUNDARY.md",
+      "export_sha256": "de90e02aa110f80478a1b63349b0a9620c2843890ff408279925205a60f03ddc",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "docs/campaign_b/AMENDMENT_003_EXECUTION_CONTRACT_LAUNCH_RECORDS.md",
+      "source_sha256": "89fe3cf31a8965d41045dc9aab30c681cfff47525f81ec043948b735e2bf4088",
+      "export_path": "protocols/AMENDMENT_003_EXECUTION_CONTRACT_LAUNCH_RECORDS.md",
+      "export_sha256": "89fe3cf31a8965d41045dc9aab30c681cfff47525f81ec043948b735e2bf4088",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "docs/campaign_b/FREEZE_RECORD_2026-10-07.md",
+      "source_sha256": "a0c656418443885575a7158260634294a1eb1ec2ede937108c1572b0a0ba6b30",
+      "export_path": "protocols/FREEZE_RECORD_2026-10-07.md",
+      "export_sha256": "0399a060d5aef18fa3bc967a52a8780734d97bfeb25cf6a3a9d830726e3926a2",
+      "operation": "privacy-only derivative",
+      "detail": "Only the historical tagger email is omitted from the embedded annotated-tag display. Original tag, source document and Git object remain unchanged; this export is not the original signed/tag object."
+    },
+    {
+      "source_relative_to_repository": "LICENSE",
+      "source_sha256": "ec9195c2886a2556c9fe98f6bdd66ba9880bc0b42133d32f7965dc44765e7a46",
+      "export_path": "code/LICENSE-existing.txt",
+      "export_sha256": "ec9195c2886a2556c9fe98f6bdd66ba9880bc0b42133d32f7965dc44765e7a46",
+      "operation": "byte-identical copy",
+      "detail": ""
+    },
+    {
+      "source_relative_to_repository": "research/paper25_editorial_consolidation_v1/src/generate.py",
+      "source_sha256": "2b07cb276457d6e4837f115e512a5695d07597ac8db9640cab247d048bef4e4b",
+      "export_path": "scripts/reproduce.py",
+      "export_sha256": "8c7280ea109d1ff82dbee0f161032c67bbc13f2f1260cd2905f5028a0412b5fa",
+      "operation": "editorial derivative",
+      "detail": "Input and output paths separated; optional output directory; scientific calculation and plotting statements unchanged. Added a fixed 60-row physical-oracle descriptive cross-check and explicit zero-rerun/390-calibration assertions; no new test. QIP v2: only Figure 1 palette changed to white/grayscale/black; all plotting geometry, words, calculations, data and other figures remain unchanged. QIP v3: only the three connector positions and arrowhead style are refined; equal edge gaps, centered vertical connectors and filled heads. Boxes, labels, grayscale palette, data and calculations are unchanged.",
+      "predecessor_export_sha256": "6fbc2d5ea5e5b79cecf458fb714e6cb149544385f013a429c4094b3daac2ff8f",
+      "v2_export_sha256": "2b90c93ace6df8292623c498719ce3dd69f8769c9dd42f256a9abb0ff3c6dc05"
+    }
+  ],
+  "access_state": {
+    "mode": "Electronic supplementary material prepared for journal review",
+    "public_exact_artifact": false,
+    "commit_identifiers": "Authors versioned research record; no public resolution asserted",
+    "additional_derivatives": "provenance/clarification_exports.json"
+  }
+}

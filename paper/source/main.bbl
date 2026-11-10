@@ -1,0 +1,440 @@
+%% BioMed_Central_Bib_Style_v1.01
+
+\begin{thebibliography}{23}
+% BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
+\ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
+\ifx \binits  \undefined \def \binits#1{#1}\fi
+\ifx \bauthor  \undefined \def \bauthor#1{#1}\fi
+\ifx \batitle  \undefined \def \batitle#1{#1}\fi
+\ifx \bjtitle  \undefined \def \bjtitle#1{#1}\fi
+\ifx \bvolume  \undefined \def \bvolume#1{\textbf{#1}}\fi
+\ifx \byear  \undefined \def \byear#1{#1}\fi
+\ifx \bissue  \undefined \def \bissue#1{#1}\fi
+\ifx \bfpage  \undefined \def \bfpage#1{#1}\fi
+\ifx \blpage  \undefined \def \blpage #1{#1}\fi
+\ifx \burl  \undefined \def \burl#1{\textsf{#1}}\fi
+\ifx \doiurl  \undefined \def \doiurl#1{\url{https://doi.org/#1}}\fi
+\ifx \betal  \undefined \def \betal{\textit{et al.}}\fi
+\ifx \binstitute  \undefined \def \binstitute#1{#1}\fi
+\ifx \binstitutionaled  \undefined \def \binstitutionaled#1{#1}\fi
+\ifx \bctitle  \undefined \def \bctitle#1{#1}\fi
+\ifx \beditor  \undefined \def \beditor#1{#1}\fi
+\ifx \bpublisher  \undefined \def \bpublisher#1{#1}\fi
+\ifx \bbtitle  \undefined \def \bbtitle#1{#1}\fi
+\ifx \bedition  \undefined \def \bedition#1{#1}\fi
+\ifx \bseriesno  \undefined \def \bseriesno#1{#1}\fi
+\ifx \blocation  \undefined \def \blocation#1{#1}\fi
+\ifx \bsertitle  \undefined \def \bsertitle#1{#1}\fi
+\ifx \bsnm \undefined \def \bsnm#1{#1}\fi
+\ifx \bsuffix \undefined \def \bsuffix#1{#1}\fi
+\ifx \bparticle \undefined \def \bparticle#1{#1}\fi
+\ifx \barticle \undefined \def \barticle#1{#1}\fi
+\bibcommenthead
+\ifx \bconfdate \undefined \def \bconfdate #1{#1}\fi
+\ifx \botherref \undefined \def \botherref #1{#1}\fi
+\ifx \url \undefined \def \url#1{\textsf{#1}}\fi
+\ifx \bchapter \undefined \def \bchapter#1{#1}\fi
+\ifx \bbook \undefined \def \bbook#1{#1}\fi
+\ifx \bcomment \undefined \def \bcomment#1{#1}\fi
+\ifx \oauthor \undefined \def \oauthor#1{#1}\fi
+\ifx \citeauthoryear \undefined \def \citeauthoryear#1{#1}\fi
+\ifx \endbibitem  \undefined \def \endbibitem {}\fi
+\ifx \bconflocation  \undefined \def \bconflocation#1{#1}\fi
+\ifx \arxivurl  \undefined \def \arxivurl#1{\textsf{#1}}\fi
+\csname PreBibitemsHook\endcsname
+
+%%% 1
+\bibitem[\protect\citeauthoryear{Murillo et~al.}{2025}]{murillo2025roadmap}
+\begin{botherref}
+\oauthor{\bsnm{Murillo}, \binits{J.M.}},
+\oauthor{\bsnm{Garcia-Alonso}, \binits{J.}},
+\oauthor{\bsnm{Moguel}, \binits{E.}},
+\oauthor{\bsnm{Barzen}, \binits{J.}},
+\oauthor{\bsnm{Leymann}, \binits{F.}},
+\oauthor{\bsnm{Ali}, \binits{S.}},
+\oauthor{\bsnm{Yue}, \binits{T.}},
+\oauthor{\bsnm{Arcaini}, \binits{P.}},
+\oauthor{\bsnm{P{\'e}rez-Castillo}, \binits{R.}},
+\oauthor{\bsnm{Guzm{\'a}n}, \binits{I.}},
+\oauthor{\bsnm{Piattini}, \binits{M.}},
+\oauthor{\bsnm{Ruiz-Cort{\'e}s}, \binits{A.}},
+\oauthor{\bsnm{Brogi}, \binits{A.}},
+\oauthor{\bsnm{Zhao}, \binits{J.}},
+\oauthor{\bsnm{Miranskyy}, \binits{A.}},
+\oauthor{\bsnm{Wimmer}, \binits{M.}}:
+Quantum software engineering: Roadmap and challenges ahead.
+ACM Transactions on Software Engineering and Methodology
+\textbf{34}(5)
+(2025).
+Article 154, pp. 1--48. \url{https://doi.org/10.1145/3712002}
+\end{botherref}
+\endbibitem
+
+%%% 2
+\bibitem[\protect\citeauthoryear{Fern{\'a}ndez-Barrios
+  et~al.}{2026}]{fernandez2026observational}
+\begin{botherref}
+\oauthor{\bsnm{Fern{\'a}ndez-Barrios}, \binits{R.}},
+\oauthor{\bsnm{Pastor-L{\'o}pez}, \binits{I.}},
+\oauthor{\bsnm{Pikatza-Huerga}, \binits{A.}},
+\oauthor{\bsnm{Garc{\'i}a~Bringas}, \binits{P.}}:
+Observational Indistinguishability and Integrity Blind Regions in Hybrid
+  Quantum-Classical Workflows.
+Preprint at \url{https://arxiv.org/abs/2609.17150v1}
+(2026)
+\end{botherref}
+\endbibitem
+
+%%% 3
+\bibitem[\protect\citeauthoryear{Leucker and
+  Schallhart}{2009}]{leucker2009brief}
+\begin{barticle}
+\bauthor{\bsnm{Leucker}, \binits{M.}},
+\bauthor{\bsnm{Schallhart}, \binits{C.}}:
+\batitle{A brief account of runtime verification}.
+\bjtitle{The Journal of Logic and Algebraic Programming}
+\bvolume{78}(\bissue{5}),
+\bfpage{293}--\blpage{303}
+(\byear{2009}).
+\bcomment{\url{https://doi.org/10.1016/j.jlap.2008.08.004}}
+\end{barticle}
+\endbibitem
+
+%%% 4
+\bibitem[\protect\citeauthoryear{Slagel et~al.}{2024}]{slagel}
+\begin{bchapter}
+\bauthor{\bsnm{Slagel}, \binits{J.T.}},
+\bauthor{\bsnm{White}, \binits{L.M.}},
+\bauthor{\bsnm{Dutle}, \binits{A.}},
+\bauthor{\bsnm{Mu{\~n}oz}, \binits{C.A.}},
+\bauthor{\bsnm{Crespo}, \binits{N.}}:
+\bctitle{A formal verification framework for runtime assurance}.
+In: \beditor{\bsnm{Benz}, \binits{N.}},
+\beditor{\bsnm{Gopinath}, \binits{D.}},
+\beditor{\bsnm{Shi}, \binits{N.}} (eds.)
+\bbtitle{NASA Formal Methods: 16th International Symposium, NFM 2024}.
+\bsertitle{Lecture Notes in Computer Science},
+vol. \bseriesno{14627},
+pp. \bfpage{322}--\blpage{328}.
+\bpublisher{Springer},
+\blocation{Cham}
+(\byear{2024}).
+\bcomment{\url{https://doi.org/10.1007/978-3-031-60698-4_19}}
+\end{bchapter}
+\endbibitem
+
+%%% 5
+\bibitem[\protect\citeauthoryear{Geifman and El-Yaniv}{2019}]{selective}
+\begin{bchapter}
+\bauthor{\bsnm{Geifman}, \binits{Y.}},
+\bauthor{\bsnm{El-Yaniv}, \binits{R.}}:
+\bctitle{{SelectiveNet}: A deep neural network with an integrated reject
+  option}.
+In: \bbtitle{Proceedings of the 36th International Conference on Machine
+  Learning}.
+\bsertitle{Proceedings of Machine Learning Research},
+vol. \bseriesno{97},
+pp. \bfpage{2151}--\blpage{2159}
+(\byear{2019}).
+\bcomment{\url{https://proceedings.mlr.press/v97/geifman19a.html}}
+\end{bchapter}
+\endbibitem
+
+%%% 6
+\bibitem[\protect\citeauthoryear{Barber et~al.}{2023}]{barber}
+\begin{barticle}
+\bauthor{\bsnm{Barber}, \binits{R.F.}},
+\bauthor{\bsnm{Cand{\`e}s}, \binits{E.J.}},
+\bauthor{\bsnm{Ramdas}, \binits{A.}},
+\bauthor{\bsnm{Tibshirani}, \binits{R.J.}}:
+\batitle{Conformal prediction beyond exchangeability}.
+\bjtitle{The Annals of Statistics}
+\bvolume{51}(\bissue{2}),
+\bfpage{816}--\blpage{845}
+(\byear{2023})
+\doiurl{10.1214/23-AOS2276}
+\end{barticle}
+\endbibitem
+
+%%% 7
+\bibitem[\protect\citeauthoryear{Li et~al.}{2020}]{li2020projection}
+\begin{botherref}
+\oauthor{\bsnm{Li}, \binits{G.}},
+\oauthor{\bsnm{Zhou}, \binits{L.}},
+\oauthor{\bsnm{Yu}, \binits{N.}},
+\oauthor{\bsnm{Ding}, \binits{Y.}},
+\oauthor{\bsnm{Ying}, \binits{M.}},
+\oauthor{\bsnm{Xie}, \binits{Y.}}:
+Projection-based runtime assertions for testing and debugging quantum programs.
+Proceedings of the ACM on Programming Languages
+\textbf{4}(OOPSLA)
+(2020).
+Article 150, pp. 1--29. \url{https://doi.org/10.1145/3428218}
+\end{botherref}
+\endbibitem
+
+%%% 8
+\bibitem[\protect\citeauthoryear{Melinte-Citea and Mousavi}{2026}]{runtimespeq}
+\begin{bchapter}
+\bauthor{\bsnm{Melinte-Citea}, \binits{F.}},
+\bauthor{\bsnm{Mousavi}, \binits{M.R.}}:
+\bctitle{{RuntimeSpeQ}: Specifying runtime monitors for quantum programs}.
+In: \bbtitle{Proceedings of the 7th IEEE/ACM International Workshop on Quantum
+  Software Engineering},
+pp. \bfpage{42}--\blpage{49}.
+\bpublisher{ACM},
+\blocation{New York, NY}
+(\byear{2026}).
+\bcomment{\url{https://doi.org/10.1145/3786150.3788610}}
+\end{bchapter}
+\endbibitem
+
+%%% 9
+\bibitem[\protect\citeauthoryear{Rovara et~al.}{2026}]{rovara}
+\begin{bchapter}
+\bauthor{\bsnm{Rovara}, \binits{D.}},
+\bauthor{\bsnm{Burgholzer}, \binits{L.}},
+\bauthor{\bsnm{Wille}, \binits{R.}}:
+\bctitle{A framework for the efficient evaluation of runtime assertions on
+  quantum computers}.
+In: \bbtitle{2026 IEEE International Conference on Quantum Software (QSW)},
+pp. \bfpage{192}--\blpage{198}.
+\bpublisher{IEEE},
+\blocation{Piscataway, NJ}
+(\byear{2026}).
+\bcomment{\url{https://doi.org/10.1109/QSW72780.2026.00029}. Author text
+  consulted: \url{https://arxiv.org/abs/2505.03885v1}}
+\end{bchapter}
+\endbibitem
+
+%%% 10
+\bibitem[\protect\citeauthoryear{Yeniaras and
+  Karimov}{2026}]{yeniaras2026qcivet}
+\begin{botherref}
+\oauthor{\bsnm{Yeniaras}, \binits{E.}},
+\oauthor{\bsnm{Karimov}, \binits{M.A.}}:
+{QCIVET}: A Quantum--Classical Pipeline Integrity Framework with Contract-Based
+  Subtype Verification and Hash-Chained Audit Traces.
+Preprint at \url{https://arxiv.org/abs/2605.13109v1}
+(2026)
+\end{botherref}
+\endbibitem
+
+%%% 11
+\bibitem[\protect\citeauthoryear{Yeniaras}{2026}]{yeniaras2026pipeguard}
+\begin{botherref}
+\oauthor{\bsnm{Yeniaras}, \binits{E.}}:
+{QML-PipeGuard}: Detecting Channel-Substitution Attacks on Quantum Machine
+  Learning Pipelines in Untrusted Clouds.
+Preprint at \url{https://arxiv.org/abs/2605.25066v2}.
+Extended preprint version; the arXiv record reports acceptance of a shorter
+  paper at NordSec 2026
+(2026)
+\end{botherref}
+\endbibitem
+
+%%% 12
+\bibitem[\protect\citeauthoryear{Beisel et~al.}{2024}]{beisel}
+\begin{bchapter}
+\bauthor{\bsnm{Beisel}, \binits{M.}},
+\bauthor{\bsnm{Barzen}, \binits{J.}},
+\bauthor{\bsnm{Leymann}, \binits{F.}},
+\bauthor{\bsnm{Stiliadou}, \binits{L.}},
+\bauthor{\bsnm{Weder}, \binits{B.}}:
+\bctitle{Observability for quantum workflows in heterogeneous multi-cloud
+  environments}.
+In: \bbtitle{Advanced Information Systems Engineering}.
+\bsertitle{Lecture Notes in Computer Science},
+vol. \bseriesno{14663},
+pp. \bfpage{612}--\blpage{627}.
+\bpublisher{Springer},
+\blocation{Cham}
+(\byear{2024}).
+\bcomment{\url{https://doi.org/10.1007/978-3-031-61057-8_36}}
+\end{bchapter}
+\endbibitem
+
+%%% 13
+\bibitem[\protect\citeauthoryear{Weder et~al.}{2023}]{weder}
+\begin{barticle}
+\bauthor{\bsnm{Weder}, \binits{B.}},
+\bauthor{\bsnm{Barzen}, \binits{J.}},
+\bauthor{\bsnm{Beisel}, \binits{M.}},
+\bauthor{\bsnm{Leymann}, \binits{F.}}:
+\batitle{Provenance-preserving analysis and rewrite of quantum workflows for
+  hybrid quantum algorithms}.
+\bjtitle{SN Computer Science}
+\bvolume{4},
+\bfpage{233}
+(\byear{2023}).
+\bcomment{\url{https://doi.org/10.1007/s42979-022-01625-9}}
+\end{barticle}
+\endbibitem
+
+%%% 14
+\bibitem[\protect\citeauthoryear{Peltonen
+  et~al.}{2026}]{peltonen2026provenance}
+\begin{botherref}
+\oauthor{\bsnm{Peltonen}, \binits{J.}},
+\oauthor{\bsnm{Stirbu}, \binits{V.}},
+\oauthor{\bsnm{Mikkonen}, \binits{T.}},
+\oauthor{\bsnm{Pautasso}, \binits{C.}}:
+Toward Standardized Quantum Provenance: A Cross-Provider Analysis, Unified
+  {API}, and Reference Prototype.
+Preprint at \url{https://arxiv.org/abs/2608.08272v1}
+(2026)
+\end{botherref}
+\endbibitem
+
+%%% 15
+\bibitem[\protect\citeauthoryear{Proctor et~al.}{2020}]{proctor}
+\begin{barticle}
+\bauthor{\bsnm{Proctor}, \binits{T.}},
+\bauthor{\bsnm{Revelle}, \binits{M.}},
+\bauthor{\bsnm{Nielsen}, \binits{E.}},
+\bauthor{\bsnm{Rudinger}, \binits{K.}},
+\bauthor{\bsnm{Lobser}, \binits{D.}},
+\bauthor{\bsnm{Maunz}, \binits{P.}},
+\bauthor{\bsnm{Blume-Kohout}, \binits{R.}},
+\bauthor{\bsnm{Young}, \binits{K.}}:
+\batitle{Detecting and tracking drift in quantum information processors}.
+\bjtitle{Nature Communications}
+\bvolume{11},
+\bfpage{5396}
+(\byear{2020})
+\doiurl{10.1038/s41467-020-19074-4}
+\end{barticle}
+\endbibitem
+
+%%% 16
+\bibitem[\protect\citeauthoryear{Ravi et~al.}{2021}]{ravi}
+\begin{bchapter}
+\bauthor{\bsnm{Ravi}, \binits{G.S.}},
+\bauthor{\bsnm{Smith}, \binits{K.N.}},
+\bauthor{\bsnm{Gokhale}, \binits{P.}},
+\bauthor{\bsnm{Chong}, \binits{F.T.}}:
+\bctitle{Quantum computing in the cloud: Analyzing job and machine
+  characteristics}.
+In: \bbtitle{2021 IEEE International Symposium on Workload Characterization
+  (IISWC)},
+pp. \bfpage{39}--\blpage{50}.
+\bpublisher{IEEE},
+\blocation{Piscataway, NJ}
+(\byear{2021}).
+\bcomment{\url{https://doi.org/10.1109/IISWC53511.2021.00015}}
+\end{bchapter}
+\endbibitem
+
+%%% 17
+\bibitem[\protect\citeauthoryear{Giortamis et~al.}{2025}]{qos}
+\begin{bchapter}
+\bauthor{\bsnm{Giortamis}, \binits{E.}},
+\bauthor{\bsnm{Rom{\~a}o}, \binits{F.}},
+\bauthor{\bsnm{Tornow}, \binits{N.}},
+\bauthor{\bsnm{Bhatotia}, \binits{P.}}:
+\bctitle{{QOS}: Quantum operating system}.
+In: \bbtitle{19th USENIX Symposium on Operating Systems Design and
+  Implementation (OSDI 25)},
+pp. \bfpage{429}--\blpage{447}.
+\bpublisher{USENIX Association},
+\blocation{Boston, MA}
+(\byear{2025}).
+\bcomment{\url{https://www.usenix.org/conference/osdi25/presentation/giortamis}}
+\end{bchapter}
+\endbibitem
+
+%%% 18
+\bibitem[\protect\citeauthoryear{Pehlivanoglu
+  et~al.}{2026}]{pehlivanoglu2026qurator}
+\begin{botherref}
+\oauthor{\bsnm{Pehlivanoglu}, \binits{S.}},
+\oauthor{\bsnm{Muelenaere}, \binits{U.}},
+\oauthor{\bsnm{Kogge}, \binits{P.}},
+\oauthor{\bsnm{Sabry}, \binits{A.}}:
+Qurator: Scheduling Hybrid Quantum-Classical Workflows Across Heterogeneous
+  Cloud Providers.
+Preprint at \url{https://arxiv.org/abs/2604.05505v3}
+(2026)
+\end{botherref}
+\endbibitem
+
+%%% 19
+\bibitem[\protect\citeauthoryear{Siddi~Moreau et~al.}{2026}]{workflow}
+\begin{botherref}
+\oauthor{\bsnm{Siddi~Moreau}, \binits{G.}},
+\oauthor{\bsnm{Clemente}, \binits{M.L.}},
+\oauthor{\bsnm{Pisani}, \binits{L.}},
+\oauthor{\bsnm{Profir}, \binits{M.}},
+\oauthor{\bsnm{Pinna}, \binits{M.}},
+\oauthor{\bsnm{Moro}, \binits{M.}},
+\oauthor{\bsnm{Leoni}, \binits{L.}}:
+Managing Iterative Hybrid Quantum-Classical Optimization as a First-Class
+  Scientific Workflow.
+Preprint at \url{https://arxiv.org/abs/2609.30532v1}
+(2026)
+\end{botherref}
+\endbibitem
+
+%%% 20
+\bibitem[\protect\citeauthoryear{Havl{\'i}{\v{c}}ek
+  et~al.}{2019}]{havlicek2019supervised}
+\begin{barticle}
+\bauthor{\bsnm{Havl{\'i}{\v{c}}ek}, \binits{V.}},
+\bauthor{\bsnm{C{\'o}rcoles}, \binits{A.D.}},
+\bauthor{\bsnm{Temme}, \binits{K.}},
+\bauthor{\bsnm{Harrow}, \binits{A.W.}},
+\bauthor{\bsnm{Kandala}, \binits{A.}},
+\bauthor{\bsnm{Chow}, \binits{J.M.}},
+\bauthor{\bsnm{Gambetta}, \binits{J.M.}}:
+\batitle{Supervised learning with quantum-enhanced feature spaces}.
+\bjtitle{Nature}
+\bvolume{567}(\bissue{7747}),
+\bfpage{209}--\blpage{212}
+(\byear{2019}).
+\bcomment{\url{https://doi.org/10.1038/s41586-019-0980-2}}
+\end{barticle}
+\endbibitem
+
+%%% 21
+\bibitem[\protect\citeauthoryear{Shafer and Vovk}{2008}]{shafer2008tutorial}
+\begin{barticle}
+\bauthor{\bsnm{Shafer}, \binits{G.}},
+\bauthor{\bsnm{Vovk}, \binits{V.}}:
+\batitle{A tutorial on conformal prediction}.
+\bjtitle{Journal of Machine Learning Research}
+\bvolume{9},
+\bfpage{371}--\blpage{421}
+(\byear{2008}).
+\bcomment{\url{https://jmlr.org/papers/v9/shafer08a.html}}
+\end{barticle}
+\endbibitem
+
+%%% 22
+\bibitem[\protect\citeauthoryear{Clopper and Pearson}{1934}]{clopper1934}
+\begin{barticle}
+\bauthor{\bsnm{Clopper}, \binits{C.J.}},
+\bauthor{\bsnm{Pearson}, \binits{E.S.}}:
+\batitle{The use of confidence or fiducial limits illustrated in the case of
+  the binomial}.
+\bjtitle{Biometrika}
+\bvolume{26}(\bissue{4}),
+\bfpage{404}--\blpage{413}
+(\byear{1934}).
+\bcomment{\url{https://doi.org/10.1093/biomet/26.4.404}}
+\end{barticle}
+\endbibitem
+
+%%% 23
+\bibitem[\protect\citeauthoryear{Wilson}{1927}]{wilson1927}
+\begin{barticle}
+\bauthor{\bsnm{Wilson}, \binits{E.B.}}:
+\batitle{Probable inference, the law of succession, and statistical inference}.
+\bjtitle{Journal of the American Statistical Association}
+\bvolume{22}(\bissue{158}),
+\bfpage{209}--\blpage{212}
+(\byear{1927}).
+\bcomment{\url{https://doi.org/10.1080/01621459.1927.10502953}}
+\end{barticle}
+\endbibitem
+
+\end{thebibliography}

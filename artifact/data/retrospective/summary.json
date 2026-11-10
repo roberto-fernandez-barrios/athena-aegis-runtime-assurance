@@ -1,0 +1,74 @@
+{
+  "A": {
+    "opened_candidates": 12,
+    "accepted": 9,
+    "accepted_bootstrap": 1,
+    "incomplete_bootstrap": 0,
+    "usable_transitions": 5,
+    "accepted_nonusable_transitions": 3,
+    "incomplete": 3,
+    "attempt_records": 527,
+    "recorded_logical_units": 521,
+    "provider_accepted_submissions": 524,
+    "ledger_accounted_jobs": 524,
+    "local_done": 493,
+    "local_timeouts": 31,
+    "unbound": null,
+    "recorded_conservative_qpu_seconds": 1572.0,
+    "recorded_provider_charge_seconds": 984.0,
+    "late_DONE_count_reported_historically": 31
+  },
+  "B": {
+    "opened_candidates": 14,
+    "accepted": 11,
+    "accepted_bootstrap": 1,
+    "incomplete_bootstrap": 1,
+    "usable_transitions": 10,
+    "accepted_nonusable_transitions": 0,
+    "incomplete": 3,
+    "attempt_records": 613,
+    "recorded_logical_units": 612,
+    "provider_accepted_submissions": 583,
+    "ledger_accounted_jobs": 611,
+    "local_done": 575,
+    "local_timeouts": 0,
+    "unbound": 7,
+    "recorded_conservative_qpu_seconds": 1833.0,
+    "recorded_provider_charge_seconds": 1164.0,
+    "unit_terminal_states": {
+      "BOUND_SEALED": 575,
+      "CANCELLED_BY_RUNNER": 1,
+      "NOT_SUBMITTED": 2,
+      "SUBMIT_FAILED": 28,
+      "UNBOUND_AUDIT_ONLY": 7
+    },
+    "provider_terminal_statuses": {
+      "CANCELLED": 1,
+      "DONE": 582
+    },
+    "gate_counters_recorded_not_time_availability": {
+      "candidate_rollovers": 14,
+      "gate_open_polls": 1251,
+      "gated_candidate_polls": 2983,
+      "polls": 5461,
+      "windows_opened": 14
+    }
+  },
+  "B_primary": {
+    "usable_windows": 10,
+    "canonical_window_successes": 8,
+    "probes": 60,
+    "timely_probes": 48,
+    "retained": 56,
+    "fallback": 4,
+    "late_candidates": [
+      "C04",
+      "C06"
+    ],
+    "h1_b_declared_canonical": false,
+    "p_exact_unilateral_canonical": 0.0546875,
+    "new_p_value_computed": false,
+    "clock_max_abs_difference_s": 0
+  },
+  "interpretation": "Descriptive separate campaigns; no pooling, no new hypothesis test, no generalizable probability. DONE after timeout in A is historical closure evidence only."
+}

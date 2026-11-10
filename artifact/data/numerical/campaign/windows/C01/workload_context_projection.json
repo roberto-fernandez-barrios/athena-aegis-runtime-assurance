@@ -1,0 +1,393 @@
+{
+  "backend_id": "ibm_basquecountry",
+  "circuit_semantic_hash": "9d2a34dbe33a9bce977e5dd2e771b988dd75230e9cc74903896bda104c10795b",
+  "couplings_and_gates": [
+    {
+      "operation": "cz",
+      "qubits": [
+        0,
+        1
+      ]
+    },
+    {
+      "operation": "cz",
+      "qubits": [
+        1,
+        0
+      ]
+    },
+    {
+      "operation": "measure",
+      "qubits": [
+        0
+      ]
+    },
+    {
+      "operation": "measure",
+      "qubits": [
+        1
+      ]
+    },
+    {
+      "operation": "rz",
+      "qubits": [
+        0
+      ]
+    },
+    {
+      "operation": "rz",
+      "qubits": [
+        1
+      ]
+    },
+    {
+      "operation": "sx",
+      "qubits": [
+        0
+      ]
+    },
+    {
+      "operation": "sx",
+      "qubits": [
+        1
+      ]
+    }
+  ],
+  "dataset_workload_digest": "003bfc8878dcf731c26d268122f260692f56fc26a6655acb82e666422665a181",
+  "layout": [
+    0,
+    1
+  ],
+  "physical_qubits": [
+    0,
+    1
+  ],
+  "relevant_calibration_properties": {
+    "gates": [
+      {
+        "gate": "cz",
+        "parameters": [
+          {
+            "name": "gate_error",
+            "unit": "",
+            "value": 0.0018174027172405682
+          },
+          {
+            "name": "gate_length",
+            "unit": "ns",
+            "value": 68
+          }
+        ],
+        "qubits": [
+          0,
+          1
+        ]
+      },
+      {
+        "gate": "cz",
+        "parameters": [
+          {
+            "name": "gate_error",
+            "unit": "",
+            "value": 0.0018174027172405682
+          },
+          {
+            "name": "gate_length",
+            "unit": "ns",
+            "value": 68
+          }
+        ],
+        "qubits": [
+          1,
+          0
+        ]
+      },
+      {
+        "gate": "measure",
+        "parameters": [
+          {
+            "name": "gate_error",
+            "unit": "",
+            "value": 0.017333984375
+          },
+          {
+            "name": "gate_length",
+            "unit": "ns",
+            "value": 2336
+          },
+          {
+            "name": "threshold",
+            "unit": "",
+            "value": 1714407.2541315407
+          }
+        ],
+        "qubits": [
+          0
+        ]
+      },
+      {
+        "gate": "measure",
+        "parameters": [
+          {
+            "name": "gate_error",
+            "unit": "",
+            "value": 0.01171875
+          },
+          {
+            "name": "gate_length",
+            "unit": "ns",
+            "value": 2336
+          },
+          {
+            "name": "threshold",
+            "unit": "",
+            "value": -14631430.701507524
+          }
+        ],
+        "qubits": [
+          1
+        ]
+      },
+      {
+        "gate": "rz",
+        "parameters": [
+          {
+            "name": "gate_error",
+            "unit": "",
+            "value": 0
+          },
+          {
+            "name": "gate_length",
+            "unit": "ns",
+            "value": 0
+          }
+        ],
+        "qubits": [
+          0
+        ]
+      },
+      {
+        "gate": "rz",
+        "parameters": [
+          {
+            "name": "gate_error",
+            "unit": "",
+            "value": 0
+          },
+          {
+            "name": "gate_length",
+            "unit": "ns",
+            "value": 0
+          }
+        ],
+        "qubits": [
+          1
+        ]
+      },
+      {
+        "gate": "sx",
+        "parameters": [
+          {
+            "name": "gate_error",
+            "unit": "",
+            "value": 0.00022173079342959195
+          },
+          {
+            "name": "gate_length",
+            "unit": "ns",
+            "value": 32
+          }
+        ],
+        "qubits": [
+          0
+        ]
+      },
+      {
+        "gate": "sx",
+        "parameters": [
+          {
+            "name": "gate_error",
+            "unit": "",
+            "value": 0.0002612501913940598
+          },
+          {
+            "name": "gate_length",
+            "unit": "ns",
+            "value": 32
+          }
+        ],
+        "qubits": [
+          1
+        ]
+      }
+    ],
+    "qubits": {
+      "0": [
+        {
+          "name": "T1",
+          "unit": "us",
+          "value": 325.19952155542717
+        },
+        {
+          "name": "T2",
+          "unit": "us",
+          "value": 76.4903293674036
+        },
+        {
+          "name": "init_error",
+          "unit": "",
+          "value": 0.0030360597859777198
+        },
+        {
+          "name": "prob_meas0_prep1",
+          "unit": "",
+          "value": 0.0205078125
+        },
+        {
+          "name": "prob_meas1_prep0",
+          "unit": "",
+          "value": 0.01416015625
+        },
+        {
+          "name": "readout_error",
+          "unit": "",
+          "value": 0.017333984375
+        },
+        {
+          "name": "readout_length",
+          "unit": "ns",
+          "value": 2336
+        }
+      ],
+      "1": [
+        {
+          "name": "T1",
+          "unit": "us",
+          "value": 177.24401144010278
+        },
+        {
+          "name": "T2",
+          "unit": "us",
+          "value": 259.45248206828336
+        },
+        {
+          "name": "init_error",
+          "unit": "",
+          "value": 0.00020014998018170682
+        },
+        {
+          "name": "prob_meas0_prep1",
+          "unit": "",
+          "value": 0.01220703125
+        },
+        {
+          "name": "prob_meas1_prep0",
+          "unit": "",
+          "value": 0.01123046875
+        },
+        {
+          "name": "readout_error",
+          "unit": "",
+          "value": 0.01171875
+        },
+        {
+          "name": "readout_length",
+          "unit": "ns",
+          "value": 2336
+        }
+      ]
+    },
+    "target_instructions": [
+      {
+        "duration": 6.8e-08,
+        "error": 0.0018174027172405682,
+        "operation": "cz",
+        "qubits": [
+          0,
+          1
+        ]
+      },
+      {
+        "duration": 6.8e-08,
+        "error": 0.0018174027172405682,
+        "operation": "cz",
+        "qubits": [
+          1,
+          0
+        ]
+      },
+      {
+        "duration": 2.336e-06,
+        "error": 0.017333984375,
+        "operation": "measure",
+        "qubits": [
+          0
+        ]
+      },
+      {
+        "duration": 2.336e-06,
+        "error": 0.01171875,
+        "operation": "measure",
+        "qubits": [
+          1
+        ]
+      },
+      {
+        "duration": 0.0,
+        "error": 0.0,
+        "operation": "rz",
+        "qubits": [
+          0
+        ]
+      },
+      {
+        "duration": 0.0,
+        "error": 0.0,
+        "operation": "rz",
+        "qubits": [
+          1
+        ]
+      },
+      {
+        "duration": 3.2e-08,
+        "error": 0.00022173079342959195,
+        "operation": "sx",
+        "qubits": [
+          0
+        ]
+      },
+      {
+        "duration": 3.2e-08,
+        "error": 0.0002612501913940598,
+        "operation": "sx",
+        "qubits": [
+          1
+        ]
+      }
+    ]
+  },
+  "runtime_configuration": {
+    "options": {},
+    "primitive": "SamplerV2"
+  },
+  "shots": 128,
+  "software_versions": {
+    "numpy": "2.4.6",
+    "python": "3.11.0",
+    "qiskit": "2.5.2",
+    "qiskit_ibm_runtime": "0.49.0"
+  },
+  "transpilation_configuration": {
+    "initial_layout": [
+      0,
+      1
+    ],
+    "optimization_level": 1,
+    "seed_transpiler_set": [
+      19062026,
+      19062027
+    ],
+    "transpiler": "qiskit.transpile"
+  },
+  "workload_id": "paper15-kernel-regression-v1"
+}

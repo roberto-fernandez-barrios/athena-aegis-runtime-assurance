@@ -1,0 +1,197 @@
+{
+  "all_consistency_checks_pass": true,
+  "authorization": "author authorization of the documentary closure (review closure v1); no other interval, test, sensitivity, subgroup or threshold is computed",
+  "consistency_checks": {
+    "analysis_json_aggregate_equals_transitions_table_flags": true,
+    "analysis_json_aggregate_equals_windows_with_six_retained_probes": true,
+    "campaign_state_scientific_terminal_units_equals_analysis": true,
+    "campaign_state_unbound_units_equals_analysis": true,
+    "kill_criteria_kc_b3_fields_agree": true,
+    "missingness_unbound_rows_equal_numerator": true,
+    "transitions_windows_table_agrees": true
+  },
+  "interval_convention": {
+    "clamped": true,
+    "continuity_correction": false,
+    "function": "athena_aegis.analysis.metrics.wilson_rate",
+    "level": 0.95,
+    "module_sha256": "a5757162b4114aad4fc6565c621fa3ee60e5a165819f915469c8fcbff2b9bc8f",
+    "note": "identical to the convention of every other secondary rate in analysis.json (field 'uncertainty' = 'Wilson 95% interval')",
+    "z": 1.959963984540054
+  },
+  "rates": {
+    "binding_failure_units": {
+      "clustering": {
+        "all_in_one_window": true,
+        "note": "All seven unbound units belong to C05 (calibration phase, J3 historical-projection mismatch during the context transition that expired the window): the seven binding failures are concentrated in one window and share its context and operating conditions. Independence between units is therefore not established. The Wilson interval is nominal under its own model (independent units with a common probability) and must not be read as an interval adjusted for intra-window dependence; no intra-cluster correlation estimate has been made or authorized. Descriptive only (KC-B3 fraction 7/582 = 1.2% is far from the 20% fatal threshold).",
+        "note_revision": "rev1.1 (2026-10-27): wording of the independence statement replaced after the independent review of the level-3 package; the previous wording asserted that the clustering violates the independence assumption, which overstates what the observation shows; numerator, denominator, estimate and interval unchanged",
+        "windows_with_unbound_units": [
+          "C05"
+        ]
+      },
+      "denominator": 582,
+      "denominator_definition": "scientific terminal units (runner.py: state['scientific_terminal_units'] incremented once per unit that reached the binding classification after provider DONE); equals 575 BOUND_SEALED + 7 UNBOUND_AUDIT_ONLY = 582; SUBMIT_FAILED, NOT_SUBMITTED and CANCELLED_BY_RUNNER units never reach the classification and are not in the denominator",
+      "estimate": 0.012027491408934709,
+      "experimental_unit": "scientific terminal unit (provider DONE unit classified by the J1-J4 binding rule)",
+      "function": "athena_aegis.analysis.metrics.wilson_rate",
+      "level": 0.95,
+      "lower": 0.005838072248219625,
+      "method": "Wilson score interval (z = 1.959963984540054, no continuity correction, bounds clamped to [0, 1])",
+      "numerator": 7,
+      "numerator_definition": "units whose terminal state is UNBOUND_AUDIT_ONLY (runner.py: state['unbound_units'] incremented when classify_binding(...).bound is False)",
+      "provenance": {
+        "analysis.json": [
+          "secondary.binding_failures",
+          "kill_criteria.KC-B3.unbound_units",
+          "kill_criteria.KC-B3.scientific_terminal_units",
+          "kill_criteria.KC-B3.unbound_fraction"
+        ],
+        "campaign_state.json": [
+          "unbound_units",
+          "scientific_terminal_units",
+          "windows_lost_to_unbound_units"
+        ],
+        "missingness_units.jsonl": [
+          "rows with terminal_state = UNBOUND_AUDIT_ONLY"
+        ],
+        "producer": "src/athena_aegis/campaign_b/runner.py (see field_semantics_reconciliation.json#code_references)",
+        "windows/C05/units.jsonl": [
+          "terminal_state",
+          "binding.checks",
+          "binding.reasons"
+        ]
+      },
+      "same_convention_as_frozen_replay_rates": true,
+      "unbound_units": [
+        {
+          "attempt": 1,
+          "binding_reasons": [
+            "J3: historical workload-context projection at running_at differs from the window digest"
+          ],
+          "candidate_id": "C05",
+          "phase": "calibration",
+          "unit_id": "B05-calibration-33"
+        },
+        {
+          "attempt": 1,
+          "binding_reasons": [
+            "J3: historical workload-context projection at running_at differs from the window digest"
+          ],
+          "candidate_id": "C05",
+          "phase": "calibration",
+          "unit_id": "B05-calibration-19"
+        },
+        {
+          "attempt": 1,
+          "binding_reasons": [
+            "J3: historical workload-context projection at running_at differs from the window digest"
+          ],
+          "candidate_id": "C05",
+          "phase": "calibration",
+          "unit_id": "B05-calibration-38"
+        },
+        {
+          "attempt": 1,
+          "binding_reasons": [
+            "J3: historical workload-context projection at running_at differs from the window digest"
+          ],
+          "candidate_id": "C05",
+          "phase": "calibration",
+          "unit_id": "B05-calibration-14"
+        },
+        {
+          "attempt": 1,
+          "binding_reasons": [
+            "J3: historical workload-context projection at running_at differs from the window digest"
+          ],
+          "candidate_id": "C05",
+          "phase": "calibration",
+          "unit_id": "B05-calibration-18"
+        },
+        {
+          "attempt": 1,
+          "binding_reasons": [
+            "J3: historical workload-context projection at running_at differs from the window digest"
+          ],
+          "candidate_id": "C05",
+          "phase": "calibration",
+          "unit_id": "B05-calibration-27"
+        },
+        {
+          "attempt": 1,
+          "binding_reasons": [
+            "J3: historical workload-context projection at running_at differs from the window digest"
+          ],
+          "candidate_id": "C05",
+          "phase": "calibration",
+          "unit_id": "B05-calibration-39"
+        }
+      ],
+      "uncertainty": "Wilson 95% interval",
+      "upper": 0.024616342597409767
+    },
+    "retained_result_only_window_success": {
+      "denominator": 10,
+      "denominator_definition": "usable transition windows of the primary population (W02-W11)",
+      "estimate": 0.5,
+      "experimental_unit": "usable transition window",
+      "function": "athena_aegis.analysis.metrics.wilson_rate",
+      "level": 0.95,
+      "lower": 0.236593090512564,
+      "method": "Wilson score interval (z = 1.959963984540054, no continuity correction, bounds clamped to [0, 1])",
+      "nominal_interval_note": "The interval is nominal under the model of the preregistered primary analysis: ten windows treated as independent Bernoulli observations with a common success probability. The window is the unit of observation; the six probes inside a window are aggregated into the window outcome and are never counted as replicates. The windows share one backend and several are temporally adjacent (W05/W06 within 30 minutes on 2026-10-14; W07-W11 within four hours on 2026-10-25), so independence and homogeneity are design assumptions, not demonstrated properties. Descriptive secondary endpoint; not promoted (hypotheses.v1.json#gatekeeping).",
+      "numerator": 5,
+      "numerator_definition": "usable transition windows whose six distinct primary probes were all recovered from the retained physical result (endpoints.py::window_recovery_success -> retained_result_only_success = all_probes_recovered and distinct_probes and retained_result_count == 6)",
+      "provenance": {
+        "analysis.json": [
+          "secondary.retained_result_only_window_success.windows",
+          "secondary.retained_result_only_window_success.usable_windows",
+          "primary.windows[*].window_recovery_success with primary.windows[*].retained_result_count == 6 (equivalent form; the per-window flag itself is not kept in analysis.json)"
+        ],
+        "frozen_definition": "src/athena_aegis/campaign_b/endpoints.py::window_recovery_success",
+        "secondary_endpoints.json": [
+          "secondary.retained_result_only_window_success"
+        ],
+        "transitions_windows.json": [
+          "retained_result_only_success",
+          "usable_transition_window"
+        ]
+      },
+      "same_convention_as_frozen_replay_rates": true,
+      "uncertainty": "Wilson 95% interval",
+      "upper": 0.7634069094874361,
+      "windows_counted": [
+        "C07",
+        "C11",
+        "C12",
+        "C13",
+        "C14"
+      ],
+      "windows_with_labels": [
+        [
+          "C07",
+          "W05"
+        ],
+        [
+          "C11",
+          "W08"
+        ],
+        [
+          "C12",
+          "W09"
+        ],
+        [
+          "C13",
+          "W10"
+        ],
+        [
+          "C14",
+          "W11"
+        ]
+      ]
+    }
+  },
+  "role": "documentary closure supplement: completes the Wilson 95% intervals that PREREGISTRATION_B_v1.md section 13 and analysis_plan.v1.json#rates require for every rate; NOT emitted by the frozen replay (analysis.json is unchanged)",
+  "schema_version": "athena-aegis.campaign-b-review-closure-secondary-rates/1.0.0",
+  "scientific_change": "NONE"
+}

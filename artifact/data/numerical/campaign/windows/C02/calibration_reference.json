@@ -1,0 +1,289 @@
+{
+  "candidate_id": "C02",
+  "label": "W01",
+  "complete": true,
+  "calibration_units": 39,
+  "calibration_units_bound": 39,
+  "required_units": 39,
+  "ready_at": "2026-10-10T10:37:54.837732Z",
+  "alpha": 0.05,
+  "p_value_resolution": 0.025,
+  "threshold_38th_order_statistic": 0.09194167374691639,
+  "runtime_primitive_version": "0.49.0",
+  "integrity_verified": true,
+  "scores": [
+    {
+      "unit_id": "B02-calibration-07",
+      "attempt": 1,
+      "block_position": 1,
+      "context_bound": true,
+      "score": 0.030526086085568543
+    },
+    {
+      "unit_id": "B02-calibration-11",
+      "attempt": 1,
+      "block_position": 2,
+      "context_bound": true,
+      "score": 0.0503755791188902
+    },
+    {
+      "unit_id": "B02-calibration-38",
+      "attempt": 1,
+      "block_position": 3,
+      "context_bound": true,
+      "score": 0.03778944174429924
+    },
+    {
+      "unit_id": "B02-calibration-39",
+      "attempt": 1,
+      "block_position": 4,
+      "context_bound": true,
+      "score": 0.062439035646493175
+    },
+    {
+      "unit_id": "B02-calibration-06",
+      "attempt": 1,
+      "block_position": 5,
+      "context_bound": true,
+      "score": 0.057899598035895505
+    },
+    {
+      "unit_id": "B02-calibration-24",
+      "attempt": 1,
+      "block_position": 6,
+      "context_bound": true,
+      "score": 0.04340731549389406
+    },
+    {
+      "unit_id": "B02-calibration-27",
+      "attempt": 1,
+      "block_position": 7,
+      "context_bound": true,
+      "score": 0.0655083578090731
+    },
+    {
+      "unit_id": "B02-calibration-03",
+      "attempt": 1,
+      "block_position": 8,
+      "context_bound": true,
+      "score": 0.037364354957382676
+    },
+    {
+      "unit_id": "B02-calibration-33",
+      "attempt": 1,
+      "block_position": 9,
+      "context_bound": true,
+      "score": 0.06693287383610497
+    },
+    {
+      "unit_id": "B02-calibration-32",
+      "attempt": 1,
+      "block_position": 10,
+      "context_bound": true,
+      "score": 0.08143145421802189
+    },
+    {
+      "unit_id": "B02-calibration-37",
+      "attempt": 1,
+      "block_position": 11,
+      "context_bound": true,
+      "score": 0.051757262874092255
+    },
+    {
+      "unit_id": "B02-calibration-30",
+      "attempt": 1,
+      "block_position": 12,
+      "context_bound": true,
+      "score": 0.04812226064663418
+    },
+    {
+      "unit_id": "B02-calibration-29",
+      "attempt": 1,
+      "block_position": 13,
+      "context_bound": true,
+      "score": 0.07384646271035032
+    },
+    {
+      "unit_id": "B02-calibration-17",
+      "attempt": 1,
+      "block_position": 14,
+      "context_bound": true,
+      "score": 0.0252713490437332
+    },
+    {
+      "unit_id": "B02-calibration-02",
+      "attempt": 1,
+      "block_position": 15,
+      "context_bound": true,
+      "score": 0.04232523131106244
+    },
+    {
+      "unit_id": "B02-calibration-28",
+      "attempt": 1,
+      "block_position": 16,
+      "context_bound": true,
+      "score": 0.04394103058962327
+    },
+    {
+      "unit_id": "B02-calibration-08",
+      "attempt": 1,
+      "block_position": 17,
+      "context_bound": true,
+      "score": 0.03472285662371088
+    },
+    {
+      "unit_id": "B02-calibration-18",
+      "attempt": 1,
+      "block_position": 18,
+      "context_bound": true,
+      "score": 0.09302189767343114
+    },
+    {
+      "unit_id": "B02-calibration-21",
+      "attempt": 1,
+      "block_position": 19,
+      "context_bound": true,
+      "score": 0.05576654337811076
+    },
+    {
+      "unit_id": "B02-calibration-35",
+      "attempt": 1,
+      "block_position": 20,
+      "context_bound": true,
+      "score": 0.052869110057312
+    },
+    {
+      "unit_id": "B02-calibration-12",
+      "attempt": 1,
+      "block_position": 21,
+      "context_bound": true,
+      "score": 0.06830981964109274
+    },
+    {
+      "unit_id": "B02-calibration-19",
+      "attempt": 1,
+      "block_position": 22,
+      "context_bound": true,
+      "score": 0.04375609467751706
+    },
+    {
+      "unit_id": "B02-calibration-16",
+      "attempt": 1,
+      "block_position": 23,
+      "context_bound": true,
+      "score": 0.03714340214828812
+    },
+    {
+      "unit_id": "B02-calibration-04",
+      "attempt": 1,
+      "block_position": 24,
+      "context_bound": true,
+      "score": 0.03729764283052052
+    },
+    {
+      "unit_id": "B02-calibration-14",
+      "attempt": 1,
+      "block_position": 25,
+      "context_bound": true,
+      "score": 0.04123484678487537
+    },
+    {
+      "unit_id": "B02-calibration-15",
+      "attempt": 1,
+      "block_position": 26,
+      "context_bound": true,
+      "score": 0.06037825526912854
+    },
+    {
+      "unit_id": "B02-calibration-34",
+      "attempt": 1,
+      "block_position": 27,
+      "context_bound": true,
+      "score": 0.023832641529698044
+    },
+    {
+      "unit_id": "B02-calibration-26",
+      "attempt": 1,
+      "block_position": 28,
+      "context_bound": true,
+      "score": 0.031262353650348976
+    },
+    {
+      "unit_id": "B02-calibration-10",
+      "attempt": 1,
+      "block_position": 29,
+      "context_bound": true,
+      "score": 0.04276933610799091
+    },
+    {
+      "unit_id": "B02-calibration-22",
+      "attempt": 1,
+      "block_position": 30,
+      "context_bound": true,
+      "score": 0.06322602226101723
+    },
+    {
+      "unit_id": "B02-calibration-05",
+      "attempt": 1,
+      "block_position": 31,
+      "context_bound": true,
+      "score": 0.023423676010563443
+    },
+    {
+      "unit_id": "B02-calibration-31",
+      "attempt": 1,
+      "block_position": 32,
+      "context_bound": true,
+      "score": 0.059996003891628645
+    },
+    {
+      "unit_id": "B02-calibration-36",
+      "attempt": 1,
+      "block_position": 33,
+      "context_bound": true,
+      "score": 0.05735992983301447
+    },
+    {
+      "unit_id": "B02-calibration-25",
+      "attempt": 1,
+      "block_position": 34,
+      "context_bound": true,
+      "score": 0.041290870132422004
+    },
+    {
+      "unit_id": "B02-calibration-23",
+      "attempt": 1,
+      "block_position": 35,
+      "context_bound": true,
+      "score": 0.04975398026768912
+    },
+    {
+      "unit_id": "B02-calibration-09",
+      "attempt": 1,
+      "block_position": 36,
+      "context_bound": true,
+      "score": 0.05744586376101282
+    },
+    {
+      "unit_id": "B02-calibration-01",
+      "attempt": 1,
+      "block_position": 37,
+      "context_bound": true,
+      "score": 0.031781128454861335
+    },
+    {
+      "unit_id": "B02-calibration-13",
+      "attempt": 1,
+      "block_position": 38,
+      "context_bound": true,
+      "score": 0.0416101214830284
+    },
+    {
+      "unit_id": "B02-calibration-20",
+      "attempt": 1,
+      "block_position": 39,
+      "context_bound": true,
+      "score": 0.09194167374691639
+    }
+  ]
+}

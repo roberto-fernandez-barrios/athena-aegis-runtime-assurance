@@ -1,0 +1,730 @@
+{
+  "scope": "All supplied inputs, editorial helpers and documented context outputs; generated reproduction directory excluded.",
+  "files": [
+    {
+      "path": "code/historical/athena_aegis/__init__.py",
+      "bytes": 82,
+      "sha256": "836e2d87c88753a8510c9945be71a0327eb589762bfe4eb7b6497dbc01456668"
+    },
+    {
+      "path": "code/historical/athena_aegis/analysis/__init__.py",
+      "bytes": 38,
+      "sha256": "ee1a56810bf74a22b768c76f847466c6dfddacf2864ce3d33fd91fa00557e06c"
+    },
+    {
+      "path": "code/historical/athena_aegis/analysis/metrics.py",
+      "bytes": 1442,
+      "sha256": "a5757162b4114aad4fc6565c621fa3ee60e5a165819f915469c8fcbff2b9bc8f"
+    },
+    {
+      "path": "code/historical/athena_aegis/calibration/__init__.py",
+      "bytes": 378,
+      "sha256": "08f09fa61d9c1e718a06896086422ab0aa4f8d858e9daa5bd26dfc1cd9235c6c"
+    },
+    {
+      "path": "code/historical/athena_aegis/calibration/model.py",
+      "bytes": 5372,
+      "sha256": "8bea67fe4007728874c307170d804a39007eb39a2c633b2baeb281db41becba3"
+    },
+    {
+      "path": "code/historical/athena_aegis/campaign_b/__init__.py",
+      "bytes": 469,
+      "sha256": "6b6d5ee7fdddb0d9fafade76b1c5a6e50deaabc475032bff0d4aa24270df9080"
+    },
+    {
+      "path": "code/historical/athena_aegis/campaign_b/analysis.py",
+      "bytes": 14152,
+      "sha256": "db6745dab3fd9ddea81ab50906aa6ee9738bb99b9bd49be07d828ae7aae1e373"
+    },
+    {
+      "path": "code/historical/athena_aegis/campaign_b/binding.py",
+      "bytes": 4263,
+      "sha256": "48e7763ccc5d61202522c0d1789e5475a5e151c370c02177260c63cad25330af"
+    },
+    {
+      "path": "code/historical/athena_aegis/campaign_b/constants.py",
+      "bytes": 4453,
+      "sha256": "5f90507b1a6eda93ed0f387fe7f94213d25a53951ef995e8ff1a46977f4fd96b"
+    },
+    {
+      "path": "code/historical/athena_aegis/campaign_b/endpoints.py",
+      "bytes": 4719,
+      "sha256": "507ca15a7171d09d4036a72761bf04b283aaca122386f8a6f370a6dd9111fda0"
+    },
+    {
+      "path": "code/historical/athena_aegis/campaign_b/immutability.py",
+      "bytes": 7243,
+      "sha256": "8fc166b77378388c1a63064c2d7f03ca374ff0284e301ddb6597ecaea456ce7f"
+    },
+    {
+      "path": "code/historical/athena_aegis/campaign_b/kill_criteria.py",
+      "bytes": 5759,
+      "sha256": "a5ec1636e87c40fa3b79d84a7bfcd17e58008e8cf8731f051d9012f30a3cb91c"
+    },
+    {
+      "path": "code/historical/athena_aegis/campaign_b/statistics.py",
+      "bytes": 4898,
+      "sha256": "f1d572f819ec4cfdaee3e06b0398cf29fb1e4c0891e85fe628fbad19a84609f4"
+    },
+    {
+      "path": "code/historical/athena_aegis/canonical.py",
+      "bytes": 2082,
+      "sha256": "f87afd69ce61ffdd91bd7ca97b7fa6bfff0319fabbf6240c25b39660330a954f"
+    },
+    {
+      "path": "code/historical/athena_aegis/confirmatory/__init__.py",
+      "bytes": 206,
+      "sha256": "830494544804a0443eb70e7b906c14d691d0dc9dc984f4c5ddb15e9c03925f8e"
+    },
+    {
+      "path": "code/historical/athena_aegis/confirmatory/context_projection.py",
+      "bytes": 16487,
+      "sha256": "7ecc037f9b5c6d92ce6501671aaec7ad1121fda32100e48084003df12e8c63f2"
+    },
+    {
+      "path": "code/historical/athena_aegis/confirmatory/randomization.py",
+      "bytes": 2850,
+      "sha256": "f64fad8d3865989a0ef8f917994796a7a11293cb3aa93a84a0f31f679f8866a8"
+    },
+    {
+      "path": "code/historical/athena_aegis/context/__init__.py",
+      "bytes": 793,
+      "sha256": "c7b28c9eb12fd23fbf07c6131d4f349cc5664bf8ed7c877ad172b6ee7b8ad5c1"
+    },
+    {
+      "path": "code/historical/athena_aegis/context/model.py",
+      "bytes": 7150,
+      "sha256": "84e2f040ff3149636ffc4f67bcb3bec55c715de09e83a1d37032f91fc8b8ed68"
+    },
+    {
+      "path": "code/historical/athena_aegis/context/windowing.py",
+      "bytes": 9048,
+      "sha256": "f5486e03a163a15316191ddb4840e97feeba35f568974598c95d7c155da50fd8"
+    },
+    {
+      "path": "code/inspection_only/calibration/model.py.txt",
+      "bytes": 5372,
+      "sha256": "8bea67fe4007728874c307170d804a39007eb39a2c633b2baeb281db41becba3"
+    },
+    {
+      "path": "code/inspection_only/campaign_b/analysis.py.txt",
+      "bytes": 14152,
+      "sha256": "db6745dab3fd9ddea81ab50906aa6ee9738bb99b9bd49be07d828ae7aae1e373"
+    },
+    {
+      "path": "code/inspection_only/campaign_b/binding.py.txt",
+      "bytes": 4263,
+      "sha256": "48e7763ccc5d61202522c0d1789e5475a5e151c370c02177260c63cad25330af"
+    },
+    {
+      "path": "code/inspection_only/campaign_b/constants.py.txt",
+      "bytes": 4453,
+      "sha256": "5f90507b1a6eda93ed0f387fe7f94213d25a53951ef995e8ff1a46977f4fd96b"
+    },
+    {
+      "path": "code/inspection_only/campaign_b/endpoints.py.txt",
+      "bytes": 4719,
+      "sha256": "507ca15a7171d09d4036a72761bf04b283aaca122386f8a6f370a6dd9111fda0"
+    },
+    {
+      "path": "code/inspection_only/campaign_b/gate.py.txt",
+      "bytes": 3612,
+      "sha256": "a4d0d8002f933aeebc650092bb33460947506254eeadc8b0e5b9a2f3bb8b1e44"
+    },
+    {
+      "path": "code/inspection_only/campaign_b/kill_criteria.py.txt",
+      "bytes": 5759,
+      "sha256": "a5ec1636e87c40fa3b79d84a7bfcd17e58008e8cf8731f051d9012f30a3cb91c"
+    },
+    {
+      "path": "code/inspection_only/campaign_b/recovery.py.txt",
+      "bytes": 5570,
+      "sha256": "8fb3d000a72b05952e2df5ff19c5f91f81bf9acbcdc413dbecb73697981f26e4"
+    },
+    {
+      "path": "code/inspection_only/campaign_b/reference.py.txt",
+      "bytes": 3701,
+      "sha256": "56513bd0ad4faf7a67f6f0c152ad47b48c5c76cddd1aefb0f80e242f0a5855db"
+    },
+    {
+      "path": "code/inspection_only/campaign_b/runner.py.txt",
+      "bytes": 132418,
+      "sha256": "ca22d1046fb309a1b893937eea746e2b3e6c342b9f5df9df654a1635ef9e2a07"
+    },
+    {
+      "path": "code/inspection_only/campaign_b/workload.py.txt",
+      "bytes": 2675,
+      "sha256": "6eb821c1a4e20f18929af066dd742ce911b62c096b535029c51bad1e2864c043"
+    },
+    {
+      "path": "code/inspection_only/confirmatory/context_projection.py.txt",
+      "bytes": 16487,
+      "sha256": "7ecc037f9b5c6d92ce6501671aaec7ad1121fda32100e48084003df12e8c63f2"
+    },
+    {
+      "path": "code/inspection_only/policies/models.py.txt",
+      "bytes": 4224,
+      "sha256": "669c9aa522552b9d49b9b271773f76d59b7e662f8a1971f912bc90b68a2d0cca"
+    },
+    {
+      "path": "code/LICENSE-existing.txt",
+      "bytes": 664,
+      "sha256": "ec9195c2886a2556c9fe98f6bdd66ba9880bc0b42133d32f7965dc44765e7a46"
+    },
+    {
+      "path": "code/v5_corrected/analysis.py",
+      "bytes": 14413,
+      "sha256": "1fbd6548fa4029ab627a686d170be7c00d7acb8411a456eafb9360a52410d279"
+    },
+    {
+      "path": "context_description/context_changed_leaves.csv",
+      "bytes": 36582,
+      "sha256": "7c7f6da8f09b3411ad5fea28d2fcf582d6936a0adac622c7b7f0617ddad12fa5"
+    },
+    {
+      "path": "context_description/context_transitions.csv",
+      "bytes": 1666,
+      "sha256": "e73bba367a6b5cbe465b0c1470292865e4c5a394b6b6d1d113c27cca5c767481"
+    },
+    {
+      "path": "context_description/context_transitions.json",
+      "bytes": 12068,
+      "sha256": "1db12a96107d56f910a71de5eba5ba1a25b0d9468d36eeda9a0ad4a44100ff53"
+    },
+    {
+      "path": "context_description/tables/context_transitions.tex",
+      "bytes": 1155,
+      "sha256": "7906b6123d1c77b7e49b1d4ba3883d34259ccc8ba707ac5ee50006d2eee57234"
+    },
+    {
+      "path": "CONTEXT_METHOD.md",
+      "bytes": 3942,
+      "sha256": "f64e80e746444e0247dcc24c123345543c15d3c7b018e350ded68bf2ae62a29a"
+    },
+    {
+      "path": "context_transitions.py",
+      "bytes": 7542,
+      "sha256": "d268c5ab47ee2c6952430c954d248e73017b9b31d4c5c4ab1db9a660c25a8722"
+    },
+    {
+      "path": "data/analysis.json",
+      "bytes": 20675,
+      "sha256": "ff64b54996600f1aaece1e67c5e2619ae312093946040cb9947117343763da4d"
+    },
+    {
+      "path": "data/candidates_accounting.csv",
+      "bytes": 5217,
+      "sha256": "8781fb93658fe03c13bfb2d34862a53c71a0e67a71a0f0194a49dfe6181946ea"
+    },
+    {
+      "path": "data/numerical/campaign/campaign_state.json",
+      "bytes": 15132,
+      "sha256": "6156a4e1a3640dfc85a6179121f5cbb9004fa7199d7c1fc0e7da74dc6488d741"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C01/policy_records.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C01/units.jsonl",
+      "bytes": 26703,
+      "sha256": "f99f0640cadabe24c21fbb8b0371b0cd10f4e05d94be88ff38f3192dde5a5330"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C01/window.json",
+      "bytes": 1403,
+      "sha256": "9bc0dd3bb5455e65ef9f4d73ed6474901d17d7f3c28548654531423c3fd12160"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C01/workload_context_projection.json",
+      "bytes": 7815,
+      "sha256": "8bbb114ce42bb1f9d2ab888926ab978537787e38ef5249e12e46218a72fb352d"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C02/calibration_reference.json",
+      "bytes": 7070,
+      "sha256": "82c0eeb554374da7bce606eeeae8e64bfaa914c63e7a87e9b14d2e79554c1420"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C02/policy_records.jsonl",
+      "bytes": 6914,
+      "sha256": "9bece1530a125efeaa39a81e6880d071325ca4d212969da880f2bf6f31b7f6bf"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C02/units.jsonl",
+      "bytes": 101333,
+      "sha256": "01ed03b240c4a90594690353099cfef5909d01ad992940db9de1324e936983bb"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C02/window.json",
+      "bytes": 1328,
+      "sha256": "fc55cfbdc396ea95512daa1044db89c6a75b428eccb27814580270afd30fe2ca"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C02/workload_context_projection.json",
+      "bytes": 7832,
+      "sha256": "292bec188a9a3bf325bf9a861f3e19a9b85bdfaaf68a9ecea0d4a18a977694f3"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C03/calibration_reference.json",
+      "bytes": 7063,
+      "sha256": "67002ec5bf1dad43767b1fcbce39fc1d6dd426ccb6fb6f23247a7c64f80b7bf7"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C03/policy_records.jsonl",
+      "bytes": 31023,
+      "sha256": "4caaba7b71e9f9d98ef221a51e8262697e8c8938e4c85c14f434f8bdd3b7e5a2"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C03/units.jsonl",
+      "bytes": 116642,
+      "sha256": "98f8598a0691ad501b5f94e3cc711622d18e8b27add8fc0c769a04ca8b61eaff"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C03/window.json",
+      "bytes": 1315,
+      "sha256": "62e7df2bd81cb337010c9a4f9d580d23d54add9d2c7def64760f0f1475ca46ee"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C03/workload_context_projection.json",
+      "bytes": 7835,
+      "sha256": "259cf4ef34c41aa3080f1936c23f8c196c882c2cd8f0e68b11f9ff5ffb866556"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C04/calibration_reference.json",
+      "bytes": 7070,
+      "sha256": "1eb98d4dd3ca0a7f0f8cf84e002b7b174ca0e00d4b2fc603ef896cd55f4eb271"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C04/policy_records.jsonl",
+      "bytes": 31061,
+      "sha256": "20c3356fb6546ca3f417fdae98fefd116e57d67e589bf02c8f40627936736b13"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C04/units.jsonl",
+      "bytes": 116508,
+      "sha256": "ea46039c4051438c4ad8af0be70bb071ffd9799e20b13f8590c7b649e4ead7f5"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C04/window.json",
+      "bytes": 1316,
+      "sha256": "75c64ab9f1d2d8942ecff2292e636fc28993955c0d1cd301285d189b02ce616b"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C04/workload_context_projection.json",
+      "bytes": 7816,
+      "sha256": "2dee3aad6b80832930758682f296e69fce6a3b145519494c874a82b31bdc9be5"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C05/policy_records.jsonl",
+      "bytes": 22612,
+      "sha256": "fe648bf8d0c669322cb81b7bce97545b4b75d927a4e0e799e0e8e46928fb7d5b"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C05/units.jsonl",
+      "bytes": 104893,
+      "sha256": "9a54f320c77cadd0ad6c2445936d662a3d497ce704bf3928e4fb550656911e54"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C05/window.json",
+      "bytes": 1433,
+      "sha256": "747828af365bc9db3dd5cf0b15ce0af4039953c8187b9967afb373f86ba2a9df"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C05/workload_context_projection.json",
+      "bytes": 7809,
+      "sha256": "4ee8e76e4ec70479b2e9c0248c7907f7ade6f9266151076d2780a5609bd8db54"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C06/calibration_reference.json",
+      "bytes": 7075,
+      "sha256": "1d19c9ee7cd88061fda4c1507b3a5159139efb4b9fb3face81b3cdfecfa5d33e"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C06/policy_records.jsonl",
+      "bytes": 31038,
+      "sha256": "f544e7a3499d24355a791460e6495534250ffa67895a3fdb8937b8b15a09cb4e"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C06/units.jsonl",
+      "bytes": 116293,
+      "sha256": "6d2080ba0b8f98cee8c9a0f0b237f912f6b84842a6bdb304316e0b83f774c4c6"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C06/window.json",
+      "bytes": 1315,
+      "sha256": "d87f24c06547f1d581b3c1bf2feb61504144432f5eb22597546d31c549410149"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C06/workload_context_projection.json",
+      "bytes": 7832,
+      "sha256": "004f812f637dde1696e595f3d7c1bf2207ac1806b9c65dc16a1982264f4773a5"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C07/calibration_reference.json",
+      "bytes": 7072,
+      "sha256": "216bffc8a309e2bae785e9dca59a5c0a87650b4ed2cb0217057f757fe152b758"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C07/policy_records.jsonl",
+      "bytes": 31038,
+      "sha256": "3832544cab95e788f5b8b912b93f29d77372c78a0ef0fe88baaea3e31a609c3a"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C07/units.jsonl",
+      "bytes": 116688,
+      "sha256": "b4aa97132134e81b612b6e3527756478fbf27e09f05bdcb617fe477a89af4d8b"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C07/window.json",
+      "bytes": 1315,
+      "sha256": "d501b70febe796f7379ec3166cfbabae22914aea94272016670164cbdc4d7ec9"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C07/workload_context_projection.json",
+      "bytes": 7835,
+      "sha256": "9b2b73f5e34f1eb0d67242f703025e1c79fc93eb5e7c5281def2b4563454aad1"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C08/calibration_reference.json",
+      "bytes": 7071,
+      "sha256": "aafaf33fcfe29fe126ad9ca3037177ca2daa72235513486a3055543f56ef704d"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C08/policy_records.jsonl",
+      "bytes": 31026,
+      "sha256": "4edbeceabd8a494756b5646ce5feb2beb4db5785284e1250d159a0825a745daf"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C08/units.jsonl",
+      "bytes": 116293,
+      "sha256": "4922ad66ce48d1dc46ae454250131c84c5e0765dd03f75f1557e525bbaf4c316"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C08/window.json",
+      "bytes": 1314,
+      "sha256": "6e0510ad3d0fa49fe5efe413b7a1b35e1e600f2576992b566eec4de018de8bf2"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C08/workload_context_projection.json",
+      "bytes": 7831,
+      "sha256": "d9b896c6f9c22796b436d1cf9a9672c9fbb536635aca78a0f7c854b8da0ba086"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C09/policy_records.jsonl",
+      "bytes": 22665,
+      "sha256": "fd40fd64bc6b5f0cd554245cc2f3484e9dffdefcad69370d0abe168c462ec824"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C09/units.jsonl",
+      "bytes": 70661,
+      "sha256": "28e661c1d05e05f0ff63affb23eda26c1661c680f57fecc86b0bb71556b68ded"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C09/window.json",
+      "bytes": 1410,
+      "sha256": "7dc0f3c1663edf261a57f30b1e74728b40a2d73e9d8e30e6962a7addc860559d"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C09/workload_context_projection.json",
+      "bytes": 7809,
+      "sha256": "2ccfe0ea2fd68ccea7df78e2c6d7c548808cc8f69f70eb5409144650a65a2993"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C10/calibration_reference.json",
+      "bytes": 7071,
+      "sha256": "ab873e5a35e5e34ebcd17789003de68037f168c3892637133c12fdcd28efdcf5"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C10/policy_records.jsonl",
+      "bytes": 31013,
+      "sha256": "12eb59ce939ce839521686fe9e736e34ea28f9a706deea15d079974d04a19dec"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C10/units.jsonl",
+      "bytes": 116695,
+      "sha256": "d63c93bcf48c6e2f4b66be8c3e3752aba71b17d9e311f8506d357190a88e6710"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C10/window.json",
+      "bytes": 1316,
+      "sha256": "7844d0551fd8e029d4a401861432a98a443dbdcfec692fc5717d427c3d1f7858"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C10/workload_context_projection.json",
+      "bytes": 7825,
+      "sha256": "a2a47568f51c68b076dad72c93af7cc81434c035c285dea87c02e03dd97cd160"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C11/calibration_reference.json",
+      "bytes": 7065,
+      "sha256": "fd8a87847925207c50a3cab177e46f13423043cd4c37b3711576c5e8737ce57c"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C11/policy_records.jsonl",
+      "bytes": 31023,
+      "sha256": "4c9bb4c6da646b97b32963e8156b84bca0fc0bb2ba2ca38e08f2b9122bd7a80a"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C11/units.jsonl",
+      "bytes": 116517,
+      "sha256": "e0d35f28ddbe91b6dfd530031c3be08c03dfb980aaa597dae23895e68c9db774"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C11/window.json",
+      "bytes": 1314,
+      "sha256": "3c082a2aeab16d8be5b989a57a96decfdca1e72b965291fc0800c3d4dbb7d446"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C11/workload_context_projection.json",
+      "bytes": 7812,
+      "sha256": "b1ad216365962f693fe63e5f7e786410760d95fc5ca0c4fc7975d99c353179d5"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C12/calibration_reference.json",
+      "bytes": 7064,
+      "sha256": "69ec07bcd73667e235e935974d68bddf34abee9103f4494e9e4578831c79fe5f"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C12/policy_records.jsonl",
+      "bytes": 31029,
+      "sha256": "2c404d29befb01d9d54456f7ee194ae7d8e5bd7f882a9e4801db05f562212f0e"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C12/units.jsonl",
+      "bytes": 116656,
+      "sha256": "40520c79e27d04ddcfbb6aced68ad9f9a7e9f4a442977aba1eb188e75ce6a792"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C12/window.json",
+      "bytes": 1314,
+      "sha256": "b19caf57cd673088c3c96accc290ad62269f4965148a39ef1507b3932eb83a21"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C12/workload_context_projection.json",
+      "bytes": 7812,
+      "sha256": "955c98e1c9c3e1ffd6b00458df231e7d40da9b38b195d2d6e2d160c049aa512e"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C13/calibration_reference.json",
+      "bytes": 7067,
+      "sha256": "624296239ec6b41b4dbe98bc4ce6f0a2dce65fe29e666bd42789f4c8259ec1c9"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C13/policy_records.jsonl",
+      "bytes": 31040,
+      "sha256": "0428d67e33a88b8c5c997748cb321f9bc31d0d803885421dd88a5056b8e9048d"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C13/units.jsonl",
+      "bytes": 116708,
+      "sha256": "f27d01b6fb11d3e9d05442aad5faf1d23e5ba0670f63c53fc0aa38715aba09a7"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C13/window.json",
+      "bytes": 1314,
+      "sha256": "2600c1bab1550145b68662b4107a032ce9e8cbf07a20ff503ea2ccbb66e62468"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C13/workload_context_projection.json",
+      "bytes": 7812,
+      "sha256": "47a27909983be073bf2cddded0b969eab2cc0a035b2210a9297910dd08700c51"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C14/calibration_reference.json",
+      "bytes": 7071,
+      "sha256": "ecab48a69d4c96ae40152e1458684af93b20ba03896d73e36d588dcfc622ff2b"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C14/policy_records.jsonl",
+      "bytes": 31033,
+      "sha256": "e7e3f22b4ac4d8ba318cbc0744b51a27e7e8e93c11d90ba2cf0e053e68379535"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C14/units.jsonl",
+      "bytes": 116739,
+      "sha256": "4340c6fb36443ba5a0132edd1d81716692812bda30f69be816e28e3dc5884176"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C14/window.json",
+      "bytes": 1314,
+      "sha256": "da95d66b695fafac883ab93f28fbf8b6d858792b81e349c0d2324c01b3e3960e"
+    },
+    {
+      "path": "data/numerical/campaign/windows/C14/workload_context_projection.json",
+      "bytes": 7826,
+      "sha256": "90c67c2946c0a0d0821035e0f029c15a451e44d29ed16367a8c4b04bf600bc37"
+    },
+    {
+      "path": "data/numerical/workload.json",
+      "bytes": 1217,
+      "sha256": "88446c1ca1feac1caac8b59a7f02f3b0aa9586cee8521acc2bb8bcef84ad134f"
+    },
+    {
+      "path": "data/primary_physical_oracle.csv",
+      "bytes": 8603,
+      "sha256": "3ce8102d09f525f7b33f59acf341b75c1a4078eabb3845c0b1fac1c0a80c5ef9"
+    },
+    {
+      "path": "data/retrospective/A_incomplete_intervals.csv",
+      "bytes": 564,
+      "sha256": "8f726daa8f11fc0511d1f6a4ee5bbf81f92a97f83b9f9ede51dc685b13f34bfa"
+    },
+    {
+      "path": "data/retrospective/A_reference_semantics.csv",
+      "bytes": 393,
+      "sha256": "b1959b26db753dee01e7453e5ef73a712bc7bf562e7c2e6b432e4138b25dfce1"
+    },
+    {
+      "path": "data/retrospective/A_timeout_attempts.csv",
+      "bytes": 2606,
+      "sha256": "4877f4a48d77ce599a8995cc46b3060f0454452c3b1de4300576f6f440cea439"
+    },
+    {
+      "path": "data/retrospective/B_binding_witnesses.csv",
+      "bytes": 1423,
+      "sha256": "956f40b76057dba8494db634b0cc92f72d51b52a68d7b23542d7987f6938e4fb"
+    },
+    {
+      "path": "data/retrospective/B_C05_calibration_chronology.csv",
+      "bytes": 9354,
+      "sha256": "bfd550eec33ac5a9576458710637a0674133ca9a888070a505a48da245cf77d9"
+    },
+    {
+      "path": "data/retrospective/B_clock_partitions.csv",
+      "bytes": 571,
+      "sha256": "5de15de0634a6ff81fadb3bc337d521e97a1acaf920b7dbd08d953086d80566b"
+    },
+    {
+      "path": "data/retrospective/B_timing.csv",
+      "bytes": 1262,
+      "sha256": "f7765df28c5191bb01610d12473e7e8d7c7b3efb1ccb902e58fd878662a76ecc"
+    },
+    {
+      "path": "data/retrospective/C09_cancellation_clarification.json",
+      "bytes": 814,
+      "sha256": "8e32202d0ebe2d23f8d2de11cde8c495e6baf4eb55f1c913e565ff8d0c566bc1"
+    },
+    {
+      "path": "data/retrospective/candidates.csv",
+      "bytes": 2170,
+      "sha256": "d156f320ece58196b455c65768f6b07fe1033817ddaea73a6db9dbd44efa82e9"
+    },
+    {
+      "path": "data/retrospective/review_checks.json",
+      "bytes": 3457,
+      "sha256": "34c80b48df2a66f9f90fa85260c8cb210f491012db9ddd255693d1f0b9dc2b4c"
+    },
+    {
+      "path": "data/retrospective/summary.json",
+      "bytes": 2193,
+      "sha256": "c1b57e55f31cb0b9c336fbe67c6faa453ddf6f857e593836a369034e5d45fdc1"
+    },
+    {
+      "path": "data/secondary_endpoints.json",
+      "bytes": 12801,
+      "sha256": "533e14cd0405bee7008318a0b6dcb20b52193f526c14a32d76cd6c24b7869884"
+    },
+    {
+      "path": "data/secondary_rates_supplement.json",
+      "bytes": 9367,
+      "sha256": "0768fa6b6541cadf347fa37d417e0e416cdec241425d697c8e9970716c0cf719"
+    },
+    {
+      "path": "data/transitions_probes.csv",
+      "bytes": 116198,
+      "sha256": "274019bb25efbd37be60d5deac904f0d236626177d198d0198f44be1b797a486"
+    },
+    {
+      "path": "data/transitions_windows.csv",
+      "bytes": 16333,
+      "sha256": "34f7c0a269db9b3a09efd1184b185af29a52fe6f47bfb2920dd35934637023ab"
+    },
+    {
+      "path": "DATA_DICTIONARY.txt",
+      "bytes": 959,
+      "sha256": "20a99789d2d4e81c591fbcffd81b6738d06a335aacdfe88e9eb614b6649f40b8"
+    },
+    {
+      "path": "protocols/AMENDMENT_001_FROZEN_DIGEST_SCOPE.md",
+      "bytes": 3833,
+      "sha256": "1b7f4bb96b4293390fe5ef96f2b96a17da26b20286760660702a50aa43fbf873"
+    },
+    {
+      "path": "protocols/AMENDMENT_002_PROVIDER_REQUEST_BOUNDARY.md",
+      "bytes": 8866,
+      "sha256": "de90e02aa110f80478a1b63349b0a9620c2843890ff408279925205a60f03ddc"
+    },
+    {
+      "path": "protocols/AMENDMENT_003_EXECUTION_CONTRACT_LAUNCH_RECORDS.md",
+      "bytes": 8915,
+      "sha256": "89fe3cf31a8965d41045dc9aab30c681cfff47525f81ec043948b735e2bf4088"
+    },
+    {
+      "path": "protocols/FREEZE_RECORD_2026-10-07.md",
+      "bytes": 3988,
+      "sha256": "0399a060d5aef18fa3bc967a52a8780734d97bfeb25cf6a3a9d830726e3926a2"
+    },
+    {
+      "path": "protocols/PREREGISTRATION_B_v1.md",
+      "bytes": 18365,
+      "sha256": "1e02a38be3f3d1f489d17148b5c1afbf0a63517d69ccb83ff85c22c26e251e79"
+    },
+    {
+      "path": "protocols/PREREGISTRATION_v1.md",
+      "bytes": 26533,
+      "sha256": "2e278faa6e5eea4597a83b36a517ea6f4c97abf1b1ac397c5f0e821de040ff3e"
+    },
+    {
+      "path": "provenance/claim_map.csv",
+      "bytes": 2166,
+      "sha256": "74b1a2400d4ff3e6932986c1520062b9a4ecbe9cadd68b4d51cde56f26569138"
+    },
+    {
+      "path": "provenance/clarification_exports.json",
+      "bytes": 3271,
+      "sha256": "b4498f85826f6f5039da701a409ff0543fdab8da538631a3a3a28b499a4cd7f8"
+    },
+    {
+      "path": "provenance/environment.json",
+      "bytes": 210,
+      "sha256": "050a8bbdd8a169e319004acf37b6b240d07387bc66fbb08408ac5479d5a60c47"
+    },
+    {
+      "path": "provenance/export_map.json",
+      "bytes": 17498,
+      "sha256": "4e3d83852342a5ca8811d40cbd433ec3c94dd7ebddc1ace4cdfd92d417e07e93"
+    },
+    {
+      "path": "provenance/historical_environment.json",
+      "bytes": 6417,
+      "sha256": "10bd5ff0115e162c9a227c18eb36575848d5c6f187d740abc4b545b811cf446e"
+    },
+    {
+      "path": "provenance/numerical_export_map.json",
+      "bytes": 19993,
+      "sha256": "8495910b66483b3ad690875de253e7e1c6746c940137a79b0037843fba06be78"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6423,
+      "sha256": "58d4bd30465ad56fa7ab6fe3a1513f04a6620b6439bfa8aa5c1c787d94f1114b"
+    },
+    {
+      "path": "render_outputs.py",
+      "bytes": 8865,
+      "sha256": "1533c119fd6d59872a3f08f223dfab8ee8f3515b11eeb310255474a9eeeb4236"
+    },
+    {
+      "path": "reproduce.py",
+      "bytes": 27908,
+      "sha256": "4f3508b61168b0deea999e5cf593cc56c088547192dc81af94ac7c8c3dc88e05"
+    },
+    {
+      "path": "RETROSPECTIVE_SPECIFICATION.md",
+      "bytes": 7564,
+      "sha256": "79889117150fecbb8dd70a1b731418241f7b6b5f9a29384c301e27ece21081c1"
+    }
+  ]
+}

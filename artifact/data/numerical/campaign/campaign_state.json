@@ -1,0 +1,453 @@
+{
+  "campaign": "paper-2.5b-campaign-b",
+  "phase": "confirmatory",
+  "campaign_status": "complete",
+  "status_reason": "target of 10 usable transition windows reached",
+  "candidate_epochs": 14,
+  "scientific_terminal_units": 582,
+  "unbound_units": 7,
+  "windows_lost_to_unbound_units": 0,
+  "preflight_binding_self_test_passed": true,
+  "provider_semantics_incidents": [],
+  "jobs_consumed": 611,
+  "qpu_seconds_consumed_estimate": 1833.0,
+  "qpu_seconds_provider_reported": 1164.0,
+  "cancel_requests": 1,
+  "acquisition_reruns_used_total": 1,
+  "post_window_terminal_results": 0,
+  "gate_statistics": {
+    "candidate_rollovers": 14,
+    "gate_open_polls": 1251,
+    "gated_candidate_polls": 2983,
+    "polls": 5461,
+    "windows_opened": 14
+  },
+  "accepted_windows": [
+    {
+      "candidate_id": "C02",
+      "label": "W01",
+      "bootstrap": true,
+      "status": "accepted_bootstrap",
+      "opened_at": "2026-10-10T10:28:08.876273Z",
+      "completed_at": "2026-10-10T10:38:24.356564Z",
+      "scientific_terminated_at": null,
+      "expiry_reason": null,
+      "usable_transition_window": false,
+      "calibration_reference_complete": true,
+      "calibration_reference_ready_at": "2026-10-10T10:37:54.837732Z",
+      "calibration_reference_integrity_verified": true,
+      "calibration_units_bound": 39,
+      "bound_sealed_units": 41,
+      "probes_bound": 0,
+      "verification_units_bound": 2,
+      "primary_set_terminal": true,
+      "unit_counts": {
+        "calibration": 39,
+        "post_recovery_verification": 2,
+        "pre_recovery_service": 0
+      },
+      "unit_states": {
+        "BOUND_SEALED": 41
+      },
+      "physical_submissions": 41,
+      "queue_depth_at_open": 1,
+      "max_queue_depth_in_window": 2
+    },
+    {
+      "candidate_id": "C03",
+      "label": "W02",
+      "bootstrap": false,
+      "status": "accepted_usable",
+      "opened_at": "2026-10-10T16:05:15.979248Z",
+      "completed_at": "2026-10-10T16:17:18.397101Z",
+      "scientific_terminated_at": null,
+      "expiry_reason": null,
+      "usable_transition_window": true,
+      "calibration_reference_complete": true,
+      "calibration_reference_ready_at": "2026-10-10T16:16:48.888001Z",
+      "calibration_reference_integrity_verified": true,
+      "calibration_units_bound": 39,
+      "bound_sealed_units": 47,
+      "probes_bound": 6,
+      "verification_units_bound": 2,
+      "primary_set_terminal": true,
+      "unit_counts": {
+        "calibration": 39,
+        "post_recovery_verification": 2,
+        "pre_recovery_service": 6
+      },
+      "unit_states": {
+        "BOUND_SEALED": 47
+      },
+      "physical_submissions": 47,
+      "queue_depth_at_open": 0,
+      "max_queue_depth_in_window": 0
+    },
+    {
+      "candidate_id": "C04",
+      "label": "W03",
+      "bootstrap": false,
+      "status": "accepted_usable",
+      "opened_at": "2026-10-13T01:03:44.060642Z",
+      "completed_at": "2026-10-13T06:52:30.590347Z",
+      "scientific_terminated_at": null,
+      "expiry_reason": null,
+      "usable_transition_window": true,
+      "calibration_reference_complete": true,
+      "calibration_reference_ready_at": "2026-10-13T06:51:48.618286Z",
+      "calibration_reference_integrity_verified": true,
+      "calibration_units_bound": 39,
+      "bound_sealed_units": 47,
+      "probes_bound": 6,
+      "verification_units_bound": 2,
+      "primary_set_terminal": true,
+      "unit_counts": {
+        "calibration": 39,
+        "post_recovery_verification": 2,
+        "pre_recovery_service": 6
+      },
+      "unit_states": {
+        "BOUND_SEALED": 47
+      },
+      "physical_submissions": 47,
+      "queue_depth_at_open": 1,
+      "max_queue_depth_in_window": 64
+    },
+    {
+      "candidate_id": "C06",
+      "label": "W04",
+      "bootstrap": false,
+      "status": "accepted_usable",
+      "opened_at": "2026-10-14T07:56:26.704325Z",
+      "completed_at": "2026-10-14T16:40:32.628260Z",
+      "scientific_terminated_at": null,
+      "expiry_reason": null,
+      "usable_transition_window": true,
+      "calibration_reference_complete": true,
+      "calibration_reference_ready_at": "2026-10-14T16:40:00.509507Z",
+      "calibration_reference_integrity_verified": true,
+      "calibration_units_bound": 39,
+      "bound_sealed_units": 47,
+      "probes_bound": 6,
+      "verification_units_bound": 2,
+      "primary_set_terminal": true,
+      "unit_counts": {
+        "calibration": 39,
+        "post_recovery_verification": 2,
+        "pre_recovery_service": 6
+      },
+      "unit_states": {
+        "BOUND_SEALED": 47
+      },
+      "physical_submissions": 47,
+      "queue_depth_at_open": 1,
+      "max_queue_depth_in_window": 1912
+    },
+    {
+      "candidate_id": "C07",
+      "label": "W05",
+      "bootstrap": false,
+      "status": "accepted_usable",
+      "opened_at": "2026-10-14T20:09:19.266064Z",
+      "completed_at": "2026-10-14T20:22:06.393705Z",
+      "scientific_terminated_at": null,
+      "expiry_reason": null,
+      "usable_transition_window": true,
+      "calibration_reference_complete": true,
+      "calibration_reference_ready_at": "2026-10-14T20:21:33.692349Z",
+      "calibration_reference_integrity_verified": true,
+      "calibration_units_bound": 39,
+      "bound_sealed_units": 47,
+      "probes_bound": 6,
+      "verification_units_bound": 2,
+      "primary_set_terminal": true,
+      "unit_counts": {
+        "calibration": 39,
+        "post_recovery_verification": 2,
+        "pre_recovery_service": 6
+      },
+      "unit_states": {
+        "BOUND_SEALED": 47
+      },
+      "physical_submissions": 47,
+      "queue_depth_at_open": 0,
+      "max_queue_depth_in_window": 0
+    },
+    {
+      "candidate_id": "C08",
+      "label": "W06",
+      "bootstrap": false,
+      "status": "accepted_usable",
+      "opened_at": "2026-10-14T20:38:44.623382Z",
+      "completed_at": "2026-10-14T20:51:15.596703Z",
+      "scientific_terminated_at": null,
+      "expiry_reason": null,
+      "usable_transition_window": true,
+      "calibration_reference_complete": true,
+      "calibration_reference_ready_at": "2026-10-14T20:50:45.989656Z",
+      "calibration_reference_integrity_verified": true,
+      "calibration_units_bound": 39,
+      "bound_sealed_units": 47,
+      "probes_bound": 6,
+      "verification_units_bound": 2,
+      "primary_set_terminal": true,
+      "unit_counts": {
+        "calibration": 39,
+        "post_recovery_verification": 2,
+        "pre_recovery_service": 6
+      },
+      "unit_states": {
+        "BOUND_SEALED": 47
+      },
+      "physical_submissions": 47,
+      "queue_depth_at_open": 0,
+      "max_queue_depth_in_window": 0
+    },
+    {
+      "candidate_id": "C10",
+      "label": "W07",
+      "bootstrap": false,
+      "status": "accepted_usable",
+      "opened_at": "2026-10-25T10:06:21.810798Z",
+      "completed_at": "2026-10-25T10:19:29.927394Z",
+      "scientific_terminated_at": null,
+      "expiry_reason": null,
+      "usable_transition_window": true,
+      "calibration_reference_complete": true,
+      "calibration_reference_ready_at": "2026-10-25T10:18:59.396734Z",
+      "calibration_reference_integrity_verified": true,
+      "calibration_units_bound": 39,
+      "bound_sealed_units": 47,
+      "probes_bound": 6,
+      "verification_units_bound": 2,
+      "primary_set_terminal": true,
+      "unit_counts": {
+        "calibration": 39,
+        "post_recovery_verification": 2,
+        "pre_recovery_service": 6
+      },
+      "unit_states": {
+        "BOUND_SEALED": 47
+      },
+      "physical_submissions": 47,
+      "queue_depth_at_open": 2,
+      "max_queue_depth_in_window": 2
+    },
+    {
+      "candidate_id": "C11",
+      "label": "W08",
+      "bootstrap": false,
+      "status": "accepted_usable",
+      "opened_at": "2026-10-25T11:19:59.357896Z",
+      "completed_at": "2026-10-25T11:32:58.653452Z",
+      "scientific_terminated_at": null,
+      "expiry_reason": null,
+      "usable_transition_window": true,
+      "calibration_reference_complete": true,
+      "calibration_reference_ready_at": "2026-10-25T11:32:26.368936Z",
+      "calibration_reference_integrity_verified": true,
+      "calibration_units_bound": 39,
+      "bound_sealed_units": 47,
+      "probes_bound": 6,
+      "verification_units_bound": 2,
+      "primary_set_terminal": true,
+      "unit_counts": {
+        "calibration": 39,
+        "post_recovery_verification": 2,
+        "pre_recovery_service": 6
+      },
+      "unit_states": {
+        "BOUND_SEALED": 47
+      },
+      "physical_submissions": 47,
+      "queue_depth_at_open": 1,
+      "max_queue_depth_in_window": 3
+    },
+    {
+      "candidate_id": "C12",
+      "label": "W09",
+      "bootstrap": false,
+      "status": "accepted_usable",
+      "opened_at": "2026-10-25T12:21:29.316762Z",
+      "completed_at": "2026-10-25T12:32:56.740038Z",
+      "scientific_terminated_at": null,
+      "expiry_reason": null,
+      "usable_transition_window": true,
+      "calibration_reference_complete": true,
+      "calibration_reference_ready_at": "2026-10-25T12:32:26.616099Z",
+      "calibration_reference_integrity_verified": true,
+      "calibration_units_bound": 39,
+      "bound_sealed_units": 47,
+      "probes_bound": 6,
+      "verification_units_bound": 2,
+      "primary_set_terminal": true,
+      "unit_counts": {
+        "calibration": 39,
+        "post_recovery_verification": 2,
+        "pre_recovery_service": 6
+      },
+      "unit_states": {
+        "BOUND_SEALED": 47
+      },
+      "physical_submissions": 47,
+      "queue_depth_at_open": 1,
+      "max_queue_depth_in_window": 1
+    },
+    {
+      "candidate_id": "C13",
+      "label": "W10",
+      "bootstrap": false,
+      "status": "accepted_usable",
+      "opened_at": "2026-10-25T12:51:11.701165Z",
+      "completed_at": "2026-10-25T13:04:09.378870Z",
+      "scientific_terminated_at": null,
+      "expiry_reason": null,
+      "usable_transition_window": true,
+      "calibration_reference_complete": true,
+      "calibration_reference_ready_at": "2026-10-25T13:03:38.473085Z",
+      "calibration_reference_integrity_verified": true,
+      "calibration_units_bound": 39,
+      "bound_sealed_units": 47,
+      "probes_bound": 6,
+      "verification_units_bound": 2,
+      "primary_set_terminal": true,
+      "unit_counts": {
+        "calibration": 39,
+        "post_recovery_verification": 2,
+        "pre_recovery_service": 6
+      },
+      "unit_states": {
+        "BOUND_SEALED": 47
+      },
+      "physical_submissions": 47,
+      "queue_depth_at_open": 2,
+      "max_queue_depth_in_window": 3
+    },
+    {
+      "candidate_id": "C14",
+      "label": "W11",
+      "bootstrap": false,
+      "status": "accepted_usable",
+      "opened_at": "2026-10-25T13:53:10.291162Z",
+      "completed_at": "2026-10-25T14:05:42.977214Z",
+      "scientific_terminated_at": null,
+      "expiry_reason": null,
+      "usable_transition_window": true,
+      "calibration_reference_complete": true,
+      "calibration_reference_ready_at": "2026-10-25T14:05:15.305738Z",
+      "calibration_reference_integrity_verified": true,
+      "calibration_units_bound": 39,
+      "bound_sealed_units": 47,
+      "probes_bound": 6,
+      "verification_units_bound": 2,
+      "primary_set_terminal": true,
+      "unit_counts": {
+        "calibration": 39,
+        "post_recovery_verification": 2,
+        "pre_recovery_service": 6
+      },
+      "unit_states": {
+        "BOUND_SEALED": 47
+      },
+      "physical_submissions": 47,
+      "queue_depth_at_open": 1,
+      "max_queue_depth_in_window": 2
+    }
+  ],
+  "incomplete_windows": [
+    {
+      "candidate_id": "C01",
+      "label": "W01",
+      "bootstrap": true,
+      "status": "incomplete_halt",
+      "opened_at": "2026-10-09T17:49:47.821717Z",
+      "completed_at": "2026-10-09T17:50:29.201671Z",
+      "scientific_terminated_at": "2026-10-09T17:50:29.201671Z",
+      "expiry_reason": "halt: operator STOP file present (STOP present before submit)",
+      "usable_transition_window": false,
+      "calibration_reference_complete": false,
+      "calibration_reference_ready_at": null,
+      "calibration_reference_integrity_verified": false,
+      "calibration_units_bound": 0,
+      "bound_sealed_units": 0,
+      "probes_bound": 0,
+      "verification_units_bound": 0,
+      "primary_set_terminal": false,
+      "unit_counts": {
+        "calibration": 0,
+        "post_recovery_verification": 0,
+        "pre_recovery_service": 0
+      },
+      "unit_states": {
+        "NOT_SUBMITTED": 1,
+        "SUBMIT_FAILED": 28
+      },
+      "physical_submissions": 0,
+      "queue_depth_at_open": 2,
+      "max_queue_depth_in_window": 2
+    },
+    {
+      "candidate_id": "C05",
+      "label": "W04",
+      "bootstrap": false,
+      "status": "incomplete_context_expired",
+      "opened_at": "2026-10-13T23:49:24.390994Z",
+      "completed_at": "2026-10-14T00:00:23.733718Z",
+      "scientific_terminated_at": "2026-10-14T00:00:23.719908Z",
+      "expiry_reason": "context_expired",
+      "usable_transition_window": false,
+      "calibration_reference_complete": false,
+      "calibration_reference_ready_at": null,
+      "calibration_reference_integrity_verified": false,
+      "calibration_units_bound": 30,
+      "bound_sealed_units": 36,
+      "probes_bound": 6,
+      "verification_units_bound": 0,
+      "primary_set_terminal": false,
+      "unit_counts": {
+        "calibration": 30,
+        "post_recovery_verification": 0,
+        "pre_recovery_service": 6
+      },
+      "unit_states": {
+        "BOUND_SEALED": 36,
+        "NOT_SUBMITTED": 1,
+        "UNBOUND_AUDIT_ONLY": 7
+      },
+      "physical_submissions": 43,
+      "queue_depth_at_open": 0,
+      "max_queue_depth_in_window": 0
+    },
+    {
+      "candidate_id": "C09",
+      "label": "W07",
+      "bootstrap": false,
+      "status": "incomplete_context_expired",
+      "opened_at": "2026-10-19T02:38:57.648208Z",
+      "completed_at": "2026-10-19T09:09:09.110998Z",
+      "scientific_terminated_at": "2026-10-19T09:08:38.378442Z",
+      "expiry_reason": "context_expired",
+      "usable_transition_window": false,
+      "calibration_reference_complete": false,
+      "calibration_reference_ready_at": null,
+      "calibration_reference_integrity_verified": false,
+      "calibration_units_bound": 22,
+      "bound_sealed_units": 28,
+      "probes_bound": 6,
+      "verification_units_bound": 0,
+      "primary_set_terminal": false,
+      "unit_counts": {
+        "calibration": 22,
+        "post_recovery_verification": 0,
+        "pre_recovery_service": 6
+      },
+      "unit_states": {
+        "BOUND_SEALED": 28,
+        "CANCELLED_BY_RUNNER": 1
+      },
+      "physical_submissions": 29,
+      "queue_depth_at_open": 2,
+      "max_queue_depth_in_window": 72
+    }
+  ]
+}

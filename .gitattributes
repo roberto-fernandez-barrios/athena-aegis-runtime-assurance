@@ -1,7 +1,2 @@
-* text=auto eol=lf
-
-*.pdf binary
-*.png binary
-*.jpg binary
-*.jpeg binary
-*.zip binary
+* -text
+# Preserve audited evidence bytes and the original Springer class line endings.

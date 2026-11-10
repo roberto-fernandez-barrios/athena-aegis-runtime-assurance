@@ -1,0 +1,60 @@
+{
+  "A_semantics": {
+    "complete_transition_references": 7,
+    "recalibration_attempted_flags": 6,
+    "explanation": "Flags are set on sealed P5 probe suffix 01, not on every physical reference completion. C12 complete reference has failed probe01 and no flag. C11 has 33 calibration units and two scientific fallback records. No A outcome is reclassified under B."
+  },
+  "A_incomplete_intervals": [
+    {
+      "candidate": "C02",
+      "local_interval_seconds": 5022.301803,
+      "start_field": "accepted_at",
+      "end_field": "completed_at",
+      "original_incomplete_reason": "workload context digest changed during acquisition",
+      "interpretation": "local acquisition interval; not exact backend context duration"
+    },
+    {
+      "candidate": "C08",
+      "local_interval_seconds": 21390.668349,
+      "start_field": "accepted_at",
+      "end_field": "completed_at",
+      "original_incomplete_reason": "workload context digest changed during acquisition",
+      "interpretation": "local acquisition interval; not exact backend context duration"
+    },
+    {
+      "candidate": "C09",
+      "local_interval_seconds": 33009.957237,
+      "start_field": "accepted_at",
+      "end_field": "completed_at",
+      "original_incomplete_reason": "workload context digest changed during acquisition",
+      "interpretation": "local acquisition interval; not exact backend context duration"
+    }
+  ],
+  "B_C05": {
+    "calibration_DONE": 37,
+    "calibration_bound": 30,
+    "calibration_unbound": 7,
+    "first_unbound_terminal_observed_at": "2026-10-13T23:58:55.521167Z",
+    "new_live_digest_observed_at": "2026-10-14T00:00:22.897840Z",
+    "observed_order_separation_s": 87.376673,
+    "last_bound_running_at": "2026-10-13T23:58:33.713801Z",
+    "first_unbound_running_at": "2026-10-13T23:58:48.451358Z",
+    "interpretation": "Observed inconsistency of local and historical views, not a trusted change-point of physical calibration. Separation uses terminal observation, not an unrecorded exact historical-fetch time. No continuous live monitoring is assumed.",
+    "bound_running_after_later_history_label": 8,
+    "bound_execution_spanning_later_history_label": [
+      "B05-calibration-07"
+    ],
+    "fetch_bracket_s_min": 2.501622,
+    "fetch_bracket_s_max": 4.361325,
+    "fetch_bracket_semantics": "Local interval enclosing query according to recorded event order and read-only source inspection; not exact fetch time or provider propagation lag. Bound units have generic unit events; no unit_bound event exists.",
+    "query_time_dependence_not_identified": "Different running timestamps were queried at different times. No repeated fixed-timestamp lookup or physical ground truth; observed label inconsistency alone does not identify dependence on query time."
+  },
+  "B_C09": {
+    "accepted_to_terminal_observed_s": 22869.500412,
+    "scientific_termination_to_terminal_observed_s": 30.4943,
+    "provider_queue_seconds": null,
+    "provider_execution_seconds": null,
+    "interpretation": "Elapsed accepted-to-observed-cancellation time; provider running/finished timestamps absent, so do not call it measured queue time."
+  },
+  "clock_partition_interpretation": "Arithmetic partitions only. Residual includes local work, communication, observation and unmatched clock semantics, not identified client overhead. Subtracting queue is not a no-queue counterfactual."
+}
